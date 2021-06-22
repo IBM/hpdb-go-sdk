@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ibmcloudhyperprotectdbaasrestfulapisv3_test
+package hpdbv3_test
 
 import (
 	"bytes"
@@ -27,39 +27,39 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/cloud-go-sdk/ibmcloudhyperprotectdbaasrestfulapisv3"
 	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/hpdb-go-sdk/hpdbv3"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
+var _ = Describe(`HPDBV3`, func() {
 	var testServer *httptest.Server
 	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+			hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+			Expect(hpdbService).ToNot(BeNil())
 			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+			hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).To(BeNil())
+			Expect(hpdbService).To(BeNil())
 			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
-				URL: "https://ibmcloudhyperprotectdbaasrestfulapisv3/api",
+			hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				URL: "https://hpdbv3/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).To(BeNil())
+			Expect(hpdbService).To(BeNil())
 			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
@@ -67,71 +67,68 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_HYPER_PROTECT_D_BAA_S_RES_TFUL_AP_IS_URL": "https://ibmcloudhyperprotectdbaasrestfulapisv3/api",
-				"IBM_CLOUD_HYPER_PROTECT_D_BAA_S_RES_TFUL_AP_IS_AUTH_TYPE": "noauth",
+				"HPDB_URL":       "https://hpdbv3/api",
+				"HPDB_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3UsingExternalConfig(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
-				})
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{})
+				Expect(hpdbService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 
-				clone := ibmCloudHyperProtectDBaaSResTfulApIsService.Clone()
+				clone := hpdbService.Clone()
 				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != ibmCloudHyperProtectDBaaSResTfulApIsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(ibmCloudHyperProtectDBaaSResTfulApIsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(ibmCloudHyperProtectDBaaSResTfulApIsService.Service.Options.Authenticator))
+				Expect(clone.Service != hpdbService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(hpdbService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(hpdbService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3UsingExternalConfig(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{
 					URL: "https://testService/api",
 				})
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(hpdbService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 
-				clone := ibmCloudHyperProtectDBaaSResTfulApIsService.Clone()
+				clone := hpdbService.Clone()
 				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != ibmCloudHyperProtectDBaaSResTfulApIsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(ibmCloudHyperProtectDBaaSResTfulApIsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(ibmCloudHyperProtectDBaaSResTfulApIsService.Service.Options.Authenticator))
+				Expect(clone.Service != hpdbService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(hpdbService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(hpdbService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3UsingExternalConfig(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
-				})
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("https://testService/api")
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{})
+				err := hpdbService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(hpdbService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 
-				clone := ibmCloudHyperProtectDBaaSResTfulApIsService.Clone()
+				clone := hpdbService.Clone()
 				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != ibmCloudHyperProtectDBaaSResTfulApIsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(ibmCloudHyperProtectDBaaSResTfulApIsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(ibmCloudHyperProtectDBaaSResTfulApIsService.Service.Options.Authenticator))
+				Expect(clone.Service != hpdbService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(hpdbService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(hpdbService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_HYPER_PROTECT_D_BAA_S_RES_TFUL_AP_IS_URL": "https://ibmcloudhyperprotectdbaasrestfulapisv3/api",
-				"IBM_CLOUD_HYPER_PROTECT_D_BAA_S_RES_TFUL_AP_IS_AUTH_TYPE": "someOtherAuth",
+				"HPDB_URL":       "https://hpdbv3/api",
+				"HPDB_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3UsingExternalConfig(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
-			})
+			hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).To(BeNil())
+				Expect(hpdbService).To(BeNil())
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
@@ -139,16 +136,16 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_HYPER_PROTECT_D_BAA_S_RES_TFUL_AP_IS_AUTH_TYPE":   "NOAuth",
+				"HPDB_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3UsingExternalConfig(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+			hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).To(BeNil())
+				Expect(hpdbService).To(BeNil())
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
@@ -158,7 +155,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 		It(`GetServiceURLForRegion(region string)`, func() {
 			var url string
 			var err error
-			url, err = ibmcloudhyperprotectdbaasrestfulapisv3.GetServiceURLForRegion("INVALID_REGION")
+			url, err = hpdbv3.GetServiceURLForRegion("INVALID_REGION")
 			Expect(url).To(BeEmpty())
 			Expect(err).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
@@ -166,7 +163,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 	})
 	Describe(`Parameterized URL tests`, func() {
 		It(`Format parameterized URL with all default values`, func() {
-			constructedURL, err := ibmcloudhyperprotectdbaasrestfulapisv3.ConstructServiceURL(nil)
+			constructedURL, err := hpdbv3.ConstructServiceURL(nil)
 			Expect(constructedURL).To(Equal("https://dbaas900.hyperp-dbaas.cloud.ibm.com/api/v3/unknown"))
 			Expect(constructedURL).ToNot(BeNil())
 			Expect(err).To(BeNil())
@@ -175,7 +172,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 			var providedUrlVariables = map[string]string{
 				"invalid_variable_name": "value",
 			}
-			constructedURL, err := ibmcloudhyperprotectdbaasrestfulapisv3.ConstructServiceURL(providedUrlVariables)
+			constructedURL, err := hpdbv3.ConstructServiceURL(providedUrlVariables)
 			Expect(constructedURL).To(Equal(""))
 			Expect(err).ToNot(BeNil())
 		})
@@ -196,26 +193,26 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetCluster with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetClusterOptions model
-				getClusterOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetClusterOptions)
+				getClusterOptionsModel := new(hpdbv3.GetClusterOptions)
 				getClusterOptionsModel.ClusterID = core.StringPtr("testString")
 				getClusterOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetCluster(getClusterOptionsModel)
+				result, response, operationErr := hpdbService.GetCluster(getClusterOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetCluster(getClusterOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.GetCluster(getClusterOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -246,29 +243,29 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetCluster successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the GetClusterOptions model
-				getClusterOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetClusterOptions)
+				getClusterOptionsModel := new(hpdbv3.GetClusterOptions)
 				getClusterOptionsModel.ClusterID = core.StringPtr("testString")
 				getClusterOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetClusterWithContext(ctx, getClusterOptionsModel)
+				_, _, operationErr := hpdbService.GetClusterWithContext(ctx, getClusterOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetCluster(getClusterOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.GetCluster(getClusterOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -276,7 +273,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetClusterWithContext(ctx, getClusterOptionsModel)
+				_, _, operationErr = hpdbService.GetClusterWithContext(ctx, getClusterOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -300,55 +297,55 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetCluster successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetCluster(nil)
+				result, response, operationErr := hpdbService.GetCluster(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetClusterOptions model
-				getClusterOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetClusterOptions)
+				getClusterOptionsModel := new(hpdbv3.GetClusterOptions)
 				getClusterOptionsModel.ClusterID = core.StringPtr("testString")
 				getClusterOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetCluster(getClusterOptionsModel)
+				result, response, operationErr = hpdbService.GetCluster(getClusterOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke GetCluster with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetClusterOptions model
-				getClusterOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetClusterOptions)
+				getClusterOptionsModel := new(hpdbv3.GetClusterOptions)
 				getClusterOptionsModel.ClusterID = core.StringPtr("testString")
 				getClusterOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetCluster(getClusterOptionsModel)
+				result, response, operationErr := hpdbService.GetCluster(getClusterOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the GetClusterOptions model with no property values
-				getClusterOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetClusterOptions)
+				getClusterOptionsModelNew := new(hpdbv3.GetClusterOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetCluster(getClusterOptionsModelNew)
+				result, response, operationErr = hpdbService.GetCluster(getClusterOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -367,20 +364,20 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetCluster successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetClusterOptions model
-				getClusterOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetClusterOptions)
+				getClusterOptionsModel := new(hpdbv3.GetClusterOptions)
 				getClusterOptionsModel.ClusterID = core.StringPtr("testString")
 				getClusterOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetCluster(getClusterOptionsModel)
+				result, response, operationErr := hpdbService.GetCluster(getClusterOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -408,26 +405,26 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListUsers with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListUsersOptions model
-				listUsersOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListUsersOptions)
+				listUsersOptionsModel := new(hpdbv3.ListUsersOptions)
 				listUsersOptionsModel.ClusterID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsers(listUsersOptionsModel)
+				result, response, operationErr := hpdbService.ListUsers(listUsersOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsers(listUsersOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.ListUsers(listUsersOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -458,29 +455,29 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListUsers successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the ListUsersOptions model
-				listUsersOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListUsersOptions)
+				listUsersOptionsModel := new(hpdbv3.ListUsersOptions)
 				listUsersOptionsModel.ClusterID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsersWithContext(ctx, listUsersOptionsModel)
+				_, _, operationErr := hpdbService.ListUsersWithContext(ctx, listUsersOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsers(listUsersOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.ListUsers(listUsersOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -488,7 +485,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsersWithContext(ctx, listUsersOptionsModel)
+				_, _, operationErr = hpdbService.ListUsersWithContext(ctx, listUsersOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -512,55 +509,55 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListUsers successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsers(nil)
+				result, response, operationErr := hpdbService.ListUsers(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the ListUsersOptions model
-				listUsersOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListUsersOptions)
+				listUsersOptionsModel := new(hpdbv3.ListUsersOptions)
 				listUsersOptionsModel.ClusterID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsers(listUsersOptionsModel)
+				result, response, operationErr = hpdbService.ListUsers(listUsersOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke ListUsers with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListUsersOptions model
-				listUsersOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListUsersOptions)
+				listUsersOptionsModel := new(hpdbv3.ListUsersOptions)
 				listUsersOptionsModel.ClusterID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsers(listUsersOptionsModel)
+				result, response, operationErr := hpdbService.ListUsers(listUsersOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the ListUsersOptions model with no property values
-				listUsersOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListUsersOptions)
+				listUsersOptionsModelNew := new(hpdbv3.ListUsersOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsers(listUsersOptionsModelNew)
+				result, response, operationErr = hpdbService.ListUsers(listUsersOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -579,20 +576,20 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListUsers successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListUsersOptions model
-				listUsersOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListUsersOptions)
+				listUsersOptionsModel := new(hpdbv3.ListUsersOptions)
 				listUsersOptionsModel.ClusterID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsers(listUsersOptionsModel)
+				result, response, operationErr := hpdbService.ListUsers(listUsersOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -620,27 +617,27 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetUser with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetUserOptions model
-				getUserOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetUserOptions)
+				getUserOptionsModel := new(hpdbv3.GetUserOptions)
 				getUserOptionsModel.ClusterID = core.StringPtr("testString")
 				getUserOptionsModel.DbUserID = core.StringPtr("testString")
 				getUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetUser(getUserOptionsModel)
+				result, response, operationErr := hpdbService.GetUser(getUserOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetUser(getUserOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.GetUser(getUserOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -671,16 +668,16 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetUser successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the GetUserOptions model
-				getUserOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetUserOptions)
+				getUserOptionsModel := new(hpdbv3.GetUserOptions)
 				getUserOptionsModel.ClusterID = core.StringPtr("testString")
 				getUserOptionsModel.DbUserID = core.StringPtr("testString")
 				getUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -688,13 +685,13 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetUserWithContext(ctx, getUserOptionsModel)
+				_, _, operationErr := hpdbService.GetUserWithContext(ctx, getUserOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetUser(getUserOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.GetUser(getUserOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -702,7 +699,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetUserWithContext(ctx, getUserOptionsModel)
+				_, _, operationErr = hpdbService.GetUserWithContext(ctx, getUserOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -726,57 +723,57 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetUser successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetUser(nil)
+				result, response, operationErr := hpdbService.GetUser(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetUserOptions model
-				getUserOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetUserOptions)
+				getUserOptionsModel := new(hpdbv3.GetUserOptions)
 				getUserOptionsModel.ClusterID = core.StringPtr("testString")
 				getUserOptionsModel.DbUserID = core.StringPtr("testString")
 				getUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetUser(getUserOptionsModel)
+				result, response, operationErr = hpdbService.GetUser(getUserOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke GetUser with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetUserOptions model
-				getUserOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetUserOptions)
+				getUserOptionsModel := new(hpdbv3.GetUserOptions)
 				getUserOptionsModel.ClusterID = core.StringPtr("testString")
 				getUserOptionsModel.DbUserID = core.StringPtr("testString")
 				getUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetUser(getUserOptionsModel)
+				result, response, operationErr := hpdbService.GetUser(getUserOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the GetUserOptions model with no property values
-				getUserOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetUserOptions)
+				getUserOptionsModelNew := new(hpdbv3.GetUserOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetUser(getUserOptionsModelNew)
+				result, response, operationErr = hpdbService.GetUser(getUserOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -795,21 +792,21 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetUser successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetUserOptions model
-				getUserOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetUserOptions)
+				getUserOptionsModel := new(hpdbv3.GetUserOptions)
 				getUserOptionsModel.ClusterID = core.StringPtr("testString")
 				getUserOptionsModel.DbUserID = core.StringPtr("testString")
 				getUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetUser(getUserOptionsModel)
+				result, response, operationErr := hpdbService.GetUser(getUserOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -837,26 +834,26 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListDatabases with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListDatabasesOptions model
-				listDatabasesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListDatabasesOptions)
+				listDatabasesOptionsModel := new(hpdbv3.ListDatabasesOptions)
 				listDatabasesOptionsModel.ClusterID = core.StringPtr("testString")
 				listDatabasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabases(listDatabasesOptionsModel)
+				result, response, operationErr := hpdbService.ListDatabases(listDatabasesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabases(listDatabasesOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.ListDatabases(listDatabasesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -887,29 +884,29 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListDatabases successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the ListDatabasesOptions model
-				listDatabasesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListDatabasesOptions)
+				listDatabasesOptionsModel := new(hpdbv3.ListDatabasesOptions)
 				listDatabasesOptionsModel.ClusterID = core.StringPtr("testString")
 				listDatabasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabasesWithContext(ctx, listDatabasesOptionsModel)
+				_, _, operationErr := hpdbService.ListDatabasesWithContext(ctx, listDatabasesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabases(listDatabasesOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.ListDatabases(listDatabasesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -917,7 +914,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabasesWithContext(ctx, listDatabasesOptionsModel)
+				_, _, operationErr = hpdbService.ListDatabasesWithContext(ctx, listDatabasesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -941,55 +938,55 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListDatabases successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabases(nil)
+				result, response, operationErr := hpdbService.ListDatabases(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the ListDatabasesOptions model
-				listDatabasesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListDatabasesOptions)
+				listDatabasesOptionsModel := new(hpdbv3.ListDatabasesOptions)
 				listDatabasesOptionsModel.ClusterID = core.StringPtr("testString")
 				listDatabasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabases(listDatabasesOptionsModel)
+				result, response, operationErr = hpdbService.ListDatabases(listDatabasesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke ListDatabases with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListDatabasesOptions model
-				listDatabasesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListDatabasesOptions)
+				listDatabasesOptionsModel := new(hpdbv3.ListDatabasesOptions)
 				listDatabasesOptionsModel.ClusterID = core.StringPtr("testString")
 				listDatabasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabases(listDatabasesOptionsModel)
+				result, response, operationErr := hpdbService.ListDatabases(listDatabasesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the ListDatabasesOptions model with no property values
-				listDatabasesOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListDatabasesOptions)
+				listDatabasesOptionsModelNew := new(hpdbv3.ListDatabasesOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabases(listDatabasesOptionsModelNew)
+				result, response, operationErr = hpdbService.ListDatabases(listDatabasesOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1008,20 +1005,20 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListDatabases successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListDatabasesOptions model
-				listDatabasesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListDatabasesOptions)
+				listDatabasesOptionsModel := new(hpdbv3.ListDatabasesOptions)
 				listDatabasesOptionsModel.ClusterID = core.StringPtr("testString")
 				listDatabasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabases(listDatabasesOptionsModel)
+				result, response, operationErr := hpdbService.ListDatabases(listDatabasesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1049,33 +1046,33 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ScaleResources with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ScaleResourcesResource model
-				scaleResourcesResourceModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesResource)
+				scaleResourcesResourceModel := new(hpdbv3.ScaleResourcesResource)
 				scaleResourcesResourceModel.Cpu = core.Int64Ptr(int64(2))
 				scaleResourcesResourceModel.Memory = core.StringPtr("2GiB")
 				scaleResourcesResourceModel.Storage = core.StringPtr("5GiB")
 
 				// Construct an instance of the ScaleResourcesOptions model
-				scaleResourcesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesOptions)
+				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
 				scaleResourcesOptionsModel.ClusterID = core.StringPtr("testString")
 				scaleResourcesOptionsModel.Resource = scaleResourcesResourceModel
 				scaleResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResources(scaleResourcesOptionsModel)
+				result, response, operationErr := hpdbService.ScaleResources(scaleResourcesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResources(scaleResourcesOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.ScaleResources(scaleResourcesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1122,22 +1119,22 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ScaleResources successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the ScaleResourcesResource model
-				scaleResourcesResourceModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesResource)
+				scaleResourcesResourceModel := new(hpdbv3.ScaleResourcesResource)
 				scaleResourcesResourceModel.Cpu = core.Int64Ptr(int64(2))
 				scaleResourcesResourceModel.Memory = core.StringPtr("2GiB")
 				scaleResourcesResourceModel.Storage = core.StringPtr("5GiB")
 
 				// Construct an instance of the ScaleResourcesOptions model
-				scaleResourcesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesOptions)
+				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
 				scaleResourcesOptionsModel.ClusterID = core.StringPtr("testString")
 				scaleResourcesOptionsModel.Resource = scaleResourcesResourceModel
 				scaleResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1145,13 +1142,13 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResourcesWithContext(ctx, scaleResourcesOptionsModel)
+				_, _, operationErr := hpdbService.ScaleResourcesWithContext(ctx, scaleResourcesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResources(scaleResourcesOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.ScaleResources(scaleResourcesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1159,7 +1156,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResourcesWithContext(ctx, scaleResourcesOptionsModel)
+				_, _, operationErr = hpdbService.ScaleResourcesWithContext(ctx, scaleResourcesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1199,69 +1196,69 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ScaleResources successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResources(nil)
+				result, response, operationErr := hpdbService.ScaleResources(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the ScaleResourcesResource model
-				scaleResourcesResourceModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesResource)
+				scaleResourcesResourceModel := new(hpdbv3.ScaleResourcesResource)
 				scaleResourcesResourceModel.Cpu = core.Int64Ptr(int64(2))
 				scaleResourcesResourceModel.Memory = core.StringPtr("2GiB")
 				scaleResourcesResourceModel.Storage = core.StringPtr("5GiB")
 
 				// Construct an instance of the ScaleResourcesOptions model
-				scaleResourcesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesOptions)
+				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
 				scaleResourcesOptionsModel.ClusterID = core.StringPtr("testString")
 				scaleResourcesOptionsModel.Resource = scaleResourcesResourceModel
 				scaleResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResources(scaleResourcesOptionsModel)
+				result, response, operationErr = hpdbService.ScaleResources(scaleResourcesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke ScaleResources with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ScaleResourcesResource model
-				scaleResourcesResourceModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesResource)
+				scaleResourcesResourceModel := new(hpdbv3.ScaleResourcesResource)
 				scaleResourcesResourceModel.Cpu = core.Int64Ptr(int64(2))
 				scaleResourcesResourceModel.Memory = core.StringPtr("2GiB")
 				scaleResourcesResourceModel.Storage = core.StringPtr("5GiB")
 
 				// Construct an instance of the ScaleResourcesOptions model
-				scaleResourcesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesOptions)
+				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
 				scaleResourcesOptionsModel.ClusterID = core.StringPtr("testString")
 				scaleResourcesOptionsModel.Resource = scaleResourcesResourceModel
 				scaleResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResources(scaleResourcesOptionsModel)
+				result, response, operationErr := hpdbService.ScaleResources(scaleResourcesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the ScaleResourcesOptions model with no property values
-				scaleResourcesOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesOptions)
+				scaleResourcesOptionsModelNew := new(hpdbv3.ScaleResourcesOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResources(scaleResourcesOptionsModelNew)
+				result, response, operationErr = hpdbService.ScaleResources(scaleResourcesOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1280,27 +1277,27 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ScaleResources successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ScaleResourcesResource model
-				scaleResourcesResourceModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesResource)
+				scaleResourcesResourceModel := new(hpdbv3.ScaleResourcesResource)
 				scaleResourcesResourceModel.Cpu = core.Int64Ptr(int64(2))
 				scaleResourcesResourceModel.Memory = core.StringPtr("2GiB")
 				scaleResourcesResourceModel.Storage = core.StringPtr("5GiB")
 
 				// Construct an instance of the ScaleResourcesOptions model
-				scaleResourcesOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesOptions)
+				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
 				scaleResourcesOptionsModel.ClusterID = core.StringPtr("testString")
 				scaleResourcesOptionsModel.Resource = scaleResourcesResourceModel
 				scaleResourcesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResources(scaleResourcesOptionsModel)
+				result, response, operationErr := hpdbService.ScaleResources(scaleResourcesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1328,26 +1325,26 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetConfiguration with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetConfigurationOptions model
-				getConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetConfigurationOptions)
+				getConfigurationOptionsModel := new(hpdbv3.GetConfigurationOptions)
 				getConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				getConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfiguration(getConfigurationOptionsModel)
+				result, response, operationErr := hpdbService.GetConfiguration(getConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfiguration(getConfigurationOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.GetConfiguration(getConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1378,29 +1375,29 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetConfiguration successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the GetConfigurationOptions model
-				getConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetConfigurationOptions)
+				getConfigurationOptionsModel := new(hpdbv3.GetConfigurationOptions)
 				getConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				getConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfigurationWithContext(ctx, getConfigurationOptionsModel)
+				_, _, operationErr := hpdbService.GetConfigurationWithContext(ctx, getConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfiguration(getConfigurationOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.GetConfiguration(getConfigurationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1408,7 +1405,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfigurationWithContext(ctx, getConfigurationOptionsModel)
+				_, _, operationErr = hpdbService.GetConfigurationWithContext(ctx, getConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1432,55 +1429,55 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetConfiguration successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfiguration(nil)
+				result, response, operationErr := hpdbService.GetConfiguration(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetConfigurationOptions model
-				getConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetConfigurationOptions)
+				getConfigurationOptionsModel := new(hpdbv3.GetConfigurationOptions)
 				getConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				getConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfiguration(getConfigurationOptionsModel)
+				result, response, operationErr = hpdbService.GetConfiguration(getConfigurationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke GetConfiguration with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetConfigurationOptions model
-				getConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetConfigurationOptions)
+				getConfigurationOptionsModel := new(hpdbv3.GetConfigurationOptions)
 				getConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				getConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfiguration(getConfigurationOptionsModel)
+				result, response, operationErr := hpdbService.GetConfiguration(getConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the GetConfigurationOptions model with no property values
-				getConfigurationOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetConfigurationOptions)
+				getConfigurationOptionsModelNew := new(hpdbv3.GetConfigurationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfiguration(getConfigurationOptionsModelNew)
+				result, response, operationErr = hpdbService.GetConfiguration(getConfigurationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1499,20 +1496,20 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetConfiguration successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetConfigurationOptions model
-				getConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetConfigurationOptions)
+				getConfigurationOptionsModel := new(hpdbv3.GetConfigurationOptions)
 				getConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				getConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfiguration(getConfigurationOptionsModel)
+				result, response, operationErr := hpdbService.GetConfiguration(getConfigurationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1542,35 +1539,35 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke UpdateConfiguration with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateConfigurationDataConfiguration model
-				updateConfigurationDataConfigurationModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationDataConfiguration)
+				updateConfigurationDataConfigurationModel := new(hpdbv3.UpdateConfigurationDataConfiguration)
 				updateConfigurationDataConfigurationModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
 				updateConfigurationDataConfigurationModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
 				updateConfigurationDataConfigurationModel.SharedBuffers = core.Int64Ptr(int64(256))
 				updateConfigurationDataConfigurationModel.MaxConnections = core.Int64Ptr(int64(150))
 
 				// Construct an instance of the UpdateConfigurationOptions model
-				updateConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationOptions)
+				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
 				updateConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfiguration(updateConfigurationOptionsModel)
+				result, response, operationErr := hpdbService.UpdateConfiguration(updateConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfiguration(updateConfigurationOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.UpdateConfiguration(updateConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1619,23 +1616,23 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke UpdateConfiguration successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the UpdateConfigurationDataConfiguration model
-				updateConfigurationDataConfigurationModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationDataConfiguration)
+				updateConfigurationDataConfigurationModel := new(hpdbv3.UpdateConfigurationDataConfiguration)
 				updateConfigurationDataConfigurationModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
 				updateConfigurationDataConfigurationModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
 				updateConfigurationDataConfigurationModel.SharedBuffers = core.Int64Ptr(int64(256))
 				updateConfigurationDataConfigurationModel.MaxConnections = core.Int64Ptr(int64(150))
 
 				// Construct an instance of the UpdateConfigurationOptions model
-				updateConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationOptions)
+				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
@@ -1644,13 +1641,13 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfigurationWithContext(ctx, updateConfigurationOptionsModel)
+				_, _, operationErr := hpdbService.UpdateConfigurationWithContext(ctx, updateConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfiguration(updateConfigurationOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.UpdateConfiguration(updateConfigurationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1658,7 +1655,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfigurationWithContext(ctx, updateConfigurationOptionsModel)
+				_, _, operationErr = hpdbService.UpdateConfigurationWithContext(ctx, updateConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1700,73 +1697,73 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke UpdateConfiguration successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfiguration(nil)
+				result, response, operationErr := hpdbService.UpdateConfiguration(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the UpdateConfigurationDataConfiguration model
-				updateConfigurationDataConfigurationModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationDataConfiguration)
+				updateConfigurationDataConfigurationModel := new(hpdbv3.UpdateConfigurationDataConfiguration)
 				updateConfigurationDataConfigurationModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
 				updateConfigurationDataConfigurationModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
 				updateConfigurationDataConfigurationModel.SharedBuffers = core.Int64Ptr(int64(256))
 				updateConfigurationDataConfigurationModel.MaxConnections = core.Int64Ptr(int64(150))
 
 				// Construct an instance of the UpdateConfigurationOptions model
-				updateConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationOptions)
+				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
 				updateConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfiguration(updateConfigurationOptionsModel)
+				result, response, operationErr = hpdbService.UpdateConfiguration(updateConfigurationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke UpdateConfiguration with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateConfigurationDataConfiguration model
-				updateConfigurationDataConfigurationModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationDataConfiguration)
+				updateConfigurationDataConfigurationModel := new(hpdbv3.UpdateConfigurationDataConfiguration)
 				updateConfigurationDataConfigurationModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
 				updateConfigurationDataConfigurationModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
 				updateConfigurationDataConfigurationModel.SharedBuffers = core.Int64Ptr(int64(256))
 				updateConfigurationDataConfigurationModel.MaxConnections = core.Int64Ptr(int64(150))
 
 				// Construct an instance of the UpdateConfigurationOptions model
-				updateConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationOptions)
+				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
 				updateConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfiguration(updateConfigurationOptionsModel)
+				result, response, operationErr := hpdbService.UpdateConfiguration(updateConfigurationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the UpdateConfigurationOptions model with no property values
-				updateConfigurationOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationOptions)
+				updateConfigurationOptionsModelNew := new(hpdbv3.UpdateConfigurationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfiguration(updateConfigurationOptionsModelNew)
+				result, response, operationErr = hpdbService.UpdateConfiguration(updateConfigurationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1785,29 +1782,29 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke UpdateConfiguration successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateConfigurationDataConfiguration model
-				updateConfigurationDataConfigurationModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationDataConfiguration)
+				updateConfigurationDataConfigurationModel := new(hpdbv3.UpdateConfigurationDataConfiguration)
 				updateConfigurationDataConfigurationModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
 				updateConfigurationDataConfigurationModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
 				updateConfigurationDataConfigurationModel.SharedBuffers = core.Int64Ptr(int64(256))
 				updateConfigurationDataConfigurationModel.MaxConnections = core.Int64Ptr(int64(150))
 
 				// Construct an instance of the UpdateConfigurationOptions model
-				updateConfigurationOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationOptions)
+				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
 				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
 				updateConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfiguration(updateConfigurationOptionsModel)
+				result, response, operationErr := hpdbService.UpdateConfiguration(updateConfigurationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1835,26 +1832,26 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListTasks with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListTasksOptions model
-				listTasksOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListTasksOptions)
+				listTasksOptionsModel := new(hpdbv3.ListTasksOptions)
 				listTasksOptionsModel.ClusterID = core.StringPtr("testString")
 				listTasksOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasks(listTasksOptionsModel)
+				result, response, operationErr := hpdbService.ListTasks(listTasksOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasks(listTasksOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.ListTasks(listTasksOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1885,29 +1882,29 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListTasks successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the ListTasksOptions model
-				listTasksOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListTasksOptions)
+				listTasksOptionsModel := new(hpdbv3.ListTasksOptions)
 				listTasksOptionsModel.ClusterID = core.StringPtr("testString")
 				listTasksOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasksWithContext(ctx, listTasksOptionsModel)
+				_, _, operationErr := hpdbService.ListTasksWithContext(ctx, listTasksOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasks(listTasksOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.ListTasks(listTasksOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1915,7 +1912,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasksWithContext(ctx, listTasksOptionsModel)
+				_, _, operationErr = hpdbService.ListTasksWithContext(ctx, listTasksOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1939,55 +1936,55 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListTasks successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasks(nil)
+				result, response, operationErr := hpdbService.ListTasks(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the ListTasksOptions model
-				listTasksOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListTasksOptions)
+				listTasksOptionsModel := new(hpdbv3.ListTasksOptions)
 				listTasksOptionsModel.ClusterID = core.StringPtr("testString")
 				listTasksOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasks(listTasksOptionsModel)
+				result, response, operationErr = hpdbService.ListTasks(listTasksOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke ListTasks with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListTasksOptions model
-				listTasksOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListTasksOptions)
+				listTasksOptionsModel := new(hpdbv3.ListTasksOptions)
 				listTasksOptionsModel.ClusterID = core.StringPtr("testString")
 				listTasksOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasks(listTasksOptionsModel)
+				result, response, operationErr := hpdbService.ListTasks(listTasksOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the ListTasksOptions model with no property values
-				listTasksOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListTasksOptions)
+				listTasksOptionsModelNew := new(hpdbv3.ListTasksOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasks(listTasksOptionsModelNew)
+				result, response, operationErr = hpdbService.ListTasks(listTasksOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2006,20 +2003,20 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListTasks successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListTasksOptions model
-				listTasksOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListTasksOptions)
+				listTasksOptionsModel := new(hpdbv3.ListTasksOptions)
 				listTasksOptionsModel.ClusterID = core.StringPtr("testString")
 				listTasksOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasks(listTasksOptionsModel)
+				result, response, operationErr := hpdbService.ListTasks(listTasksOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -2047,27 +2044,27 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetTask with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetTaskOptions model
-				getTaskOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetTaskOptions)
+				getTaskOptionsModel := new(hpdbv3.GetTaskOptions)
 				getTaskOptionsModel.ClusterID = core.StringPtr("testString")
 				getTaskOptionsModel.TaskID = core.StringPtr("testString")
 				getTaskOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetTask(getTaskOptionsModel)
+				result, response, operationErr := hpdbService.GetTask(getTaskOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetTask(getTaskOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.GetTask(getTaskOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2098,16 +2095,16 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetTask successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the GetTaskOptions model
-				getTaskOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetTaskOptions)
+				getTaskOptionsModel := new(hpdbv3.GetTaskOptions)
 				getTaskOptionsModel.ClusterID = core.StringPtr("testString")
 				getTaskOptionsModel.TaskID = core.StringPtr("testString")
 				getTaskOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2115,13 +2112,13 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetTaskWithContext(ctx, getTaskOptionsModel)
+				_, _, operationErr := hpdbService.GetTaskWithContext(ctx, getTaskOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetTask(getTaskOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.GetTask(getTaskOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -2129,7 +2126,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetTaskWithContext(ctx, getTaskOptionsModel)
+				_, _, operationErr = hpdbService.GetTaskWithContext(ctx, getTaskOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -2153,57 +2150,57 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetTask successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetTask(nil)
+				result, response, operationErr := hpdbService.GetTask(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetTaskOptions model
-				getTaskOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetTaskOptions)
+				getTaskOptionsModel := new(hpdbv3.GetTaskOptions)
 				getTaskOptionsModel.ClusterID = core.StringPtr("testString")
 				getTaskOptionsModel.TaskID = core.StringPtr("testString")
 				getTaskOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetTask(getTaskOptionsModel)
+				result, response, operationErr = hpdbService.GetTask(getTaskOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke GetTask with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetTaskOptions model
-				getTaskOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetTaskOptions)
+				getTaskOptionsModel := new(hpdbv3.GetTaskOptions)
 				getTaskOptionsModel.ClusterID = core.StringPtr("testString")
 				getTaskOptionsModel.TaskID = core.StringPtr("testString")
 				getTaskOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetTask(getTaskOptionsModel)
+				result, response, operationErr := hpdbService.GetTask(getTaskOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the GetTaskOptions model with no property values
-				getTaskOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetTaskOptions)
+				getTaskOptionsModelNew := new(hpdbv3.GetTaskOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetTask(getTaskOptionsModelNew)
+				result, response, operationErr = hpdbService.GetTask(getTaskOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2222,21 +2219,21 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetTask successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetTaskOptions model
-				getTaskOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetTaskOptions)
+				getTaskOptionsModel := new(hpdbv3.GetTaskOptions)
 				getTaskOptionsModel.ClusterID = core.StringPtr("testString")
 				getTaskOptionsModel.TaskID = core.StringPtr("testString")
 				getTaskOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetTask(getTaskOptionsModel)
+				result, response, operationErr := hpdbService.GetTask(getTaskOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -2264,26 +2261,26 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListNodeLogs with error: Operation response processing error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListNodeLogsOptions model
-				listNodeLogsOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListNodeLogsOptions)
+				listNodeLogsOptionsModel := new(hpdbv3.ListNodeLogsOptions)
 				listNodeLogsOptionsModel.NodeID = core.StringPtr("testString")
 				listNodeLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogs(listNodeLogsOptionsModel)
+				result, response, operationErr := hpdbService.ListNodeLogs(listNodeLogsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogs(listNodeLogsOptionsModel)
+				hpdbService.EnableRetries(0, 0)
+				result, response, operationErr = hpdbService.ListNodeLogs(listNodeLogsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2314,29 +2311,29 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListNodeLogs successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the ListNodeLogsOptions model
-				listNodeLogsOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListNodeLogsOptions)
+				listNodeLogsOptionsModel := new(hpdbv3.ListNodeLogsOptions)
 				listNodeLogsOptionsModel.NodeID = core.StringPtr("testString")
 				listNodeLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogsWithContext(ctx, listNodeLogsOptionsModel)
+				_, _, operationErr := hpdbService.ListNodeLogsWithContext(ctx, listNodeLogsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogs(listNodeLogsOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.ListNodeLogs(listNodeLogsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -2344,7 +2341,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogsWithContext(ctx, listNodeLogsOptionsModel)
+				_, _, operationErr = hpdbService.ListNodeLogsWithContext(ctx, listNodeLogsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -2368,55 +2365,55 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListNodeLogs successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogs(nil)
+				result, response, operationErr := hpdbService.ListNodeLogs(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the ListNodeLogsOptions model
-				listNodeLogsOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListNodeLogsOptions)
+				listNodeLogsOptionsModel := new(hpdbv3.ListNodeLogsOptions)
 				listNodeLogsOptionsModel.NodeID = core.StringPtr("testString")
 				listNodeLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogs(listNodeLogsOptionsModel)
+				result, response, operationErr = hpdbService.ListNodeLogs(listNodeLogsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke ListNodeLogs with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListNodeLogsOptions model
-				listNodeLogsOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListNodeLogsOptions)
+				listNodeLogsOptionsModel := new(hpdbv3.ListNodeLogsOptions)
 				listNodeLogsOptionsModel.NodeID = core.StringPtr("testString")
 				listNodeLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogs(listNodeLogsOptionsModel)
+				result, response, operationErr := hpdbService.ListNodeLogs(listNodeLogsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the ListNodeLogsOptions model with no property values
-				listNodeLogsOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListNodeLogsOptions)
+				listNodeLogsOptionsModelNew := new(hpdbv3.ListNodeLogsOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogs(listNodeLogsOptionsModelNew)
+				result, response, operationErr = hpdbService.ListNodeLogs(listNodeLogsOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2435,20 +2432,20 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke ListNodeLogs successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the ListNodeLogsOptions model
-				listNodeLogsOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ListNodeLogsOptions)
+				listNodeLogsOptionsModel := new(hpdbv3.ListNodeLogsOptions)
 				listNodeLogsOptionsModel.NodeID = core.StringPtr("testString")
 				listNodeLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogs(listNodeLogsOptionsModel)
+				result, response, operationErr := hpdbService.ListNodeLogs(listNodeLogsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -2483,16 +2480,16 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetLog successfully with retries`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-				ibmCloudHyperProtectDBaaSResTfulApIsService.EnableRetries(0, 0)
+				Expect(hpdbService).ToNot(BeNil())
+				hpdbService.EnableRetries(0, 0)
 
 				// Construct an instance of the GetLogOptions model
-				getLogOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetLogOptions)
+				getLogOptionsModel := new(hpdbv3.GetLogOptions)
 				getLogOptionsModel.NodeID = core.StringPtr("testString")
 				getLogOptionsModel.LogName = core.StringPtr("testString")
 				getLogOptionsModel.Accept = core.StringPtr("application/json")
@@ -2501,13 +2498,13 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetLogWithContext(ctx, getLogOptionsModel)
+				_, _, operationErr := hpdbService.GetLogWithContext(ctx, getLogOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				ibmCloudHyperProtectDBaaSResTfulApIsService.DisableRetries()
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetLog(getLogOptionsModel)
+				hpdbService.DisableRetries()
+				result, response, operationErr := hpdbService.GetLog(getLogOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -2515,7 +2512,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetLogWithContext(ctx, getLogOptionsModel)
+				_, _, operationErr = hpdbService.GetLogWithContext(ctx, getLogOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -2541,59 +2538,59 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetLog successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetLog(nil)
+				result, response, operationErr := hpdbService.GetLog(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetLogOptions model
-				getLogOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetLogOptions)
+				getLogOptionsModel := new(hpdbv3.GetLogOptions)
 				getLogOptionsModel.NodeID = core.StringPtr("testString")
 				getLogOptionsModel.LogName = core.StringPtr("testString")
 				getLogOptionsModel.Accept = core.StringPtr("application/json")
 				getLogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetLog(getLogOptionsModel)
+				result, response, operationErr = hpdbService.GetLog(getLogOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke GetLog with error: Operation validation and request error`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetLogOptions model
-				getLogOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetLogOptions)
+				getLogOptionsModel := new(hpdbv3.GetLogOptions)
 				getLogOptionsModel.NodeID = core.StringPtr("testString")
 				getLogOptionsModel.LogName = core.StringPtr("testString")
 				getLogOptionsModel.Accept = core.StringPtr("application/json")
 				getLogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := ibmCloudHyperProtectDBaaSResTfulApIsService.SetServiceURL("")
+				err := hpdbService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetLog(getLogOptionsModel)
+				result, response, operationErr := hpdbService.GetLog(getLogOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the GetLogOptions model with no property values
-				getLogOptionsModelNew := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetLogOptions)
+				getLogOptionsModelNew := new(hpdbv3.GetLogOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = ibmCloudHyperProtectDBaaSResTfulApIsService.GetLog(getLogOptionsModelNew)
+				result, response, operationErr = hpdbService.GetLog(getLogOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2612,25 +2609,24 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				}))
 			})
 			It(`Invoke GetLog successfully`, func() {
-				ibmCloudHyperProtectDBaaSResTfulApIsService, serviceErr := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
+				Expect(hpdbService).ToNot(BeNil())
 
 				// Construct an instance of the GetLogOptions model
-				getLogOptionsModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.GetLogOptions)
+				getLogOptionsModel := new(hpdbv3.GetLogOptions)
 				getLogOptionsModel.NodeID = core.StringPtr("testString")
 				getLogOptionsModel.LogName = core.StringPtr("testString")
 				getLogOptionsModel.Accept = core.StringPtr("application/json")
 				getLogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := ibmCloudHyperProtectDBaaSResTfulApIsService.GetLog(getLogOptionsModel)
+				result, response, operationErr := hpdbService.GetLog(getLogOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-
 
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
@@ -2646,14 +2642,14 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			ibmCloudHyperProtectDBaaSResTfulApIsService, _ := ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3(&ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{
-				URL:           "http://ibmcloudhyperprotectdbaasrestfulapisv3modelgenerator.com",
+			hpdbService, _ := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				URL:           "http://hpdbv3modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewGetClusterOptions successfully`, func() {
 				// Construct an instance of the GetClusterOptions model
 				clusterID := "testString"
-				getClusterOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewGetClusterOptions(clusterID)
+				getClusterOptionsModel := hpdbService.NewGetClusterOptions(clusterID)
 				getClusterOptionsModel.SetClusterID("testString")
 				getClusterOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getClusterOptionsModel).ToNot(BeNil())
@@ -2663,7 +2659,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 			It(`Invoke NewGetConfigurationOptions successfully`, func() {
 				// Construct an instance of the GetConfigurationOptions model
 				clusterID := "testString"
-				getConfigurationOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewGetConfigurationOptions(clusterID)
+				getConfigurationOptionsModel := hpdbService.NewGetConfigurationOptions(clusterID)
 				getConfigurationOptionsModel.SetClusterID("testString")
 				getConfigurationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getConfigurationOptionsModel).ToNot(BeNil())
@@ -2674,7 +2670,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Construct an instance of the GetLogOptions model
 				nodeID := "testString"
 				logName := "testString"
-				getLogOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewGetLogOptions(nodeID, logName)
+				getLogOptionsModel := hpdbService.NewGetLogOptions(nodeID, logName)
 				getLogOptionsModel.SetNodeID("testString")
 				getLogOptionsModel.SetLogName("testString")
 				getLogOptionsModel.SetAccept("application/json")
@@ -2689,7 +2685,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Construct an instance of the GetTaskOptions model
 				clusterID := "testString"
 				taskID := "testString"
-				getTaskOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewGetTaskOptions(clusterID, taskID)
+				getTaskOptionsModel := hpdbService.NewGetTaskOptions(clusterID, taskID)
 				getTaskOptionsModel.SetClusterID("testString")
 				getTaskOptionsModel.SetTaskID("testString")
 				getTaskOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -2702,7 +2698,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Construct an instance of the GetUserOptions model
 				clusterID := "testString"
 				dbUserID := "testString"
-				getUserOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewGetUserOptions(clusterID, dbUserID)
+				getUserOptionsModel := hpdbService.NewGetUserOptions(clusterID, dbUserID)
 				getUserOptionsModel.SetClusterID("testString")
 				getUserOptionsModel.SetDbUserID("testString")
 				getUserOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -2714,7 +2710,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 			It(`Invoke NewListDatabasesOptions successfully`, func() {
 				// Construct an instance of the ListDatabasesOptions model
 				clusterID := "testString"
-				listDatabasesOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewListDatabasesOptions(clusterID)
+				listDatabasesOptionsModel := hpdbService.NewListDatabasesOptions(clusterID)
 				listDatabasesOptionsModel.SetClusterID("testString")
 				listDatabasesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listDatabasesOptionsModel).ToNot(BeNil())
@@ -2724,7 +2720,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 			It(`Invoke NewListNodeLogsOptions successfully`, func() {
 				// Construct an instance of the ListNodeLogsOptions model
 				nodeID := "testString"
-				listNodeLogsOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewListNodeLogsOptions(nodeID)
+				listNodeLogsOptionsModel := hpdbService.NewListNodeLogsOptions(nodeID)
 				listNodeLogsOptionsModel.SetNodeID("testString")
 				listNodeLogsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listNodeLogsOptionsModel).ToNot(BeNil())
@@ -2734,7 +2730,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 			It(`Invoke NewListTasksOptions successfully`, func() {
 				// Construct an instance of the ListTasksOptions model
 				clusterID := "testString"
-				listTasksOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewListTasksOptions(clusterID)
+				listTasksOptionsModel := hpdbService.NewListTasksOptions(clusterID)
 				listTasksOptionsModel.SetClusterID("testString")
 				listTasksOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listTasksOptionsModel).ToNot(BeNil())
@@ -2744,7 +2740,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 			It(`Invoke NewListUsersOptions successfully`, func() {
 				// Construct an instance of the ListUsersOptions model
 				clusterID := "testString"
-				listUsersOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewListUsersOptions(clusterID)
+				listUsersOptionsModel := hpdbService.NewListUsersOptions(clusterID)
 				listUsersOptionsModel.SetClusterID("testString")
 				listUsersOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listUsersOptionsModel).ToNot(BeNil())
@@ -2753,7 +2749,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 			})
 			It(`Invoke NewScaleResourcesOptions successfully`, func() {
 				// Construct an instance of the ScaleResourcesResource model
-				scaleResourcesResourceModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesResource)
+				scaleResourcesResourceModel := new(hpdbv3.ScaleResourcesResource)
 				Expect(scaleResourcesResourceModel).ToNot(BeNil())
 				scaleResourcesResourceModel.Cpu = core.Int64Ptr(int64(2))
 				scaleResourcesResourceModel.Memory = core.StringPtr("2GiB")
@@ -2764,7 +2760,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 
 				// Construct an instance of the ScaleResourcesOptions model
 				clusterID := "testString"
-				scaleResourcesOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewScaleResourcesOptions(clusterID)
+				scaleResourcesOptionsModel := hpdbService.NewScaleResourcesOptions(clusterID)
 				scaleResourcesOptionsModel.SetClusterID("testString")
 				scaleResourcesOptionsModel.SetResource(scaleResourcesResourceModel)
 				scaleResourcesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -2775,7 +2771,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 			})
 			It(`Invoke NewUpdateConfigurationOptions successfully`, func() {
 				// Construct an instance of the UpdateConfigurationDataConfiguration model
-				updateConfigurationDataConfigurationModel := new(ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationDataConfiguration)
+				updateConfigurationDataConfigurationModel := new(hpdbv3.UpdateConfigurationDataConfiguration)
 				Expect(updateConfigurationDataConfigurationModel).ToNot(BeNil())
 				updateConfigurationDataConfigurationModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
 				updateConfigurationDataConfigurationModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
@@ -2789,7 +2785,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3`, func() {
 				// Construct an instance of the UpdateConfigurationOptions model
 				clusterID := "testString"
 				xAuthToken := "testString"
-				updateConfigurationOptionsModel := ibmCloudHyperProtectDBaaSResTfulApIsService.NewUpdateConfigurationOptions(clusterID, xAuthToken)
+				updateConfigurationOptionsModel := hpdbService.NewUpdateConfigurationOptions(clusterID, xAuthToken)
 				updateConfigurationOptionsModel.SetClusterID("testString")
 				updateConfigurationOptionsModel.SetXAuthToken("testString")
 				updateConfigurationOptionsModel.SetConfiguration(updateConfigurationDataConfigurationModel)

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ibmcloudhyperprotectdbaasrestfulapisv3_test
+package hpdbv3_test
 
 import (
 	"testing"
@@ -23,7 +23,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestIbmCloudHyperProtectDBaaSResTfulApIsV3(t *testing.T) {
+func TestHPDBV3(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "IbmCloudHyperProtectDBaaSResTfulApIsV3 Suite")
+	RunSpecs(t, "HPDBV3 Suite")
 }

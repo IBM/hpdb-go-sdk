@@ -16,35 +16,35 @@
  * limitations under the License.
  */
 
-package ibmcloudhyperprotectdbaasrestfulapisv3_test
+package hpdbv3_test
 
 import (
 	"fmt"
 	"os"
 
-	"github.com/IBM/cloud-go-sdk/ibmcloudhyperprotectdbaasrestfulapisv3"
 	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/hpdb-go-sdk/hpdbv3"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
 /**
- * This file contains an integration test for the ibmcloudhyperprotectdbaasrestfulapisv3 package.
+ * This file contains an integration test for the hpdbv3 package.
  *
  * Notes:
  *
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, func() {
+var _ = Describe(`HPDBV3 Integration Tests`, func() {
 
-	const externalConfigFile = "../ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is_v3.env"
+	const externalConfigFile = "../hpdb_v3.env"
 
 	var (
-		err          error
-		ibmCloudHyperProtectDBaaSResTfulApIsService *ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3
-		serviceURL   string
-		config       map[string]string
+		err         error
+		hpdbService *hpdbv3.HPDBV3
+		serviceURL  string
+		config      map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -59,7 +59,7 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, err = core.GetServiceProperties(ibmcloudhyperprotectdbaasrestfulapisv3.DefaultServiceName)
+			config, err = core.GetServiceProperties(hpdbv3.DefaultServiceName)
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
@@ -79,13 +79,13 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It("Successfully construct the service client instance", func() {
 
-			ibmCloudHyperProtectDBaaSResTfulApIsServiceOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.IbmCloudHyperProtectDBaaSResTfulApIsV3Options{}
+			hpdbServiceOptions := &hpdbv3.HPDBV3Options{}
 
-			ibmCloudHyperProtectDBaaSResTfulApIsService, err = ibmcloudhyperprotectdbaasrestfulapisv3.NewIbmCloudHyperProtectDBaaSResTfulApIsV3UsingExternalConfig(ibmCloudHyperProtectDBaaSResTfulApIsServiceOptions)
+			hpdbService, err = hpdbv3.NewHPDBV3UsingExternalConfig(hpdbServiceOptions)
 
 			Expect(err).To(BeNil())
-			Expect(ibmCloudHyperProtectDBaaSResTfulApIsService).ToNot(BeNil())
-			Expect(ibmCloudHyperProtectDBaaSResTfulApIsService.Service.Options.URL).To(Equal(serviceURL))
+			Expect(hpdbService).ToNot(BeNil())
+			Expect(hpdbService.Service.Options.URL).To(Equal(serviceURL))
 		})
 	})
 
@@ -95,11 +95,11 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`GetCluster(getClusterOptions *GetClusterOptions)`, func() {
 
-			getClusterOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.GetClusterOptions{
+			getClusterOptions := &hpdbv3.GetClusterOptions{
 				ClusterID: core.StringPtr("testString"),
 			}
 
-			cluster, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.GetCluster(getClusterOptions)
+			cluster, response, err := hpdbService.GetCluster(getClusterOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -114,11 +114,11 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`ListUsers(listUsersOptions *ListUsersOptions)`, func() {
 
-			listUsersOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.ListUsersOptions{
+			listUsersOptions := &hpdbv3.ListUsersOptions{
 				ClusterID: core.StringPtr("testString"),
 			}
 
-			users, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.ListUsers(listUsersOptions)
+			users, response, err := hpdbService.ListUsers(listUsersOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -133,12 +133,12 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`GetUser(getUserOptions *GetUserOptions)`, func() {
 
-			getUserOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.GetUserOptions{
+			getUserOptions := &hpdbv3.GetUserOptions{
 				ClusterID: core.StringPtr("testString"),
-				DbUserID: core.StringPtr("testString"),
+				DbUserID:  core.StringPtr("testString"),
 			}
 
-			userDetails, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.GetUser(getUserOptions)
+			userDetails, response, err := hpdbService.GetUser(getUserOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -153,11 +153,11 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`ListDatabases(listDatabasesOptions *ListDatabasesOptions)`, func() {
 
-			listDatabasesOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.ListDatabasesOptions{
+			listDatabasesOptions := &hpdbv3.ListDatabasesOptions{
 				ClusterID: core.StringPtr("testString"),
 			}
 
-			databases, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.ListDatabases(listDatabasesOptions)
+			databases, response, err := hpdbService.ListDatabases(listDatabasesOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -172,18 +172,18 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`ScaleResources(scaleResourcesOptions *ScaleResourcesOptions)`, func() {
 
-			scaleResourcesResourceModel := &ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesResource{
-				Cpu: core.Int64Ptr(int64(2)),
-				Memory: core.StringPtr("2GiB"),
+			scaleResourcesResourceModel := &hpdbv3.ScaleResourcesResource{
+				Cpu:     core.Int64Ptr(int64(2)),
+				Memory:  core.StringPtr("2GiB"),
 				Storage: core.StringPtr("5GiB"),
 			}
 
-			scaleResourcesOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.ScaleResourcesOptions{
+			scaleResourcesOptions := &hpdbv3.ScaleResourcesOptions{
 				ClusterID: core.StringPtr("testString"),
-				Resource: scaleResourcesResourceModel,
+				Resource:  scaleResourcesResourceModel,
 			}
 
-			scaleResourcesResponse, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.ScaleResources(scaleResourcesOptions)
+			scaleResourcesResponse, response, err := hpdbService.ScaleResources(scaleResourcesOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
@@ -198,11 +198,11 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`GetConfiguration(getConfigurationOptions *GetConfigurationOptions)`, func() {
 
-			getConfigurationOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.GetConfigurationOptions{
+			getConfigurationOptions := &hpdbv3.GetConfigurationOptions{
 				ClusterID: core.StringPtr("testString"),
 			}
 
-			configuration, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.GetConfiguration(getConfigurationOptions)
+			configuration, response, err := hpdbService.GetConfiguration(getConfigurationOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -217,20 +217,20 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions)`, func() {
 
-			updateConfigurationDataConfigurationModel := &ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationDataConfiguration{
-				DeadlockTimeout: core.Int64Ptr(int64(10000)),
+			updateConfigurationDataConfigurationModel := &hpdbv3.UpdateConfigurationDataConfiguration{
+				DeadlockTimeout:        core.Int64Ptr(int64(10000)),
 				MaxLocksPerTransaction: core.Int64Ptr(int64(100)),
-				SharedBuffers: core.Int64Ptr(int64(256)),
-				MaxConnections: core.Int64Ptr(int64(150)),
+				SharedBuffers:          core.Int64Ptr(int64(256)),
+				MaxConnections:         core.Int64Ptr(int64(150)),
 			}
 
-			updateConfigurationOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.UpdateConfigurationOptions{
-				ClusterID: core.StringPtr("testString"),
-				XAuthToken: core.StringPtr("testString"),
+			updateConfigurationOptions := &hpdbv3.UpdateConfigurationOptions{
+				ClusterID:     core.StringPtr("testString"),
+				XAuthToken:    core.StringPtr("testString"),
 				Configuration: updateConfigurationDataConfigurationModel,
 			}
 
-			updateConfigurationResponse, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.UpdateConfiguration(updateConfigurationOptions)
+			updateConfigurationResponse, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
@@ -245,11 +245,11 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`ListTasks(listTasksOptions *ListTasksOptions)`, func() {
 
-			listTasksOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.ListTasksOptions{
+			listTasksOptions := &hpdbv3.ListTasksOptions{
 				ClusterID: core.StringPtr("testString"),
 			}
 
-			tasks, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.ListTasks(listTasksOptions)
+			tasks, response, err := hpdbService.ListTasks(listTasksOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -264,12 +264,12 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`GetTask(getTaskOptions *GetTaskOptions)`, func() {
 
-			getTaskOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.GetTaskOptions{
+			getTaskOptions := &hpdbv3.GetTaskOptions{
 				ClusterID: core.StringPtr("testString"),
-				TaskID: core.StringPtr("testString"),
+				TaskID:    core.StringPtr("testString"),
 			}
 
-			task, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.GetTask(getTaskOptions)
+			task, response, err := hpdbService.GetTask(getTaskOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -284,11 +284,11 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`ListNodeLogs(listNodeLogsOptions *ListNodeLogsOptions)`, func() {
 
-			listNodeLogsOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.ListNodeLogsOptions{
+			listNodeLogsOptions := &hpdbv3.ListNodeLogsOptions{
 				NodeID: core.StringPtr("testString"),
 			}
 
-			logList, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.ListNodeLogs(listNodeLogsOptions)
+			logList, response, err := hpdbService.ListNodeLogs(listNodeLogsOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -303,13 +303,13 @@ var _ = Describe(`IbmCloudHyperProtectDBaaSResTfulApIsV3 Integration Tests`, fun
 		})
 		It(`GetLog(getLogOptions *GetLogOptions)`, func() {
 
-			getLogOptions := &ibmcloudhyperprotectdbaasrestfulapisv3.GetLogOptions{
-				NodeID: core.StringPtr("testString"),
+			getLogOptions := &hpdbv3.GetLogOptions{
+				NodeID:  core.StringPtr("testString"),
 				LogName: core.StringPtr("testString"),
-				Accept: core.StringPtr("application/json"),
+				Accept:  core.StringPtr("application/json"),
 			}
 
-			result, response, err := ibmCloudHyperProtectDBaaSResTfulApIsService.GetLog(getLogOptions)
+			result, response, err := hpdbService.GetLog(getLogOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))

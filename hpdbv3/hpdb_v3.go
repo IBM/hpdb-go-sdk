@@ -18,8 +18,8 @@
  * IBM OpenAPI SDK Code Generator Version: 3.34.1-ad041667-20210617-195430
  */
 
-// Package ibmcloudhyperprotectdbaasrestfulapisv3 : Operations and models for the IbmCloudHyperProtectDBaaSResTfulApIsV3 service
-package ibmcloudhyperprotectdbaasrestfulapisv3
+// Package hpdbv3 : Operations and models for the HPDBV3 service
+package hpdbv3
 
 import (
 	"context"
@@ -30,15 +30,15 @@ import (
 	"reflect"
 	"time"
 
-	common "github.com/IBM/cloud-go-sdk/common"
 	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/hpdb-go-sdk/common"
 )
 
-// IbmCloudHyperProtectDBaaSResTfulApIsV3 : The DBaaS RESTful APIs are used to manage the database cluster, the database
+// HPDBV3 : The DBaaS RESTful APIs are used to manage the database cluster, the database
 // itself, and database users.
 //
 // Version: 3
-type IbmCloudHyperProtectDBaaSResTfulApIsV3 struct {
+type HPDBV3 struct {
 	Service *core.BaseService
 }
 
@@ -46,7 +46,7 @@ type IbmCloudHyperProtectDBaaSResTfulApIsV3 struct {
 const DefaultServiceURL = "https://dbaas900.hyperp-dbaas.cloud.ibm.com/api/v3/unknown"
 
 // DefaultServiceName is the default key used to find external configuration information.
-const DefaultServiceName = "ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is"
+const DefaultServiceName = "hpdb"
 
 const ParameterizedServiceURL = "https://dbaas900.hyperp-dbaas.cloud.ibm.com/api/v3/{account_id}"
 
@@ -54,15 +54,15 @@ var defaultUrlVariables = map[string]string{
 	"account_id": "unknown",
 }
 
-// IbmCloudHyperProtectDBaaSResTfulApIsV3Options : Service options
-type IbmCloudHyperProtectDBaaSResTfulApIsV3Options struct {
+// HPDBV3Options : Service options
+type HPDBV3Options struct {
 	ServiceName   string
 	URL           string
 	Authenticator core.Authenticator
 }
 
-// NewIbmCloudHyperProtectDBaaSResTfulApIsV3UsingExternalConfig : constructs an instance of IbmCloudHyperProtectDBaaSResTfulApIsV3 with passed in options and external configuration.
-func NewIbmCloudHyperProtectDBaaSResTfulApIsV3UsingExternalConfig(options *IbmCloudHyperProtectDBaaSResTfulApIsV3Options) (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3, err error) {
+// NewHPDBV3UsingExternalConfig : constructs an instance of HPDBV3 with passed in options and external configuration.
+func NewHPDBV3UsingExternalConfig(options *HPDBV3Options) (hpdb *HPDBV3, err error) {
 	if options.ServiceName == "" {
 		options.ServiceName = DefaultServiceName
 	}
@@ -74,24 +74,24 @@ func NewIbmCloudHyperProtectDBaaSResTfulApIsV3UsingExternalConfig(options *IbmCl
 		}
 	}
 
-	ibmCloudHyperProtectDBaaSResTfulApIs, err = NewIbmCloudHyperProtectDBaaSResTfulApIsV3(options)
+	hpdb, err = NewHPDBV3(options)
 	if err != nil {
 		return
 	}
 
-	err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.ConfigureService(options.ServiceName)
+	err = hpdb.Service.ConfigureService(options.ServiceName)
 	if err != nil {
 		return
 	}
 
 	if options.URL != "" {
-		err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.SetServiceURL(options.URL)
+		err = hpdb.Service.SetServiceURL(options.URL)
 	}
 	return
 }
 
-// NewIbmCloudHyperProtectDBaaSResTfulApIsV3 : constructs an instance of IbmCloudHyperProtectDBaaSResTfulApIsV3 with passed in options.
-func NewIbmCloudHyperProtectDBaaSResTfulApIsV3(options *IbmCloudHyperProtectDBaaSResTfulApIsV3Options) (service *IbmCloudHyperProtectDBaaSResTfulApIsV3, err error) {
+// NewHPDBV3 : constructs an instance of HPDBV3 with passed in options.
+func NewHPDBV3(options *HPDBV3Options) (service *HPDBV3, err error) {
 	serviceOptions := &core.ServiceOptions{
 		URL:           DefaultServiceURL,
 		Authenticator: options.Authenticator,
@@ -109,7 +109,7 @@ func NewIbmCloudHyperProtectDBaaSResTfulApIsV3(options *IbmCloudHyperProtectDBaa
 		}
 	}
 
-	service = &IbmCloudHyperProtectDBaaSResTfulApIsV3{
+	service = &HPDBV3{
 		Service: baseService,
 	}
 
@@ -121,13 +121,13 @@ func GetServiceURLForRegion(region string) (string, error) {
 	return "", fmt.Errorf("service does not support regional URLs")
 }
 
-// Clone makes a copy of "ibmCloudHyperProtectDBaaSResTfulApIs" suitable for processing requests.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) Clone() *IbmCloudHyperProtectDBaaSResTfulApIsV3 {
-	if core.IsNil(ibmCloudHyperProtectDBaaSResTfulApIs) {
+// Clone makes a copy of "hpdb" suitable for processing requests.
+func (hpdb *HPDBV3) Clone() *HPDBV3 {
+	if core.IsNil(hpdb) {
 		return nil
 	}
-	clone := *ibmCloudHyperProtectDBaaSResTfulApIs
-	clone.Service = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Clone()
+	clone := *hpdb
+	clone.Service = hpdb.Service.Clone()
 	return &clone
 }
 
@@ -137,49 +137,49 @@ func ConstructServiceURL(providedUrlVariables map[string]string) (string, error)
 }
 
 // SetServiceURL sets the service URL
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) SetServiceURL(url string) error {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.Service.SetServiceURL(url)
+func (hpdb *HPDBV3) SetServiceURL(url string) error {
+	return hpdb.Service.SetServiceURL(url)
 }
 
 // GetServiceURL returns the service URL
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetServiceURL() string {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.Service.GetServiceURL()
+func (hpdb *HPDBV3) GetServiceURL() string {
+	return hpdb.Service.GetServiceURL()
 }
 
 // SetDefaultHeaders sets HTTP headers to be sent in every request
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) SetDefaultHeaders(headers http.Header) {
-	ibmCloudHyperProtectDBaaSResTfulApIs.Service.SetDefaultHeaders(headers)
+func (hpdb *HPDBV3) SetDefaultHeaders(headers http.Header) {
+	hpdb.Service.SetDefaultHeaders(headers)
 }
 
 // SetEnableGzipCompression sets the service's EnableGzipCompression field
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) SetEnableGzipCompression(enableGzip bool) {
-	ibmCloudHyperProtectDBaaSResTfulApIs.Service.SetEnableGzipCompression(enableGzip)
+func (hpdb *HPDBV3) SetEnableGzipCompression(enableGzip bool) {
+	hpdb.Service.SetEnableGzipCompression(enableGzip)
 }
 
 // GetEnableGzipCompression returns the service's EnableGzipCompression field
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetEnableGzipCompression() bool {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.Service.GetEnableGzipCompression()
+func (hpdb *HPDBV3) GetEnableGzipCompression() bool {
+	return hpdb.Service.GetEnableGzipCompression()
 }
 
 // EnableRetries enables automatic retries for requests invoked for this service instance.
 // If either parameter is specified as 0, then a default value is used instead.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
-	ibmCloudHyperProtectDBaaSResTfulApIs.Service.EnableRetries(maxRetries, maxRetryInterval)
+func (hpdb *HPDBV3) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	hpdb.Service.EnableRetries(maxRetries, maxRetryInterval)
 }
 
 // DisableRetries disables automatic retries for requests invoked for this service instance.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) DisableRetries() {
-	ibmCloudHyperProtectDBaaSResTfulApIs.Service.DisableRetries()
+func (hpdb *HPDBV3) DisableRetries() {
+	hpdb.Service.DisableRetries()
 }
 
 // GetCluster : Get database cluster details
 // Get the detailed information of the specific database cluster that is  indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetCluster(getClusterOptions *GetClusterOptions) (result *Cluster, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.GetClusterWithContext(context.Background(), getClusterOptions)
+func (hpdb *HPDBV3) GetCluster(getClusterOptions *GetClusterOptions) (result *Cluster, response *core.DetailedResponse, err error) {
+	return hpdb.GetClusterWithContext(context.Background(), getClusterOptions)
 }
 
 // GetClusterWithContext is an alternate form of the GetCluster method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetClusterWithContext(ctx context.Context, getClusterOptions *GetClusterOptions) (result *Cluster, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) GetClusterWithContext(ctx context.Context, getClusterOptions *GetClusterOptions) (result *Cluster, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getClusterOptions, "getClusterOptions cannot be nil")
 	if err != nil {
 		return
@@ -195,8 +195,8 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/clusters/{cluster_id}`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -205,7 +205,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "GetCluster")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "GetCluster")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -217,7 +217,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -234,12 +234,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // ListUsers : List database users
 // List the information about all the users in the specified database cluster that is  indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ListUsers(listUsersOptions *ListUsersOptions) (result *Users, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.ListUsersWithContext(context.Background(), listUsersOptions)
+func (hpdb *HPDBV3) ListUsers(listUsersOptions *ListUsersOptions) (result *Users, response *core.DetailedResponse, err error) {
+	return hpdb.ListUsersWithContext(context.Background(), listUsersOptions)
 }
 
 // ListUsersWithContext is an alternate form of the ListUsers method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ListUsersWithContext(ctx context.Context, listUsersOptions *ListUsersOptions) (result *Users, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) ListUsersWithContext(ctx context.Context, listUsersOptions *ListUsersOptions) (result *Users, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listUsersOptions, "listUsersOptions cannot be nil")
 	if err != nil {
 		return
@@ -255,8 +255,8 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/clusters/{cluster_id}/users`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/users`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -265,7 +265,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "ListUsers")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "ListUsers")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -277,7 +277,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -294,12 +294,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // GetUser : Get database user details
 // Get the detailed information about the user of a specified database  cluster that is indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetUser(getUserOptions *GetUserOptions) (result *UserDetails, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.GetUserWithContext(context.Background(), getUserOptions)
+func (hpdb *HPDBV3) GetUser(getUserOptions *GetUserOptions) (result *UserDetails, response *core.DetailedResponse, err error) {
+	return hpdb.GetUserWithContext(context.Background(), getUserOptions)
 }
 
 // GetUserWithContext is an alternate form of the GetUser method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetUserWithContext(ctx context.Context, getUserOptions *GetUserOptions) (result *UserDetails, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) GetUserWithContext(ctx context.Context, getUserOptions *GetUserOptions) (result *UserDetails, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getUserOptions, "getUserOptions cannot be nil")
 	if err != nil {
 		return
@@ -316,8 +316,8 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/clusters/{cluster_id}/users/{db_user_id}`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/users/{db_user_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -326,7 +326,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "GetUser")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "GetUser")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -338,7 +338,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -355,12 +355,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // ListDatabases : List databases
 // Get a list of all databases in a specified database  cluster that is indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ListDatabases(listDatabasesOptions *ListDatabasesOptions) (result *Databases, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.ListDatabasesWithContext(context.Background(), listDatabasesOptions)
+func (hpdb *HPDBV3) ListDatabases(listDatabasesOptions *ListDatabasesOptions) (result *Databases, response *core.DetailedResponse, err error) {
+	return hpdb.ListDatabasesWithContext(context.Background(), listDatabasesOptions)
 }
 
 // ListDatabasesWithContext is an alternate form of the ListDatabases method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ListDatabasesWithContext(ctx context.Context, listDatabasesOptions *ListDatabasesOptions) (result *Databases, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) ListDatabasesWithContext(ctx context.Context, listDatabasesOptions *ListDatabasesOptions) (result *Databases, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listDatabasesOptions, "listDatabasesOptions cannot be nil")
 	if err != nil {
 		return
@@ -376,8 +376,8 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/clusters/{cluster_id}/databases`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/databases`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -386,7 +386,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "ListDatabases")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "ListDatabases")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -398,7 +398,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -415,12 +415,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // ScaleResources : Scale resources
 // Scale resources in a specified cluster that is indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ScaleResources(scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.ScaleResourcesWithContext(context.Background(), scaleResourcesOptions)
+func (hpdb *HPDBV3) ScaleResources(scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
+	return hpdb.ScaleResourcesWithContext(context.Background(), scaleResourcesOptions)
 }
 
 // ScaleResourcesWithContext is an alternate form of the ScaleResources method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ScaleResourcesWithContext(ctx context.Context, scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) ScaleResourcesWithContext(ctx context.Context, scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(scaleResourcesOptions, "scaleResourcesOptions cannot be nil")
 	if err != nil {
 		return
@@ -436,8 +436,8 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/clusters/{cluster_id}/resource`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/resource`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -446,7 +446,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "ScaleResources")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "ScaleResources")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -468,7 +468,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -485,12 +485,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // GetConfiguration : Get configuration
 // Get database configuration in a specified cluster that is indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetConfiguration(getConfigurationOptions *GetConfigurationOptions) (result *Configuration, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.GetConfigurationWithContext(context.Background(), getConfigurationOptions)
+func (hpdb *HPDBV3) GetConfiguration(getConfigurationOptions *GetConfigurationOptions) (result *Configuration, response *core.DetailedResponse, err error) {
+	return hpdb.GetConfigurationWithContext(context.Background(), getConfigurationOptions)
 }
 
 // GetConfigurationWithContext is an alternate form of the GetConfiguration method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetConfigurationWithContext(ctx context.Context, getConfigurationOptions *GetConfigurationOptions) (result *Configuration, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) GetConfigurationWithContext(ctx context.Context, getConfigurationOptions *GetConfigurationOptions) (result *Configuration, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getConfigurationOptions, "getConfigurationOptions cannot be nil")
 	if err != nil {
 		return
@@ -506,8 +506,8 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/clusters/{cluster_id}/configuration`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/configuration`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -516,7 +516,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "GetConfiguration")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "GetConfiguration")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -528,7 +528,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -545,12 +545,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // UpdateConfiguration : Update configuration
 // Update database configuration in a specified cluster that is indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.UpdateConfigurationWithContext(context.Background(), updateConfigurationOptions)
+func (hpdb *HPDBV3) UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
+	return hpdb.UpdateConfigurationWithContext(context.Background(), updateConfigurationOptions)
 }
 
 // UpdateConfigurationWithContext is an alternate form of the UpdateConfiguration method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) UpdateConfigurationWithContext(ctx context.Context, updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) UpdateConfigurationWithContext(ctx context.Context, updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateConfigurationOptions, "updateConfigurationOptions cannot be nil")
 	if err != nil {
 		return
@@ -566,8 +566,8 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/clusters/{cluster_id}/configuration`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/configuration`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -576,7 +576,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "UpdateConfiguration")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "UpdateConfiguration")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -601,7 +601,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -618,12 +618,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // ListTasks : List tasks
 // List tasks running or recently run on a specified cluster that is indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ListTasks(listTasksOptions *ListTasksOptions) (result *Tasks, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.ListTasksWithContext(context.Background(), listTasksOptions)
+func (hpdb *HPDBV3) ListTasks(listTasksOptions *ListTasksOptions) (result *Tasks, response *core.DetailedResponse, err error) {
+	return hpdb.ListTasksWithContext(context.Background(), listTasksOptions)
 }
 
 // ListTasksWithContext is an alternate form of the ListTasks method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ListTasksWithContext(ctx context.Context, listTasksOptions *ListTasksOptions) (result *Tasks, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) ListTasksWithContext(ctx context.Context, listTasksOptions *ListTasksOptions) (result *Tasks, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listTasksOptions, "listTasksOptions cannot be nil")
 	if err != nil {
 		return
@@ -639,8 +639,8 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/clusters/{cluster_id}/tasks`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/tasks`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -649,7 +649,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "ListTasks")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "ListTasks")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -661,7 +661,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -678,12 +678,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // GetTask : Show task
 // Show task information of a specified task id in a cluster.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetTask(getTaskOptions *GetTaskOptions) (result *Task, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.GetTaskWithContext(context.Background(), getTaskOptions)
+func (hpdb *HPDBV3) GetTask(getTaskOptions *GetTaskOptions) (result *Task, response *core.DetailedResponse, err error) {
+	return hpdb.GetTaskWithContext(context.Background(), getTaskOptions)
 }
 
 // GetTaskWithContext is an alternate form of the GetTask method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetTaskWithContext(ctx context.Context, getTaskOptions *GetTaskOptions) (result *Task, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) GetTaskWithContext(ctx context.Context, getTaskOptions *GetTaskOptions) (result *Task, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTaskOptions, "getTaskOptions cannot be nil")
 	if err != nil {
 		return
@@ -695,13 +695,13 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	pathParamsMap := map[string]string{
 		"cluster_id": *getTaskOptions.ClusterID,
-		"task_id": *getTaskOptions.TaskID,
+		"task_id":    *getTaskOptions.TaskID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/clusters/{cluster_id}/tasks/{task_id}`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/tasks/{task_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -710,7 +710,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "GetTask")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "GetTask")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -722,7 +722,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -739,12 +739,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // ListNodeLogs : List database log files of a node
 // List the latest log files of the node that is indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ListNodeLogs(listNodeLogsOptions *ListNodeLogsOptions) (result *LogList, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.ListNodeLogsWithContext(context.Background(), listNodeLogsOptions)
+func (hpdb *HPDBV3) ListNodeLogs(listNodeLogsOptions *ListNodeLogsOptions) (result *LogList, response *core.DetailedResponse, err error) {
+	return hpdb.ListNodeLogsWithContext(context.Background(), listNodeLogsOptions)
 }
 
 // ListNodeLogsWithContext is an alternate form of the ListNodeLogs method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) ListNodeLogsWithContext(ctx context.Context, listNodeLogsOptions *ListNodeLogsOptions) (result *LogList, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) ListNodeLogsWithContext(ctx context.Context, listNodeLogsOptions *ListNodeLogsOptions) (result *LogList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listNodeLogsOptions, "listNodeLogsOptions cannot be nil")
 	if err != nil {
 		return
@@ -760,8 +760,8 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/nodes/{node_id}/logs`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/nodes/{node_id}/logs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -770,7 +770,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "ListNodeLogs")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "ListNodeLogs")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -782,7 +782,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &rawResponse)
+	response, err = hpdb.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
@@ -799,12 +799,12 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 
 // GetLog : Get log details
 // Get the content of the specified log file of the node that is indicated by its ID.
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetLog(getLogOptions *GetLogOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
-	return ibmCloudHyperProtectDBaaSResTfulApIs.GetLogWithContext(context.Background(), getLogOptions)
+func (hpdb *HPDBV3) GetLog(getLogOptions *GetLogOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
+	return hpdb.GetLogWithContext(context.Background(), getLogOptions)
 }
 
 // GetLogWithContext is an alternate form of the GetLog method which supports a Context parameter
-func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIsV3) GetLogWithContext(ctx context.Context, getLogOptions *GetLogOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
+func (hpdb *HPDBV3) GetLogWithContext(ctx context.Context, getLogOptions *GetLogOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getLogOptions, "getLogOptions cannot be nil")
 	if err != nil {
 		return
@@ -815,14 +815,14 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 	}
 
 	pathParamsMap := map[string]string{
-		"node_id": *getLogOptions.NodeID,
+		"node_id":  *getLogOptions.NodeID,
 		"log_name": *getLogOptions.LogName,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = ibmCloudHyperProtectDBaaSResTfulApIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(ibmCloudHyperProtectDBaaSResTfulApIs.Service.Options.URL, `/nodes/{node_id}/logs/{log_name}`, pathParamsMap)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/nodes/{node_id}/logs/{log_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -831,7 +831,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_hyper_protect_d_baa_s_res_tful_ap_is", "V3", "GetLog")
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "GetLog")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -845,7 +845,7 @@ func (ibmCloudHyperProtectDBaaSResTfulApIs *IbmCloudHyperProtectDBaaSResTfulApIs
 		return
 	}
 
-	response, err = ibmCloudHyperProtectDBaaSResTfulApIs.Service.Request(request, &result)
+	response, err = hpdb.Service.Request(request, &result)
 
 	return
 }
@@ -1169,7 +1169,7 @@ type GetClusterOptions struct {
 }
 
 // NewGetClusterOptions : Instantiate GetClusterOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewGetClusterOptions(clusterID string) *GetClusterOptions {
+func (*HPDBV3) NewGetClusterOptions(clusterID string) *GetClusterOptions {
 	return &GetClusterOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1197,7 +1197,7 @@ type GetConfigurationOptions struct {
 }
 
 // NewGetConfigurationOptions : Instantiate GetConfigurationOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewGetConfigurationOptions(clusterID string) *GetConfigurationOptions {
+func (*HPDBV3) NewGetConfigurationOptions(clusterID string) *GetConfigurationOptions {
 	return &GetConfigurationOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1231,9 +1231,9 @@ type GetLogOptions struct {
 }
 
 // NewGetLogOptions : Instantiate GetLogOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewGetLogOptions(nodeID string, logName string) *GetLogOptions {
+func (*HPDBV3) NewGetLogOptions(nodeID string, logName string) *GetLogOptions {
 	return &GetLogOptions{
-		NodeID: core.StringPtr(nodeID),
+		NodeID:  core.StringPtr(nodeID),
 		LogName: core.StringPtr(logName),
 	}
 }
@@ -1275,10 +1275,10 @@ type GetTaskOptions struct {
 }
 
 // NewGetTaskOptions : Instantiate GetTaskOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewGetTaskOptions(clusterID string, taskID string) *GetTaskOptions {
+func (*HPDBV3) NewGetTaskOptions(clusterID string, taskID string) *GetTaskOptions {
 	return &GetTaskOptions{
 		ClusterID: core.StringPtr(clusterID),
-		TaskID: core.StringPtr(taskID),
+		TaskID:    core.StringPtr(taskID),
 	}
 }
 
@@ -1315,10 +1315,10 @@ type GetUserOptions struct {
 }
 
 // NewGetUserOptions : Instantiate GetUserOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewGetUserOptions(clusterID string, dbUserID string) *GetUserOptions {
+func (*HPDBV3) NewGetUserOptions(clusterID string, dbUserID string) *GetUserOptions {
 	return &GetUserOptions{
 		ClusterID: core.StringPtr(clusterID),
-		DbUserID: core.StringPtr(dbUserID),
+		DbUserID:  core.StringPtr(dbUserID),
 	}
 }
 
@@ -1409,7 +1409,7 @@ type ListDatabasesOptions struct {
 }
 
 // NewListDatabasesOptions : Instantiate ListDatabasesOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewListDatabasesOptions(clusterID string) *ListDatabasesOptions {
+func (*HPDBV3) NewListDatabasesOptions(clusterID string) *ListDatabasesOptions {
 	return &ListDatabasesOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1437,7 +1437,7 @@ type ListNodeLogsOptions struct {
 }
 
 // NewListNodeLogsOptions : Instantiate ListNodeLogsOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewListNodeLogsOptions(nodeID string) *ListNodeLogsOptions {
+func (*HPDBV3) NewListNodeLogsOptions(nodeID string) *ListNodeLogsOptions {
 	return &ListNodeLogsOptions{
 		NodeID: core.StringPtr(nodeID),
 	}
@@ -1465,7 +1465,7 @@ type ListTasksOptions struct {
 }
 
 // NewListTasksOptions : Instantiate ListTasksOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewListTasksOptions(clusterID string) *ListTasksOptions {
+func (*HPDBV3) NewListTasksOptions(clusterID string) *ListTasksOptions {
 	return &ListTasksOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1493,7 +1493,7 @@ type ListUsersOptions struct {
 }
 
 // NewListUsersOptions : Instantiate ListUsersOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewListUsersOptions(clusterID string) *ListUsersOptions {
+func (*HPDBV3) NewListUsersOptions(clusterID string) *ListUsersOptions {
 	return &ListUsersOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1662,7 +1662,7 @@ type ScaleResourcesOptions struct {
 }
 
 // NewScaleResourcesOptions : Instantiate ScaleResourcesOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewScaleResourcesOptions(clusterID string) *ScaleResourcesOptions {
+func (*HPDBV3) NewScaleResourcesOptions(clusterID string) *ScaleResourcesOptions {
 	return &ScaleResourcesOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1963,9 +1963,9 @@ type UpdateConfigurationOptions struct {
 }
 
 // NewUpdateConfigurationOptions : Instantiate UpdateConfigurationOptions
-func (*IbmCloudHyperProtectDBaaSResTfulApIsV3) NewUpdateConfigurationOptions(clusterID string, xAuthToken string) *UpdateConfigurationOptions {
+func (*HPDBV3) NewUpdateConfigurationOptions(clusterID string, xAuthToken string) *UpdateConfigurationOptions {
 	return &UpdateConfigurationOptions{
-		ClusterID: core.StringPtr(clusterID),
+		ClusterID:  core.StringPtr(clusterID),
 		XAuthToken: core.StringPtr(xAuthToken),
 	}
 }

@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package exampleservicev1_test
+package ibmcloudhyperprotectdbaasrestfulapisv3_test
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"testing"
 )
 
-func TestExampleServiceV1(t *testing.T) {
+func TestIbmCloudHyperProtectDBaaSResTfulApIsV3(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "ExampleServiceV1 Suite")
+	RunSpecs(t, "IbmCloudHyperProtectDBaaSResTfulApIsV3 Suite")
 }

@@ -226,7 +226,6 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 
 			updateConfigurationOptions := &hpdbv3.UpdateConfigurationOptions{
 				ClusterID:     core.StringPtr("testString"),
-				XAuthToken:    core.StringPtr("testString"),
 				Configuration: updateConfigurationDataConfigurationModel,
 			}
 

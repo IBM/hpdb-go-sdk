@@ -582,9 +582,6 @@ func (hpdb *HPDBV3) UpdateConfigurationWithContext(ctx context.Context, updateCo
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if updateConfigurationOptions.XAuthToken != nil {
-		builder.AddHeader("x-auth-token", fmt.Sprint(*updateConfigurationOptions.XAuthToken))
-	}
 
 	body := make(map[string]interface{})
 	if updateConfigurationOptions.Configuration != nil {
@@ -1952,9 +1949,6 @@ type UpdateConfigurationOptions struct {
 	// The ID of a cluster object.
 	ClusterID *string `validate:"required,ne="`
 
-	// Valid IAM access token.
-	XAuthToken *string `validate:"required"`
-
 	// Object of information about configuration.
 	Configuration *UpdateConfigurationDataConfiguration
 
@@ -1965,20 +1959,13 @@ type UpdateConfigurationOptions struct {
 // NewUpdateConfigurationOptions : Instantiate UpdateConfigurationOptions
 func (*HPDBV3) NewUpdateConfigurationOptions(clusterID string, xAuthToken string) *UpdateConfigurationOptions {
 	return &UpdateConfigurationOptions{
-		ClusterID:  core.StringPtr(clusterID),
-		XAuthToken: core.StringPtr(xAuthToken),
+		ClusterID: core.StringPtr(clusterID),
 	}
 }
 
 // SetClusterID : Allow user to set ClusterID
 func (_options *UpdateConfigurationOptions) SetClusterID(clusterID string) *UpdateConfigurationOptions {
 	_options.ClusterID = core.StringPtr(clusterID)
-	return _options
-}
-
-// SetXAuthToken : Allow user to set XAuthToken
-func (_options *UpdateConfigurationOptions) SetXAuthToken(xAuthToken string) *UpdateConfigurationOptions {
-	_options.XAuthToken = core.StringPtr(xAuthToken)
 	return _options
 }
 

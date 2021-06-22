@@ -1531,8 +1531,6 @@ var _ = Describe(`HPDBV3`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateConfigurationPath))
 					Expect(req.Method).To(Equal("PATCH"))
-					Expect(req.Header["X-Auth-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -1556,7 +1554,6 @@ var _ = Describe(`HPDBV3`, func() {
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
-				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
 				updateConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1604,8 +1601,6 @@ var _ = Describe(`HPDBV3`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["X-Auth-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1634,7 +1629,6 @@ var _ = Describe(`HPDBV3`, func() {
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
-				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
 				updateConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1688,8 +1682,6 @@ var _ = Describe(`HPDBV3`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["X-Auth-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
@@ -1720,7 +1712,6 @@ var _ = Describe(`HPDBV3`, func() {
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
-				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
 				updateConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1749,7 +1740,6 @@ var _ = Describe(`HPDBV3`, func() {
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
-				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
 				updateConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1799,7 +1789,6 @@ var _ = Describe(`HPDBV3`, func() {
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
 				updateConfigurationOptionsModel.ClusterID = core.StringPtr("testString")
-				updateConfigurationOptionsModel.XAuthToken = core.StringPtr("testString")
 				updateConfigurationOptionsModel.Configuration = updateConfigurationDataConfigurationModel
 				updateConfigurationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2787,12 +2776,10 @@ var _ = Describe(`HPDBV3`, func() {
 				xAuthToken := "testString"
 				updateConfigurationOptionsModel := hpdbService.NewUpdateConfigurationOptions(clusterID, xAuthToken)
 				updateConfigurationOptionsModel.SetClusterID("testString")
-				updateConfigurationOptionsModel.SetXAuthToken("testString")
 				updateConfigurationOptionsModel.SetConfiguration(updateConfigurationDataConfigurationModel)
 				updateConfigurationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateConfigurationOptionsModel).ToNot(BeNil())
 				Expect(updateConfigurationOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(updateConfigurationOptionsModel.XAuthToken).To(Equal(core.StringPtr("testString")))
 				Expect(updateConfigurationOptionsModel.Configuration).To(Equal(updateConfigurationDataConfigurationModel))
 				Expect(updateConfigurationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})

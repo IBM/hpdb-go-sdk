@@ -2,7 +2,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 # IBM Hyper Protect DBaaS Services Go SDK 0.0.1
-Go client library to interact with the various [IBM Cloud IBM Hyper Protect DBaaS Services APIs](https://cloud.ibm.com/apidocs?category=hyper-protect-dbaas-for-postgresql).
+Go client library to interact with the various [IBM Hyper Protect DBaaS Services APIs](https://cloud.ibm.com/apidocs/hyperp-dbaas/hyperp-dbaas-v3).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
 Changes might occur which impact applications that use this SDK.
@@ -26,6 +26,7 @@ Changes might occur which impact applications that use this SDK.
   * [Go modules](#go-modules)
   * [`go get` command](#go-get-command)
 - [Using the SDK](#using-the-sdk)
+  * [Sample Code](#sample-code)
 - [Questions](#questions)
 - [Issues](#issues)
 - [Open source @ IBM](#open-source--ibm)
@@ -36,11 +37,11 @@ Changes might occur which impact applications that use this SDK.
 
 ## Overview
 
-The IBM Cloud IBM Hyper Protect DBaaS Services Go SDK allows developers to programmatically interact with the following IBM Cloud services:
+The IBM Hyper Protect DBaaS Services Go SDK allows developers to programmatically interact with the following IBM Cloud services:
 
 Service Name | Package name 
 --- | --- 
-<!-- [Example Service](https://cloud.ibm.com/apidocs/example-service) | exampleservicev1 -->
+[IBM Hyper Protect DBaaS](https://cloud.ibm.com/apidocs/hyperp-dbaas/hyperp-dbaas-v3) | hpdbv3
 
 ## Prerequisites
 
@@ -60,25 +61,101 @@ Here is an example:
 
 ```go
 import (
-	"github.com/IBM/hpdb-go-sdk/exampleservicev1"
+	"github.com/IBM/hpdb-go-sdk/hpdbv3"
 )
 ```
 Next, run `go build` or `go mod tidy` to download and install the new dependencies and update your application's
 `go.mod` file.  
 
-In the example above, the `exampleservicev1` part of the import path is the package name
-associated with the Example Service service.
-See the service table above to find the approprate package name for the services used by your application.
+In the example above, the `hpdbv3` part of the import path is the package name
+associated with the IBM Hyper Protect DBaaS service.
 
 ### `go get` command  
 Alternatively, you can use the `go get` command to download and install the appropriate packages needed by your application:
 ```
-go get -u github.com/IBM/hpdb-go-sdk/exampleservicev1
+go get -u github.com/IBM/hpdb-go-sdk/hpdbv3
 ```
 Be sure to use the appropriate package name from the service table above for the services used by your application.
 
 ## Using the SDK
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md)
+
+IBM Hyper Protect DBaaS features supported by this SDK are as follows.
+
+| Features | Go Function |
+|----|----|
+| Show database cluster details | GetCluster |
+| List all databases | ListDatabases |
+| List all database users | ListUsers |
+| Show the details of a database user | GetUser |
+| List all log files of a database node | ListNodeLogs |
+| Download a log file | GetLog |
+| Scale resources in a specified cluster | ScaleResources |
+| List all tasks | ListTasks  |
+| Show the details of a task | GetTask |
+| Get database configurations (only for postgresql) | GetConfiguration |
+| Update database configurations (only for postgresql) | UpdateConfiguration |
+
+Please run following command for the detailed usage.
+
+```
+go doc -all github.com/IBM/hpdb-go-sdk/hpdbv3
+```
+
+### Sample Code
+
+Here's a sample on getting information of a database cluster. You can find more sample code at [IBM Hyper Protect DBaaS API Documentation](https://cloud.ibm.com/apidocs/hyperp-dbaas/hyperp-dbaas-v3)
+
+```
+package main
+
+import (
+	"fmt"
+	"strings"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/hpdb-go-sdk/hpdbv3"
+)
+
+func main() {
+	const dbClusterCRN = "crn:v1:bluemix:public:hyperp-dbaas-postgresql:eu-de:a/e530ebd25f5ab6b0cf1e889593015f7a:e3dd2973-0e15-4fe3-8a26-f567a76e0b29::"
+	const hpdbEndpoint = "dbaas902.hyperp-dbaas.cloud.ibm.com:20000"
+	const apiKey = "API_KEY"
+
+	crnSegments := strings.Split(dbClusterCRN, ":")
+	accountID := strings.TrimPrefix(crnSegments[6], "a/")
+	clusterID := crnSegments[7]
+
+	authenticator := &core.IamAuthenticator{
+		ApiKey: apiKey,
+	}
+
+	options := &hpdbv3.HPDBV3Options{
+		Authenticator: authenticator,
+		URL:           fmt.Sprintf("https://%s/api/v3/%s", hpdbEndpoint, accountID),
+	}
+
+	hpdb, err := hpdbv3.NewHPDBV3(options)
+	if err != nil {
+		panic(err)
+	}
+
+	hpdb.Service.DisableSSLVerification()
+
+	getClusterOpts := hpdb.NewGetClusterOptions(clusterID)
+	cluster, _, err := hpdb.GetCluster(getClusterOpts)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Cluster status: ", *cluster.State)
+}
+```
+
+`dbClusterCRN` is the CRN of your IBM Hyper Protect DBaaS service instance.
+
+`hpdbEndpoint` is the endpoint of IBM Hyper Protect DBaaS service. Different regions have different endpoints. You can find the list [here](https://cloud.ibm.com/docs/hyper-protect-dbaas-for-mongodb?topic=hyper-protect-dbaas-for-mongodb-api-setup#gen_inst_mgr_apis)
+
+
 
 ## Questions
 

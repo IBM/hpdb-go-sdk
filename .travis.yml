@@ -26,22 +26,22 @@ install:
 script:
   - make travis-ci
 
-# To publish code coverage information, uncomment this section.
-# (requires CODECOV_TOKEN env var in travis build settings)
-# after_success:
-#  - build/publishCodeCoverage.sh
+ # To publish code coverage information, uncomment this section.
+ # (requires CODECOV_TOKEN env var in travis build settings)
+ after_success:
+  - build/publishCodeCoverage.sh
 
-# To enable semantic-release, uncomment these sections.
-# before_deploy:
-#   - pip install --user bump2version
-#   - npm install @semantic-release/changelog
-#   - npm install @semantic-release/exec
-#   - npm install @semantic-release/git
-#   - npm install @semantic-release/github
-#
-# deploy:
-#   - provider: script
-#     script: npx semantic-release
-#     skip_cleanup: true
-#     on:
-#       branch: main
+ # To enable semantic-release, uncomment these sections.
+ before_deploy:
+   - pip install --user bump2version
+   - npm install @semantic-release/changelog
+   - npm install @semantic-release/exec
+   - npm install @semantic-release/git
+   - npm install @semantic-release/github
+
+ deploy:
+   - provider: script
+     script: npx semantic-release
+     skip_cleanup: true
+     on:
+       branch: main

@@ -17,7 +17,6 @@ before_install:
   - sudo apt-get install python
   - nvm install 12
   - npm install -g npm@6.x
-  - openssl aes-256-cbc -K $encrypted_c782ea63ec52_key -iv $encrypted_c782ea63ec52_iv -in example-service.env.enc -out example-service.env -d
 
 install:
   - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.39.0
@@ -26,22 +25,22 @@ install:
 script:
   - make travis-ci
 
- # To publish code coverage information, uncomment this section.
- # (requires CODECOV_TOKEN env var in travis build settings)
- after_success:
-  - build/publishCodeCoverage.sh
+# To publish code coverage information, uncomment this section.
+# (requires CODECOV_TOKEN env var in travis build settings)
+after_success:
+ - build/publishCodeCoverage.sh
 
- # To enable semantic-release, uncomment these sections.
- before_deploy:
-   - pip install --user bump2version
-   - npm install @semantic-release/changelog
-   - npm install @semantic-release/exec
-   - npm install @semantic-release/git
-   - npm install @semantic-release/github
+# To enable semantic-release, uncomment these sections.
+before_deploy:
+  - pip install --user bump2version
+  - npm install @semantic-release/changelog
+  - npm install @semantic-release/exec
+  - npm install @semantic-release/git
+  - npm install @semantic-release/github
 
- deploy:
-   - provider: script
-     script: npx semantic-release
-     skip_cleanup: true
-     on:
-       branch: main
+deploy:
+  - provider: script
+    script: npx semantic-release
+    skip_cleanup: true
+    on:
+      branch: main

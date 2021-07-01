@@ -38,7 +38,7 @@ import (
 
 var _ = Describe(`HPDBV3 Integration Tests`, func() {
 
-	const externalConfigFile = "../hpdb_v3.env"
+	const externalConfigFile = "../hpdb.env"
 
 	var (
 		err         error
@@ -96,7 +96,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`GetCluster(getClusterOptions *GetClusterOptions)`, func() {
 
 			getClusterOptions := &hpdbv3.GetClusterOptions{
-				ClusterID: core.StringPtr("testString"),
+				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
 			}
 
 			cluster, response, err := hpdbService.GetCluster(getClusterOptions)
@@ -115,7 +115,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`ListUsers(listUsersOptions *ListUsersOptions)`, func() {
 
 			listUsersOptions := &hpdbv3.ListUsersOptions{
-				ClusterID: core.StringPtr("testString"),
+				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
 			}
 
 			users, response, err := hpdbService.ListUsers(listUsersOptions)
@@ -134,8 +134,8 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`GetUser(getUserOptions *GetUserOptions)`, func() {
 
 			getUserOptions := &hpdbv3.GetUserOptions{
-				ClusterID: core.StringPtr("testString"),
-				DbUserID:  core.StringPtr("testString"),
+				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
+				DbUserID:  core.StringPtr("admin"),
 			}
 
 			userDetails, response, err := hpdbService.GetUser(getUserOptions)
@@ -154,7 +154,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`ListDatabases(listDatabasesOptions *ListDatabasesOptions)`, func() {
 
 			listDatabasesOptions := &hpdbv3.ListDatabasesOptions{
-				ClusterID: core.StringPtr("testString"),
+				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
 			}
 
 			databases, response, err := hpdbService.ListDatabases(listDatabasesOptions)
@@ -179,7 +179,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			}
 
 			scaleResourcesOptions := &hpdbv3.ScaleResourcesOptions{
-				ClusterID: core.StringPtr("testString"),
+				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
 				Resource:  scaleResourcesResourceModel,
 			}
 
@@ -199,7 +199,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`GetConfiguration(getConfigurationOptions *GetConfigurationOptions)`, func() {
 
 			getConfigurationOptions := &hpdbv3.GetConfigurationOptions{
-				ClusterID: core.StringPtr("testString"),
+				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
 			}
 
 			configuration, response, err := hpdbService.GetConfiguration(getConfigurationOptions)
@@ -210,33 +210,35 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 
 		})
 	})
+	/* UpdateConfiguration should run after ScaleResource completed */
+	/*
+		Describe(`UpdateConfiguration - Update configuration`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions)`, func() {
 
-	Describe(`UpdateConfiguration - Update configuration`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
+				updateConfigurationDataConfigurationModel := &hpdbv3.UpdateConfigurationDataConfiguration{
+					DeadlockTimeout:        core.Int64Ptr(int64(10000)),
+					MaxLocksPerTransaction: core.Int64Ptr(int64(100)),
+					SharedBuffers:          core.Int64Ptr(int64(256)),
+					MaxConnections:         core.Int64Ptr(int64(202)),
+				}
+
+				updateConfigurationOptions := &hpdbv3.UpdateConfigurationOptions{
+					ClusterID:     core.StringPtr("testString"),
+					Configuration: updateConfigurationDataConfigurationModel,
+				}
+
+				updateConfigurationResponse, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+				Expect(updateConfigurationResponse).ToNot(BeNil())
+
+			})
 		})
-		It(`UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions)`, func() {
-
-			updateConfigurationDataConfigurationModel := &hpdbv3.UpdateConfigurationDataConfiguration{
-				DeadlockTimeout:        core.Int64Ptr(int64(10000)),
-				MaxLocksPerTransaction: core.Int64Ptr(int64(100)),
-				SharedBuffers:          core.Int64Ptr(int64(256)),
-				MaxConnections:         core.Int64Ptr(int64(150)),
-			}
-
-			updateConfigurationOptions := &hpdbv3.UpdateConfigurationOptions{
-				ClusterID:     core.StringPtr("testString"),
-				Configuration: updateConfigurationDataConfigurationModel,
-			}
-
-			updateConfigurationResponse, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-			Expect(updateConfigurationResponse).ToNot(BeNil())
-
-		})
-	})
+	*/
 
 	Describe(`ListTasks - List tasks`, func() {
 		BeforeEach(func() {
@@ -245,7 +247,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`ListTasks(listTasksOptions *ListTasksOptions)`, func() {
 
 			listTasksOptions := &hpdbv3.ListTasksOptions{
-				ClusterID: core.StringPtr("testString"),
+				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
 			}
 
 			tasks, response, err := hpdbService.ListTasks(listTasksOptions)
@@ -264,8 +266,8 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`GetTask(getTaskOptions *GetTaskOptions)`, func() {
 
 			getTaskOptions := &hpdbv3.GetTaskOptions{
-				ClusterID: core.StringPtr("testString"),
-				TaskID:    core.StringPtr("testString"),
+				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
+				TaskID:    core.StringPtr("732fc8e0-da37-11eb-9433-755fe141f81f"),
 			}
 
 			task, response, err := hpdbService.GetTask(getTaskOptions)
@@ -284,7 +286,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`ListNodeLogs(listNodeLogsOptions *ListNodeLogsOptions)`, func() {
 
 			listNodeLogsOptions := &hpdbv3.ListNodeLogsOptions{
-				NodeID: core.StringPtr("testString"),
+				NodeID: core.StringPtr("c5ff2d841c7e6a11de3cbaa2b992d712"),
 			}
 
 			logList, response, err := hpdbService.ListNodeLogs(listNodeLogsOptions)
@@ -303,8 +305,8 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`GetLog(getLogOptions *GetLogOptions)`, func() {
 
 			getLogOptions := &hpdbv3.GetLogOptions{
-				NodeID:  core.StringPtr("testString"),
-				LogName: core.StringPtr("testString"),
+				NodeID:  core.StringPtr("c5ff2d841c7e6a11de3cbaa2b992d712"),
+				LogName: core.StringPtr("audit.log"),
 				Accept:  core.StringPtr("application/json"),
 			}
 

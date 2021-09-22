@@ -15,7 +15,7 @@ env:
 before_install:
   - sudo apt-get update
   - sudo apt-get install python
-  - nvm install 12
+  - nvm install 14
   - npm install -g npm@6.x
 
 install:
@@ -40,7 +40,7 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: npx -p node@14 -c "npx semantic-release"
+    script: npx semantic-release
     skip_cleanup: true
     on:
       branch: main

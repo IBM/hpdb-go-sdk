@@ -40,7 +40,7 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: npx semantic-release
+    script: npx -p node@14 -c "npx semantic-release"
     skip_cleanup: true
     on:
       branch: main

@@ -130,12 +130,12 @@ func main() {
 		ApiKey: apiKey,
 	}
 
-	options := &hpdbv3.HPDBV3Options{
+	options := &hpdbv3.HpdbV3Options{
 		Authenticator: authenticator,
 		URL:           fmt.Sprintf("https://%s/api/v3/%s", hpdbEndpoint, accountID),
 	}
 
-	hpdb, err := hpdbv3.NewHPDBV3(options)
+	hpdb, err := hpdbv3.NewHpdbV3(options)
 	if err != nil {
 		panic(err)
 	}

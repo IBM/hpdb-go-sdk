@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2021,2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import (
 )
 
 //
-// This file provides an example of how to use the IBM Cloud Hyper Protect DBaaS RESTful APIs service.
+// This file provides an example of how to use the hpdb service.
 //
 // The following configuration properties are assumed to be defined:
 // HPDB_URL=<service base url>
@@ -43,36 +43,36 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../hpdb.env"
+var _ = Describe(`HpdbV3 Examples Tests`, func() {
 
-var (
-	hpdbService  *hpdbv3.HPDBV3
-	config       map[string]string
-	configLoaded bool = false
-)
+	const externalConfigFile = "../hpdb_v3.env"
 
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
+	var (
+		hpdbService *hpdbv3.HpdbV3
+		config       map[string]string
+	)
+
+	var shouldSkipTest = func() {
+		Skip("External configuration is not available, skipping examples...")
 	}
-}
 
-var _ = Describe(`HPDBV3 Examples Tests`, func() {
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
 			_, err = os.Stat(externalConfigFile)
 			if err != nil {
-				Skip("External configuration file not found, skipping tests: " + err.Error())
+				Skip("External configuration file not found, skipping examples: " + err.Error())
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			config, err = core.GetServiceProperties(hpdbv3.DefaultServiceName)
 			if err != nil {
-				Skip("Error loading service properties, skipping tests: " + err.Error())
+				Skip("Error loading service properties, skipping examples: " + err.Error())
+			} else if len(config) == 0 {
+				Skip("Unable to load service properties, skipping examples")
 			}
 
-			configLoaded = len(config) > 0
+			shouldSkipTest = func() {}
 		})
 	})
 
@@ -85,9 +85,9 @@ var _ = Describe(`HPDBV3 Examples Tests`, func() {
 
 			// begin-common
 
-			hpdbServiceOptions := &hpdbv3.HPDBV3Options{}
+			hpdbServiceOptions := &hpdbv3.HpdbV3Options{}
 
-			hpdbService, err = hpdbv3.NewHPDBV3UsingExternalConfig(hpdbServiceOptions)
+			hpdbService, err = hpdbv3.NewHpdbV3UsingExternalConfig(hpdbServiceOptions)
 
 			if err != nil {
 				panic(err)
@@ -99,7 +99,7 @@ var _ = Describe(`HPDBV3 Examples Tests`, func() {
 		})
 	})
 
-	Describe(`HPDBV3 request examples`, func() {
+	Describe(`HpdbV3 request examples`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -192,6 +192,7 @@ var _ = Describe(`HPDBV3 Examples Tests`, func() {
 			Expect(databases).ToNot(BeNil())
 
 		})
+		/*
 		It(`ScaleResources request example`, func() {
 			fmt.Println("\nScaleResources() result:")
 			// begin-scale_resources
@@ -221,6 +222,7 @@ var _ = Describe(`HPDBV3 Examples Tests`, func() {
 			Expect(scaleResourcesResponse).ToNot(BeNil())
 
 		})
+		*/
 		It(`GetConfiguration request example`, func() {
 			fmt.Println("\nGetConfiguration() result:")
 			// begin-get_configuration
@@ -243,38 +245,29 @@ var _ = Describe(`HPDBV3 Examples Tests`, func() {
 			Expect(configuration).ToNot(BeNil())
 
 		})
-		/* UpdateConfiguration should run after ScaleResource completed */
 		/*
-			It(`UpdateConfiguration request example`, func() {
-				fmt.Println("\nUpdateConfiguration() result:")
-				// begin-update_configuration
+		It(`UpdateConfiguration request example`, func() {
+			fmt.Println("\nUpdateConfiguration() result:")
+			// begin-update_configuration
 
-				updateConfigurationDataConfigurationModel := &hpdbv3.UpdateConfigurationDataConfiguration{
-					DeadlockTimeout:        core.Int64Ptr(int64(10000)),
-					MaxLocksPerTransaction: core.Int64Ptr(int64(100)),
-					SharedBuffers:          core.Int64Ptr(int64(256)),
-					MaxConnections:         core.Int64Ptr(int64(201)),
-				}
+			updateConfigurationOptions := hpdbService.NewUpdateConfigurationOptions(
+				"testString",
+			)
 
-				updateConfigurationOptions := &hpdbv3.UpdateConfigurationOptions{
-					ClusterID:     core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
-					Configuration: updateConfigurationDataConfigurationModel,
-				}
+			updateConfigurationResponse, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(updateConfigurationResponse, "", "  ")
+			fmt.Println(string(b))
 
-				updateConfigurationResponse, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
-				if err != nil {
-					panic(err)
-				}
-				b, _ := json.MarshalIndent(updateConfigurationResponse, "", "  ")
-				fmt.Println(string(b))
+			// end-update_configuration
 
-				// end-update_configuration
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(updateConfigurationResponse).ToNot(BeNil())
 
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-				Expect(updateConfigurationResponse).ToNot(BeNil())
-
-			})
+		})
 		*/
 		It(`ListTasks request example`, func() {
 			fmt.Println("\nListTasks() result:")
@@ -304,7 +297,7 @@ var _ = Describe(`HPDBV3 Examples Tests`, func() {
 
 			getTaskOptions := hpdbService.NewGetTaskOptions(
 				"a958e854-ab46-42d0-9b49-5aef714a36b3",
-				"732fc8e0-da37-11eb-9433-755fe141f81f",
+				"43dc3c10-985d-11ec-8f51-996cc0df9e1b",
 			)
 
 			task, response, err := hpdbService.GetTask(getTaskOptions)
@@ -352,8 +345,6 @@ var _ = Describe(`HPDBV3 Examples Tests`, func() {
 				"audit.log",
 			)
 
-			getLogOptions.SetAccept("application/json")
-
 			file, response, err := hpdbService.GetLog(getLogOptions)
 			if err != nil {
 				panic(err)
@@ -361,14 +352,10 @@ var _ = Describe(`HPDBV3 Examples Tests`, func() {
 			if file != nil {
 				defer file.Close()
 				outFile, err := os.Create("file.out")
-				if err != nil {
-					panic(err)
-				}
+				if err != nil { panic(err) }
 				defer outFile.Close()
 				_, err = io.Copy(outFile, file)
-				if err != nil {
-					panic(err)
-				}
+				if err != nil { panic(err) }
 			}
 
 			// end-get_log

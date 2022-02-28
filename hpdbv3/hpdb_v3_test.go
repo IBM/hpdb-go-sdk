@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2021,2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,25 +34,25 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe(`HPDBV3`, func() {
+var _ = Describe(`HpdbV3`, func() {
 	var testServer *httptest.Server
 	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+			hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			Expect(hpdbService).ToNot(BeNil())
 			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+			hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 				URL: "{BAD_URL_STRING",
 			})
 			Expect(hpdbService).To(BeNil())
 			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+			hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 				URL: "https://hpdbv3/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
@@ -67,13 +67,14 @@ var _ = Describe(`HPDBV3`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"HPDB_URL":       "https://hpdbv3/api",
+				"HPDB_URL": "https://hpdbv3/api",
 				"HPDB_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{})
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3UsingExternalConfig(&hpdbv3.HpdbV3Options{
+				})
 				Expect(hpdbService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -86,7 +87,7 @@ var _ = Describe(`HPDBV3`, func() {
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3UsingExternalConfig(&hpdbv3.HpdbV3Options{
 					URL: "https://testService/api",
 				})
 				Expect(hpdbService).ToNot(BeNil())
@@ -102,7 +103,8 @@ var _ = Describe(`HPDBV3`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{})
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3UsingExternalConfig(&hpdbv3.HpdbV3Options{
+				})
 				err := hpdbService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(hpdbService).ToNot(BeNil())
@@ -120,12 +122,13 @@ var _ = Describe(`HPDBV3`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"HPDB_URL":       "https://hpdbv3/api",
+				"HPDB_URL": "https://hpdbv3/api",
 				"HPDB_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{})
+			hpdbService, serviceErr := hpdbv3.NewHpdbV3UsingExternalConfig(&hpdbv3.HpdbV3Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(hpdbService).To(BeNil())
@@ -136,11 +139,11 @@ var _ = Describe(`HPDBV3`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"HPDB_AUTH_TYPE": "NOAuth",
+				"HPDB_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			hpdbService, serviceErr := hpdbv3.NewHPDBV3UsingExternalConfig(&hpdbv3.HPDBV3Options{
+			hpdbService, serviceErr := hpdbv3.NewHpdbV3UsingExternalConfig(&hpdbv3.HpdbV3Options{
 				URL: "{BAD_URL_STRING",
 			})
 
@@ -189,11 +192,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetCluster with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -239,11 +242,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "7f7aebb87d4fa262a18c8faca505b92a", "region": "eu-de", "name": "replica1", "state": "PROVISIONED", "reason": "Reason", "db_type": "mongodb", "public_endpoint": "dbaas510.hyperp-dbaas.cloud.ibm.com:24110", "private_endpoint": "dbaas510.private.hyperp-dbaas.cloud.ibm.com:24110", "log_url": "https://logging.eu-fra.bluemix.net/app/#/kibana5/discover?_g=()&_a=(columns:!(_source),interval:auto,query:(query_string:(analyze_wildcard:!t,query:'cluster_id_str:3d60c20a4709526ad299236881f9d54c')),sort:!('@timestamp',desc))", "metric_url": "https://metrics.stage1.ng.bluemix.net", "replica_count": 3, "resource": {"cpu": 2, "memory": "20 GiB", "storage": "20 TiB"}, "external_key": {"kms_instance": "crn:v1:staging:public:kms:us-south:a/23a24a3e3fe7a115473f07be1c44bdb5:9eeb285a-88e4-4378-b7cf-dbdcd97b5e4e::", "kms_key": "95d5e441-27e7-4715-a8a8-357871722585"}, "nodes": [{"id": "0286c5b91f9f079d9f1df91fceb391f9", "replica_state": "PRIMARY", "replication_lag": 0, "node_state": "RUNNING", "reason": "Reason", "stopped_reason": "EXTERNAL_KEY_DELETED", "name": "dbaas23:27019", "created_at": "2017-06-22T19:10:51Z", "updated_at": "2017-06-22T19:10:51Z", "is_metric_enabled": true, "is_logging_enabled": false}], "created_at": "2017-06-22T19:10:51Z", "updated_at": "2017-06-22T19:10:51Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "a958e854-ab46-42d0-9b49-5aef714a36b3", "crn": "crn:v1:staging:public:hyperp-dbaas-postgresql:hkg01:a/23a24a3e3fe7a115473f07be1c44bdb5:fa5d535b-c575-4a9f-92a3-e961e2e278fa::", "customer_monitoring_status": "enabled", "region": "au-syd", "name": "cluster01", "state": "PROVISIONED", "reason": "Reason", "db_type": "postgresql", "db_version": "postgresql 13", "public_endpoint": "dbaas905.hyperp-dbaas.cloud.ibm.com:29494", "private_endpoint": "dbaas905.private.hyperp-dbaas.cloud.ibm.com:29494", "private_endpoint_type": "vpe", "plan_id": "c8550ed3-894b-462d-98ee-68e80e3955d4", "last_active": 1645690812445, "log_url": "LogURL", "metric_url": "MetricURL", "replica_count": 3, "user_id": "23a24a3e3fe7a115473f07be1c44bdb5", "resource": {"cpu": 1, "memory": "2gib", "storage": "5gib", "storage_used": "0.19gib"}, "external_key": {"kms_instance": "KmsInstance", "kms_key": "KmsKey"}, "nodes": [{"id": "c5ff2d841c7e6a11de3cbaa2b992d712", "replica_state": "PRIMARY", "replication_lag": 0, "node_state": "RUNNING", "reason": "Reason", "stopped_reason": "EXTERNAL_KEY_DELETED", "name": "dbaas55-29247", "created_at": "2021-06-29T07:46:56Z", "updated_at": "2021-06-29T07:48:11Z", "is_metric_enabled": false, "is_logging_enabled": false, "user_id": "23a24a3e3fe7a115473f07be1c44bdb5"}], "created_at": "2021-06-29T07:46:51Z", "updated_at": "2021-06-29T07:48:11Z"}`)
 				}))
 			})
 			It(`Invoke GetCluster successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -293,11 +296,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "7f7aebb87d4fa262a18c8faca505b92a", "region": "eu-de", "name": "replica1", "state": "PROVISIONED", "reason": "Reason", "db_type": "mongodb", "public_endpoint": "dbaas510.hyperp-dbaas.cloud.ibm.com:24110", "private_endpoint": "dbaas510.private.hyperp-dbaas.cloud.ibm.com:24110", "log_url": "https://logging.eu-fra.bluemix.net/app/#/kibana5/discover?_g=()&_a=(columns:!(_source),interval:auto,query:(query_string:(analyze_wildcard:!t,query:'cluster_id_str:3d60c20a4709526ad299236881f9d54c')),sort:!('@timestamp',desc))", "metric_url": "https://metrics.stage1.ng.bluemix.net", "replica_count": 3, "resource": {"cpu": 2, "memory": "20 GiB", "storage": "20 TiB"}, "external_key": {"kms_instance": "crn:v1:staging:public:kms:us-south:a/23a24a3e3fe7a115473f07be1c44bdb5:9eeb285a-88e4-4378-b7cf-dbdcd97b5e4e::", "kms_key": "95d5e441-27e7-4715-a8a8-357871722585"}, "nodes": [{"id": "0286c5b91f9f079d9f1df91fceb391f9", "replica_state": "PRIMARY", "replication_lag": 0, "node_state": "RUNNING", "reason": "Reason", "stopped_reason": "EXTERNAL_KEY_DELETED", "name": "dbaas23:27019", "created_at": "2017-06-22T19:10:51Z", "updated_at": "2017-06-22T19:10:51Z", "is_metric_enabled": true, "is_logging_enabled": false}], "created_at": "2017-06-22T19:10:51Z", "updated_at": "2017-06-22T19:10:51Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "a958e854-ab46-42d0-9b49-5aef714a36b3", "crn": "crn:v1:staging:public:hyperp-dbaas-postgresql:hkg01:a/23a24a3e3fe7a115473f07be1c44bdb5:fa5d535b-c575-4a9f-92a3-e961e2e278fa::", "customer_monitoring_status": "enabled", "region": "au-syd", "name": "cluster01", "state": "PROVISIONED", "reason": "Reason", "db_type": "postgresql", "db_version": "postgresql 13", "public_endpoint": "dbaas905.hyperp-dbaas.cloud.ibm.com:29494", "private_endpoint": "dbaas905.private.hyperp-dbaas.cloud.ibm.com:29494", "private_endpoint_type": "vpe", "plan_id": "c8550ed3-894b-462d-98ee-68e80e3955d4", "last_active": 1645690812445, "log_url": "LogURL", "metric_url": "MetricURL", "replica_count": 3, "user_id": "23a24a3e3fe7a115473f07be1c44bdb5", "resource": {"cpu": 1, "memory": "2gib", "storage": "5gib", "storage_used": "0.19gib"}, "external_key": {"kms_instance": "KmsInstance", "kms_key": "KmsKey"}, "nodes": [{"id": "c5ff2d841c7e6a11de3cbaa2b992d712", "replica_state": "PRIMARY", "replication_lag": 0, "node_state": "RUNNING", "reason": "Reason", "stopped_reason": "EXTERNAL_KEY_DELETED", "name": "dbaas55-29247", "created_at": "2021-06-29T07:46:56Z", "updated_at": "2021-06-29T07:48:11Z", "is_metric_enabled": false, "is_logging_enabled": false, "user_id": "23a24a3e3fe7a115473f07be1c44bdb5"}], "created_at": "2021-06-29T07:46:51Z", "updated_at": "2021-06-29T07:48:11Z"}`)
 				}))
 			})
 			It(`Invoke GetCluster successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -323,7 +326,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke GetCluster with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -364,7 +367,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke GetCluster successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -401,11 +404,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListUsers with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -451,11 +454,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"users": [{"name": "tom", "auth_db": "mydb", "role_attributes": ["CREATEDB"]}]}`)
+					fmt.Fprintf(res, "%s", `{"users": [{"name": "admin", "auth_db": "admin", "role_attributes": ["CREATEDB"]}]}`)
 				}))
 			})
 			It(`Invoke ListUsers successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -505,11 +508,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"users": [{"name": "tom", "auth_db": "mydb", "role_attributes": ["CREATEDB"]}]}`)
+					fmt.Fprintf(res, "%s", `{"users": [{"name": "admin", "auth_db": "admin", "role_attributes": ["CREATEDB"]}]}`)
 				}))
 			})
 			It(`Invoke ListUsers successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -535,7 +538,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke ListUsers with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -576,7 +579,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke ListUsers successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -613,11 +616,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetUser with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -664,11 +667,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "syrena", "auth_db": "mydb", "db_access": [{"db": "test", "privileges": ["readWrite"]}], "role_attributes": ["CREATEDB"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "admin", "auth_db": "admin", "db_access": [{"db": "admin", "privileges": ["readWrite"]}], "role_attributes": ["CREATEDB"]}`)
 				}))
 			})
 			It(`Invoke GetUser successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -719,11 +722,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "syrena", "auth_db": "mydb", "db_access": [{"db": "test", "privileges": ["readWrite"]}], "role_attributes": ["CREATEDB"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "admin", "auth_db": "admin", "db_access": [{"db": "admin", "privileges": ["readWrite"]}], "role_attributes": ["CREATEDB"]}`)
 				}))
 			})
 			It(`Invoke GetUser successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -750,7 +753,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke GetUser with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -792,7 +795,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke GetUser successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -830,11 +833,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListDatabases with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -880,11 +883,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_size": 251658240, "databases": [{"name": "test", "size_on_disk": 83886080}]}`)
+					fmt.Fprintf(res, "%s", `{"total_size": 8084615, "databases": [{"name": "admin", "size_on_disk": 8084615}]}`)
 				}))
 			})
 			It(`Invoke ListDatabases successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -934,11 +937,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_size": 251658240, "databases": [{"name": "test", "size_on_disk": 83886080}]}`)
+					fmt.Fprintf(res, "%s", `{"total_size": 8084615, "databases": [{"name": "admin", "size_on_disk": 8084615}]}`)
 				}))
 			})
 			It(`Invoke ListDatabases successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -964,7 +967,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke ListDatabases with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1005,7 +1008,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke ListDatabases successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1042,11 +1045,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ScaleResources with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1115,11 +1118,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "b62026a0-b5ff-4f9a-8780-ecf28dd32c45"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
 				}))
 			})
 			It(`Invoke ScaleResources successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1192,11 +1195,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "b62026a0-b5ff-4f9a-8780-ecf28dd32c45"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
 				}))
 			})
 			It(`Invoke ScaleResources successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1229,7 +1232,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke ScaleResources with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1277,7 +1280,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke ScaleResources successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1321,11 +1324,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetConfiguration with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1375,7 +1378,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke GetConfiguration successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1429,7 +1432,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke GetConfiguration successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1455,7 +1458,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke GetConfiguration with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1496,7 +1499,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke GetConfiguration successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1533,11 +1536,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UpdateConfiguration with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1607,11 +1610,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "8254d870-b485-11ea-92be-757a89e2da77"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "31efa320-da1c-11eb-9433-755fe141f81f"}`)
 				}))
 			})
 			It(`Invoke UpdateConfiguration successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1685,11 +1688,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "8254d870-b485-11ea-92be-757a89e2da77"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "31efa320-da1c-11eb-9433-755fe141f81f"}`)
 				}))
 			})
 			It(`Invoke UpdateConfiguration successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1723,7 +1726,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke UpdateConfiguration with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1772,7 +1775,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke UpdateConfiguration successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1817,11 +1820,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListTasks with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1867,11 +1870,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"tasks": [{"id": "0286c5b91f9f079d9f1df91fceb391f9", "type": "configuration_update", "state": "RUNNING", "reason": "Reason", "started_at": "2020-06-22T19:10:51Z", "finished_at": "2020-06-22T19:11:51Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"tasks": [{"id": "1e902f30-da1b-11eb-9433-755fe141f81f", "type": "resource_scale", "state": "SUCCEEDED", "reason": "Reason", "started_at": "2021-07-01T03:19:17Z", "finished_at": "2021-07-01T03:21:13Z"}]}`)
 				}))
 			})
 			It(`Invoke ListTasks successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1921,11 +1924,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"tasks": [{"id": "0286c5b91f9f079d9f1df91fceb391f9", "type": "configuration_update", "state": "RUNNING", "reason": "Reason", "started_at": "2020-06-22T19:10:51Z", "finished_at": "2020-06-22T19:11:51Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"tasks": [{"id": "1e902f30-da1b-11eb-9433-755fe141f81f", "type": "resource_scale", "state": "SUCCEEDED", "reason": "Reason", "started_at": "2021-07-01T03:19:17Z", "finished_at": "2021-07-01T03:21:13Z"}]}`)
 				}))
 			})
 			It(`Invoke ListTasks successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1951,7 +1954,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke ListTasks with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1992,7 +1995,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke ListTasks successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2029,11 +2032,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetTask with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2080,11 +2083,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "8254d870-b485-11ea-92be-757a89e2da77", "type": "configuration_update", "started_at": "2017-06-22T19:10:51Z", "finished_at": "2017-06-22T19:10:51Z", "reason": "Reason", "nodes": [{"id": "0286c5b91f9f079d9f1df91fceb391f9", "state": "RUNNING", "reason": "Reason", "started_at": "2020-06-22T19:10:51Z", "finished_at": "2020-06-22T19:11:51Z"}], "spec": {"anyKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "1e902f30-da1b-11eb-9433-755fe141f81f", "type": "resource_scale", "started_at": "2021-07-01T03:19:17Z", "finished_at": "2021-07-01T03:21:13Z", "reason": "Reason", "nodes": [{"id": "c5ff2d841c7e6a11de3cbaa2b992d712", "state": "SUCCEEDED", "reason": "Reason", "started_at": "2021-07-01T03:20:36Z", "finished_at": "2021-07-01T03:20:52Z"}], "spec": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetTask successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2135,11 +2138,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "8254d870-b485-11ea-92be-757a89e2da77", "type": "configuration_update", "started_at": "2017-06-22T19:10:51Z", "finished_at": "2017-06-22T19:10:51Z", "reason": "Reason", "nodes": [{"id": "0286c5b91f9f079d9f1df91fceb391f9", "state": "RUNNING", "reason": "Reason", "started_at": "2020-06-22T19:10:51Z", "finished_at": "2020-06-22T19:11:51Z"}], "spec": {"anyKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "1e902f30-da1b-11eb-9433-755fe141f81f", "type": "resource_scale", "started_at": "2021-07-01T03:19:17Z", "finished_at": "2021-07-01T03:21:13Z", "reason": "Reason", "nodes": [{"id": "c5ff2d841c7e6a11de3cbaa2b992d712", "state": "SUCCEEDED", "reason": "Reason", "started_at": "2021-07-01T03:20:36Z", "finished_at": "2021-07-01T03:20:52Z"}], "spec": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetTask successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2166,7 +2169,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke GetTask with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2208,7 +2211,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke GetTask successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2246,11 +2249,11 @@ var _ = Describe(`HPDBV3`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListNodeLogs with error: Operation response processing error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2296,11 +2299,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"logs": [{"filename": "mongod.log.20180604-1528094566", "size": 531015965, "last_modified": "2018-06-04 06:42:46"}]}`)
+					fmt.Fprintf(res, "%s", `{"logs": [{"filename": "postgresql.log", "size": 26369, "last_modified": "2021-06-29 07:55:19"}]}`)
 				}))
 			})
 			It(`Invoke ListNodeLogs successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2350,11 +2353,11 @@ var _ = Describe(`HPDBV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"logs": [{"filename": "mongod.log.20180604-1528094566", "size": 531015965, "last_modified": "2018-06-04 06:42:46"}]}`)
+					fmt.Fprintf(res, "%s", `{"logs": [{"filename": "postgresql.log", "size": 26369, "last_modified": "2021-06-29 07:55:19"}]}`)
 				}))
 			})
 			It(`Invoke ListNodeLogs successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2380,7 +2383,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke ListNodeLogs with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2421,7 +2424,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke ListNodeLogs successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2469,7 +2472,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke GetLog successfully with retries`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2527,7 +2530,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke GetLog successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2555,7 +2558,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 			})
 			It(`Invoke GetLog with error: Operation validation and request error`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2598,7 +2601,7 @@ var _ = Describe(`HPDBV3`, func() {
 				}))
 			})
 			It(`Invoke GetLog successfully`, func() {
-				hpdbService, serviceErr := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+				hpdbService, serviceErr := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2617,6 +2620,7 @@ var _ = Describe(`HPDBV3`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
+
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
 				buffer, operationErr := ioutil.ReadAll(result)
@@ -2631,7 +2635,7 @@ var _ = Describe(`HPDBV3`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			hpdbService, _ := hpdbv3.NewHPDBV3(&hpdbv3.HPDBV3Options{
+			hpdbService, _ := hpdbv3.NewHpdbV3(&hpdbv3.HpdbV3Options{
 				URL:           "http://hpdbv3modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
@@ -2773,8 +2777,7 @@ var _ = Describe(`HPDBV3`, func() {
 
 				// Construct an instance of the UpdateConfigurationOptions model
 				clusterID := "testString"
-				xAuthToken := "testString"
-				updateConfigurationOptionsModel := hpdbService.NewUpdateConfigurationOptions(clusterID, xAuthToken)
+				updateConfigurationOptionsModel := hpdbService.NewUpdateConfigurationOptions(clusterID)
 				updateConfigurationOptionsModel.SetClusterID("testString")
 				updateConfigurationOptionsModel.SetConfiguration(updateConfigurationDataConfigurationModel)
 				updateConfigurationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})

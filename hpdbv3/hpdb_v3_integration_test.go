@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2021,2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,9 @@ package hpdbv3_test
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/hpdb-go-sdk/hpdbv3"
@@ -36,15 +38,15 @@ import (
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-var _ = Describe(`HPDBV3 Integration Tests`, func() {
+var _ = Describe(`HpdbV3 Integration Tests`, func() {
 
-	const externalConfigFile = "../hpdb.env"
+	const externalConfigFile = "../hpdb_v3.env"
 
 	var (
-		err         error
-		hpdbService *hpdbv3.HPDBV3
-		serviceURL  string
-		config      map[string]string
+		err          error
+		hpdbService *hpdbv3.HpdbV3
+		serviceURL   string
+		config       map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -68,7 +70,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
-			fmt.Printf("Service URL: %s\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Service URL: %v\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -79,13 +81,16 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		})
 		It("Successfully construct the service client instance", func() {
 
-			hpdbServiceOptions := &hpdbv3.HPDBV3Options{}
+			hpdbServiceOptions := &hpdbv3.HpdbV3Options{}
 
-			hpdbService, err = hpdbv3.NewHPDBV3UsingExternalConfig(hpdbServiceOptions)
+			hpdbService, err = hpdbv3.NewHpdbV3UsingExternalConfig(hpdbServiceOptions)
 
 			Expect(err).To(BeNil())
 			Expect(hpdbService).ToNot(BeNil())
 			Expect(hpdbService.Service.Options.URL).To(Equal(serviceURL))
+
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+			hpdbService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
@@ -105,6 +110,15 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(cluster).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 400
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
 
@@ -124,6 +138,14 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(users).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
 
@@ -135,7 +157,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 
 			getUserOptions := &hpdbv3.GetUserOptions{
 				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
-				DbUserID:  core.StringPtr("admin"),
+				DbUserID: core.StringPtr("admin"),
 			}
 
 			userDetails, response, err := hpdbService.GetUser(getUserOptions)
@@ -144,6 +166,14 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(userDetails).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
 
@@ -163,9 +193,17 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(databases).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
-
+/*
 	Describe(`ScaleResources - Scale resources`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -173,14 +211,14 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`ScaleResources(scaleResourcesOptions *ScaleResourcesOptions)`, func() {
 
 			scaleResourcesResourceModel := &hpdbv3.ScaleResourcesResource{
-				Cpu:     core.Int64Ptr(int64(2)),
-				Memory:  core.StringPtr("2GiB"),
+				Cpu: core.Int64Ptr(int64(2)),
+				Memory: core.StringPtr("2GiB"),
 				Storage: core.StringPtr("5GiB"),
 			}
 
 			scaleResourcesOptions := &hpdbv3.ScaleResourcesOptions{
 				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
-				Resource:  scaleResourcesResourceModel,
+				Resource: scaleResourcesResourceModel,
 			}
 
 			scaleResourcesResponse, response, err := hpdbService.ScaleResources(scaleResourcesOptions)
@@ -189,9 +227,17 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(scaleResourcesResponse).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
-
+*/
 	Describe(`GetConfiguration - Get configuration`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -208,38 +254,52 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(configuration).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
-	/* UpdateConfiguration should run after ScaleResource completed */
-	/*
-		Describe(`UpdateConfiguration - Update configuration`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions)`, func() {
-
-				updateConfigurationDataConfigurationModel := &hpdbv3.UpdateConfigurationDataConfiguration{
-					DeadlockTimeout:        core.Int64Ptr(int64(10000)),
-					MaxLocksPerTransaction: core.Int64Ptr(int64(100)),
-					SharedBuffers:          core.Int64Ptr(int64(256)),
-					MaxConnections:         core.Int64Ptr(int64(202)),
-				}
-
-				updateConfigurationOptions := &hpdbv3.UpdateConfigurationOptions{
-					ClusterID:     core.StringPtr("testString"),
-					Configuration: updateConfigurationDataConfigurationModel,
-				}
-
-				updateConfigurationResponse, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-				Expect(updateConfigurationResponse).ToNot(BeNil())
-
-			})
+/*
+	Describe(`UpdateConfiguration - Update configuration`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
-	*/
+		It(`UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions)`, func() {
 
+			updateConfigurationDataConfigurationModel := &hpdbv3.UpdateConfigurationDataConfiguration{
+				DeadlockTimeout: core.Int64Ptr(int64(10000)),
+				MaxLocksPerTransaction: core.Int64Ptr(int64(100)),
+				SharedBuffers: core.Int64Ptr(int64(256)),
+				MaxConnections: core.Int64Ptr(int64(150)),
+			}
+
+			updateConfigurationOptions := &hpdbv3.UpdateConfigurationOptions{
+				ClusterID: core.StringPtr("testString"),
+				Configuration: updateConfigurationDataConfigurationModel,
+			}
+
+			updateConfigurationResponse, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(updateConfigurationResponse).ToNot(BeNil())
+
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 400
+			// 401
+			// 500
+			//
+		})
+	})
+*/
 	Describe(`ListTasks - List tasks`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -256,9 +316,17 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(tasks).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
-
+/*
 	Describe(`GetTask - Show task`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -267,7 +335,7 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 
 			getTaskOptions := &hpdbv3.GetTaskOptions{
 				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
-				TaskID:    core.StringPtr("732fc8e0-da37-11eb-9433-755fe141f81f"),
+				TaskID: core.StringPtr("732fc8e0-da37-11eb-9433-755fe141f81f"),
 			}
 
 			task, response, err := hpdbService.GetTask(getTaskOptions)
@@ -276,9 +344,17 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(task).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
-
+*/
 	Describe(`ListNodeLogs - List database log files of a node`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -295,6 +371,14 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(logList).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
 
@@ -305,9 +389,9 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 		It(`GetLog(getLogOptions *GetLogOptions)`, func() {
 
 			getLogOptions := &hpdbv3.GetLogOptions{
-				NodeID:  core.StringPtr("c5ff2d841c7e6a11de3cbaa2b992d712"),
+				NodeID: core.StringPtr("c5ff2d841c7e6a11de3cbaa2b992d712"),
 				LogName: core.StringPtr("audit.log"),
-				Accept:  core.StringPtr("application/json"),
+				Accept: core.StringPtr("application/json"),
 			}
 
 			result, response, err := hpdbService.GetLog(getLogOptions)
@@ -316,6 +400,14 @@ var _ = Describe(`HPDBV3 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
 
+			//
+			// The following status codes aren't covered by tests.
+			// Please provide integration tests for these too.
+			//
+			// 401
+			// 404
+			// 500
+			//
 		})
 	})
 })

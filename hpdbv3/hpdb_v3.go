@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2021,2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.34.1-ad041667-20210617-195430
+ * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
  */
 
-// Package hpdbv3 : Operations and models for the HPDBV3 service
+// Package hpdbv3 : Operations and models for the HpdbV3 service
 package hpdbv3
 
 import (
@@ -34,11 +34,10 @@ import (
 	common "github.com/IBM/hpdb-go-sdk/common"
 )
 
-// HPDBV3 : The DBaaS RESTful APIs are used to manage the database cluster, the database
-// itself, and database users.
+// HpdbV3 : The DBaaS RESTful APIs are used to manage the database cluster, the database itself, and database users.
 //
-// Version: 3
-type HPDBV3 struct {
+// API Version: 3
+type HpdbV3 struct {
 	Service *core.BaseService
 }
 
@@ -54,15 +53,15 @@ var defaultUrlVariables = map[string]string{
 	"account_id": "unknown",
 }
 
-// HPDBV3Options : Service options
-type HPDBV3Options struct {
+// HpdbV3Options : Service options
+type HpdbV3Options struct {
 	ServiceName   string
 	URL           string
 	Authenticator core.Authenticator
 }
 
-// NewHPDBV3UsingExternalConfig : constructs an instance of HPDBV3 with passed in options and external configuration.
-func NewHPDBV3UsingExternalConfig(options *HPDBV3Options) (hpdb *HPDBV3, err error) {
+// NewHpdbV3UsingExternalConfig : constructs an instance of HpdbV3 with passed in options and external configuration.
+func NewHpdbV3UsingExternalConfig(options *HpdbV3Options) (hpdb *HpdbV3, err error) {
 	if options.ServiceName == "" {
 		options.ServiceName = DefaultServiceName
 	}
@@ -74,7 +73,7 @@ func NewHPDBV3UsingExternalConfig(options *HPDBV3Options) (hpdb *HPDBV3, err err
 		}
 	}
 
-	hpdb, err = NewHPDBV3(options)
+	hpdb, err = NewHpdbV3(options)
 	if err != nil {
 		return
 	}
@@ -90,8 +89,8 @@ func NewHPDBV3UsingExternalConfig(options *HPDBV3Options) (hpdb *HPDBV3, err err
 	return
 }
 
-// NewHPDBV3 : constructs an instance of HPDBV3 with passed in options.
-func NewHPDBV3(options *HPDBV3Options) (service *HPDBV3, err error) {
+// NewHpdbV3 : constructs an instance of HpdbV3 with passed in options.
+func NewHpdbV3(options *HpdbV3Options) (service *HpdbV3, err error) {
 	serviceOptions := &core.ServiceOptions{
 		URL:           DefaultServiceURL,
 		Authenticator: options.Authenticator,
@@ -109,7 +108,7 @@ func NewHPDBV3(options *HPDBV3Options) (service *HPDBV3, err error) {
 		}
 	}
 
-	service = &HPDBV3{
+	service = &HpdbV3{
 		Service: baseService,
 	}
 
@@ -122,7 +121,7 @@ func GetServiceURLForRegion(region string) (string, error) {
 }
 
 // Clone makes a copy of "hpdb" suitable for processing requests.
-func (hpdb *HPDBV3) Clone() *HPDBV3 {
+func (hpdb *HpdbV3) Clone() *HpdbV3 {
 	if core.IsNil(hpdb) {
 		return nil
 	}
@@ -137,49 +136,49 @@ func ConstructServiceURL(providedUrlVariables map[string]string) (string, error)
 }
 
 // SetServiceURL sets the service URL
-func (hpdb *HPDBV3) SetServiceURL(url string) error {
+func (hpdb *HpdbV3) SetServiceURL(url string) error {
 	return hpdb.Service.SetServiceURL(url)
 }
 
 // GetServiceURL returns the service URL
-func (hpdb *HPDBV3) GetServiceURL() string {
+func (hpdb *HpdbV3) GetServiceURL() string {
 	return hpdb.Service.GetServiceURL()
 }
 
 // SetDefaultHeaders sets HTTP headers to be sent in every request
-func (hpdb *HPDBV3) SetDefaultHeaders(headers http.Header) {
+func (hpdb *HpdbV3) SetDefaultHeaders(headers http.Header) {
 	hpdb.Service.SetDefaultHeaders(headers)
 }
 
 // SetEnableGzipCompression sets the service's EnableGzipCompression field
-func (hpdb *HPDBV3) SetEnableGzipCompression(enableGzip bool) {
+func (hpdb *HpdbV3) SetEnableGzipCompression(enableGzip bool) {
 	hpdb.Service.SetEnableGzipCompression(enableGzip)
 }
 
 // GetEnableGzipCompression returns the service's EnableGzipCompression field
-func (hpdb *HPDBV3) GetEnableGzipCompression() bool {
+func (hpdb *HpdbV3) GetEnableGzipCompression() bool {
 	return hpdb.Service.GetEnableGzipCompression()
 }
 
 // EnableRetries enables automatic retries for requests invoked for this service instance.
 // If either parameter is specified as 0, then a default value is used instead.
-func (hpdb *HPDBV3) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+func (hpdb *HpdbV3) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
 	hpdb.Service.EnableRetries(maxRetries, maxRetryInterval)
 }
 
 // DisableRetries disables automatic retries for requests invoked for this service instance.
-func (hpdb *HPDBV3) DisableRetries() {
+func (hpdb *HpdbV3) DisableRetries() {
 	hpdb.Service.DisableRetries()
 }
 
 // GetCluster : Get database cluster details
 // Get the detailed information of the specific database cluster that is  indicated by its ID.
-func (hpdb *HPDBV3) GetCluster(getClusterOptions *GetClusterOptions) (result *Cluster, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetCluster(getClusterOptions *GetClusterOptions) (result *Cluster, response *core.DetailedResponse, err error) {
 	return hpdb.GetClusterWithContext(context.Background(), getClusterOptions)
 }
 
 // GetClusterWithContext is an alternate form of the GetCluster method which supports a Context parameter
-func (hpdb *HPDBV3) GetClusterWithContext(ctx context.Context, getClusterOptions *GetClusterOptions) (result *Cluster, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetClusterWithContext(ctx context.Context, getClusterOptions *GetClusterOptions) (result *Cluster, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getClusterOptions, "getClusterOptions cannot be nil")
 	if err != nil {
 		return
@@ -234,12 +233,12 @@ func (hpdb *HPDBV3) GetClusterWithContext(ctx context.Context, getClusterOptions
 
 // ListUsers : List database users
 // List the information about all the users in the specified database cluster that is  indicated by its ID.
-func (hpdb *HPDBV3) ListUsers(listUsersOptions *ListUsersOptions) (result *Users, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ListUsers(listUsersOptions *ListUsersOptions) (result *Users, response *core.DetailedResponse, err error) {
 	return hpdb.ListUsersWithContext(context.Background(), listUsersOptions)
 }
 
 // ListUsersWithContext is an alternate form of the ListUsers method which supports a Context parameter
-func (hpdb *HPDBV3) ListUsersWithContext(ctx context.Context, listUsersOptions *ListUsersOptions) (result *Users, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ListUsersWithContext(ctx context.Context, listUsersOptions *ListUsersOptions) (result *Users, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listUsersOptions, "listUsersOptions cannot be nil")
 	if err != nil {
 		return
@@ -294,12 +293,12 @@ func (hpdb *HPDBV3) ListUsersWithContext(ctx context.Context, listUsersOptions *
 
 // GetUser : Get database user details
 // Get the detailed information about the user of a specified database  cluster that is indicated by its ID.
-func (hpdb *HPDBV3) GetUser(getUserOptions *GetUserOptions) (result *UserDetails, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetUser(getUserOptions *GetUserOptions) (result *UserDetails, response *core.DetailedResponse, err error) {
 	return hpdb.GetUserWithContext(context.Background(), getUserOptions)
 }
 
 // GetUserWithContext is an alternate form of the GetUser method which supports a Context parameter
-func (hpdb *HPDBV3) GetUserWithContext(ctx context.Context, getUserOptions *GetUserOptions) (result *UserDetails, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetUserWithContext(ctx context.Context, getUserOptions *GetUserOptions) (result *UserDetails, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getUserOptions, "getUserOptions cannot be nil")
 	if err != nil {
 		return
@@ -355,12 +354,12 @@ func (hpdb *HPDBV3) GetUserWithContext(ctx context.Context, getUserOptions *GetU
 
 // ListDatabases : List databases
 // Get a list of all databases in a specified database  cluster that is indicated by its ID.
-func (hpdb *HPDBV3) ListDatabases(listDatabasesOptions *ListDatabasesOptions) (result *Databases, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ListDatabases(listDatabasesOptions *ListDatabasesOptions) (result *Databases, response *core.DetailedResponse, err error) {
 	return hpdb.ListDatabasesWithContext(context.Background(), listDatabasesOptions)
 }
 
 // ListDatabasesWithContext is an alternate form of the ListDatabases method which supports a Context parameter
-func (hpdb *HPDBV3) ListDatabasesWithContext(ctx context.Context, listDatabasesOptions *ListDatabasesOptions) (result *Databases, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ListDatabasesWithContext(ctx context.Context, listDatabasesOptions *ListDatabasesOptions) (result *Databases, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listDatabasesOptions, "listDatabasesOptions cannot be nil")
 	if err != nil {
 		return
@@ -415,12 +414,12 @@ func (hpdb *HPDBV3) ListDatabasesWithContext(ctx context.Context, listDatabasesO
 
 // ScaleResources : Scale resources
 // Scale resources in a specified cluster that is indicated by its ID.
-func (hpdb *HPDBV3) ScaleResources(scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ScaleResources(scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
 	return hpdb.ScaleResourcesWithContext(context.Background(), scaleResourcesOptions)
 }
 
 // ScaleResourcesWithContext is an alternate form of the ScaleResources method which supports a Context parameter
-func (hpdb *HPDBV3) ScaleResourcesWithContext(ctx context.Context, scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ScaleResourcesWithContext(ctx context.Context, scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(scaleResourcesOptions, "scaleResourcesOptions cannot be nil")
 	if err != nil {
 		return
@@ -485,12 +484,12 @@ func (hpdb *HPDBV3) ScaleResourcesWithContext(ctx context.Context, scaleResource
 
 // GetConfiguration : Get configuration
 // Get database configuration in a specified cluster that is indicated by its ID.
-func (hpdb *HPDBV3) GetConfiguration(getConfigurationOptions *GetConfigurationOptions) (result *Configuration, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetConfiguration(getConfigurationOptions *GetConfigurationOptions) (result *Configuration, response *core.DetailedResponse, err error) {
 	return hpdb.GetConfigurationWithContext(context.Background(), getConfigurationOptions)
 }
 
 // GetConfigurationWithContext is an alternate form of the GetConfiguration method which supports a Context parameter
-func (hpdb *HPDBV3) GetConfigurationWithContext(ctx context.Context, getConfigurationOptions *GetConfigurationOptions) (result *Configuration, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetConfigurationWithContext(ctx context.Context, getConfigurationOptions *GetConfigurationOptions) (result *Configuration, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getConfigurationOptions, "getConfigurationOptions cannot be nil")
 	if err != nil {
 		return
@@ -545,12 +544,12 @@ func (hpdb *HPDBV3) GetConfigurationWithContext(ctx context.Context, getConfigur
 
 // UpdateConfiguration : Update configuration
 // Update database configuration in a specified cluster that is indicated by its ID.
-func (hpdb *HPDBV3) UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
 	return hpdb.UpdateConfigurationWithContext(context.Background(), updateConfigurationOptions)
 }
 
 // UpdateConfigurationWithContext is an alternate form of the UpdateConfiguration method which supports a Context parameter
-func (hpdb *HPDBV3) UpdateConfigurationWithContext(ctx context.Context, updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) UpdateConfigurationWithContext(ctx context.Context, updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateConfigurationOptions, "updateConfigurationOptions cannot be nil")
 	if err != nil {
 		return
@@ -615,12 +614,12 @@ func (hpdb *HPDBV3) UpdateConfigurationWithContext(ctx context.Context, updateCo
 
 // ListTasks : List tasks
 // List tasks running or recently run on a specified cluster that is indicated by its ID.
-func (hpdb *HPDBV3) ListTasks(listTasksOptions *ListTasksOptions) (result *Tasks, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ListTasks(listTasksOptions *ListTasksOptions) (result *Tasks, response *core.DetailedResponse, err error) {
 	return hpdb.ListTasksWithContext(context.Background(), listTasksOptions)
 }
 
 // ListTasksWithContext is an alternate form of the ListTasks method which supports a Context parameter
-func (hpdb *HPDBV3) ListTasksWithContext(ctx context.Context, listTasksOptions *ListTasksOptions) (result *Tasks, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ListTasksWithContext(ctx context.Context, listTasksOptions *ListTasksOptions) (result *Tasks, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listTasksOptions, "listTasksOptions cannot be nil")
 	if err != nil {
 		return
@@ -675,12 +674,12 @@ func (hpdb *HPDBV3) ListTasksWithContext(ctx context.Context, listTasksOptions *
 
 // GetTask : Show task
 // Show task information of a specified task id in a cluster.
-func (hpdb *HPDBV3) GetTask(getTaskOptions *GetTaskOptions) (result *Task, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetTask(getTaskOptions *GetTaskOptions) (result *Task, response *core.DetailedResponse, err error) {
 	return hpdb.GetTaskWithContext(context.Background(), getTaskOptions)
 }
 
 // GetTaskWithContext is an alternate form of the GetTask method which supports a Context parameter
-func (hpdb *HPDBV3) GetTaskWithContext(ctx context.Context, getTaskOptions *GetTaskOptions) (result *Task, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetTaskWithContext(ctx context.Context, getTaskOptions *GetTaskOptions) (result *Task, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getTaskOptions, "getTaskOptions cannot be nil")
 	if err != nil {
 		return
@@ -692,7 +691,7 @@ func (hpdb *HPDBV3) GetTaskWithContext(ctx context.Context, getTaskOptions *GetT
 
 	pathParamsMap := map[string]string{
 		"cluster_id": *getTaskOptions.ClusterID,
-		"task_id":    *getTaskOptions.TaskID,
+		"task_id": *getTaskOptions.TaskID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -736,12 +735,12 @@ func (hpdb *HPDBV3) GetTaskWithContext(ctx context.Context, getTaskOptions *GetT
 
 // ListNodeLogs : List database log files of a node
 // List the latest log files of the node that is indicated by its ID.
-func (hpdb *HPDBV3) ListNodeLogs(listNodeLogsOptions *ListNodeLogsOptions) (result *LogList, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ListNodeLogs(listNodeLogsOptions *ListNodeLogsOptions) (result *LogList, response *core.DetailedResponse, err error) {
 	return hpdb.ListNodeLogsWithContext(context.Background(), listNodeLogsOptions)
 }
 
 // ListNodeLogsWithContext is an alternate form of the ListNodeLogs method which supports a Context parameter
-func (hpdb *HPDBV3) ListNodeLogsWithContext(ctx context.Context, listNodeLogsOptions *ListNodeLogsOptions) (result *LogList, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ListNodeLogsWithContext(ctx context.Context, listNodeLogsOptions *ListNodeLogsOptions) (result *LogList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listNodeLogsOptions, "listNodeLogsOptions cannot be nil")
 	if err != nil {
 		return
@@ -796,12 +795,12 @@ func (hpdb *HPDBV3) ListNodeLogsWithContext(ctx context.Context, listNodeLogsOpt
 
 // GetLog : Get log details
 // Get the content of the specified log file of the node that is indicated by its ID.
-func (hpdb *HPDBV3) GetLog(getLogOptions *GetLogOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetLog(getLogOptions *GetLogOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
 	return hpdb.GetLogWithContext(context.Background(), getLogOptions)
 }
 
 // GetLogWithContext is an alternate form of the GetLog method which supports a Context parameter
-func (hpdb *HPDBV3) GetLogWithContext(ctx context.Context, getLogOptions *GetLogOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetLogWithContext(ctx context.Context, getLogOptions *GetLogOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getLogOptions, "getLogOptions cannot be nil")
 	if err != nil {
 		return
@@ -812,7 +811,7 @@ func (hpdb *HPDBV3) GetLogWithContext(ctx context.Context, getLogOptions *GetLog
 	}
 
 	pathParamsMap := map[string]string{
-		"node_id":  *getLogOptions.NodeID,
+		"node_id": *getLogOptions.NodeID,
 		"log_name": *getLogOptions.LogName,
 	}
 
@@ -881,6 +880,12 @@ type Cluster struct {
 	// The ID of the cluster object.
 	ID *string `json:"id,omitempty"`
 
+	// The CRN of the database cluster (service instance).
+	Crn *string `json:"crn,omitempty"`
+
+	// The status of database cluster monitoring.
+	CustomerMonitoringStatus *string `json:"customer_monitoring_status,omitempty"`
+
 	// The region of the cluster.
 	Region *string `json:"region,omitempty"`
 
@@ -896,11 +901,23 @@ type Cluster struct {
 	// The type of the database cluster; currently "mongodb" and "postgresql" are supported.
 	DbType *string `json:"db_type,omitempty"`
 
+	// The version of the database cluster.
+	DbVersion *string `json:"db_version,omitempty"`
+
 	// The public endpoint of cluster.
 	PublicEndpoint *string `json:"public_endpoint,omitempty"`
 
 	// The private endpoint of cluster.
 	PrivateEndpoint *string `json:"private_endpoint,omitempty"`
+
+	// The type of private endpoint.
+	PrivateEndpointType *string `json:"private_endpoint_type,omitempty"`
+
+	// The plan ID of the database cluster.
+	PlanID *string `json:"plan_id,omitempty"`
+
+	// Time interval since last activation.
+	LastActive *int64 `json:"last_active,omitempty"`
 
 	// IBM Cloud Logging service url for DBA.
 	LogURL *string `json:"log_url,omitempty"`
@@ -910,6 +927,9 @@ type Cluster struct {
 
 	// The number of replicas of the cluster to be created; currently only 3 is supported.
 	ReplicaCount *int64 `json:"replica_count,omitempty"`
+
+	// The IBM Cloud account ID.
+	UserID *string `json:"user_id,omitempty"`
 
 	// The resources required by the cluster to be created.
 	Resource *ClusterResource `json:"resource,omitempty"`
@@ -934,6 +954,14 @@ func UnmarshalCluster(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "customer_monitoring_status", &obj.CustomerMonitoringStatus)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
@@ -954,11 +982,27 @@ func UnmarshalCluster(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "db_version", &obj.DbVersion)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "public_endpoint", &obj.PublicEndpoint)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "private_endpoint", &obj.PrivateEndpoint)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_endpoint_type", &obj.PrivateEndpointType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_id", &obj.PlanID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_active", &obj.LastActive)
 	if err != nil {
 		return
 	}
@@ -971,6 +1015,10 @@ func UnmarshalCluster(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "replica_count", &obj.ReplicaCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "user_id", &obj.UserID)
 	if err != nil {
 		return
 	}
@@ -1032,6 +1080,9 @@ type ClusterResource struct {
 
 	// The storage size in units MB, MiB, GB, GiB, TB or TiB.
 	Storage *string `json:"storage" validate:"required"`
+
+	// The used storate size in units MB, MiB, GB, GiB, TB or TiB.
+	StorageUsed *string `json:"storage_used,omitempty"`
 }
 
 // UnmarshalClusterResource unmarshals an instance of ClusterResource from the specified map of raw messages.
@@ -1046,6 +1097,10 @@ func UnmarshalClusterResource(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "storage", &obj.Storage)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "storage_used", &obj.StorageUsed)
 	if err != nil {
 		return
 	}
@@ -1159,14 +1214,14 @@ func UnmarshalDatabases(m map[string]json.RawMessage, result interface{}) (err e
 // GetClusterOptions : The GetCluster options.
 type GetClusterOptions struct {
 	// The ID of a cluster object.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetClusterOptions : Instantiate GetClusterOptions
-func (*HPDBV3) NewGetClusterOptions(clusterID string) *GetClusterOptions {
+func (*HpdbV3) NewGetClusterOptions(clusterID string) *GetClusterOptions {
 	return &GetClusterOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1187,14 +1242,14 @@ func (options *GetClusterOptions) SetHeaders(param map[string]string) *GetCluste
 // GetConfigurationOptions : The GetConfiguration options.
 type GetConfigurationOptions struct {
 	// The ID of a cluster object.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetConfigurationOptions : Instantiate GetConfigurationOptions
-func (*HPDBV3) NewGetConfigurationOptions(clusterID string) *GetConfigurationOptions {
+func (*HpdbV3) NewGetConfigurationOptions(clusterID string) *GetConfigurationOptions {
 	return &GetConfigurationOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1215,22 +1270,22 @@ func (options *GetConfigurationOptions) SetHeaders(param map[string]string) *Get
 // GetLogOptions : The GetLog options.
 type GetLogOptions struct {
 	// The ID of an node object.
-	NodeID *string `validate:"required,ne="`
+	NodeID *string `json:"node_id" validate:"required,ne="`
 
 	// The name of the log file.
-	LogName *string `validate:"required,ne="`
+	LogName *string `json:"log_name" validate:"required,ne="`
 
 	// The type of the response: application/json or application/x-download.
-	Accept *string
+	Accept *string `json:"Accept,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetLogOptions : Instantiate GetLogOptions
-func (*HPDBV3) NewGetLogOptions(nodeID string, logName string) *GetLogOptions {
+func (*HpdbV3) NewGetLogOptions(nodeID string, logName string) *GetLogOptions {
 	return &GetLogOptions{
-		NodeID:  core.StringPtr(nodeID),
+		NodeID: core.StringPtr(nodeID),
 		LogName: core.StringPtr(logName),
 	}
 }
@@ -1262,20 +1317,20 @@ func (options *GetLogOptions) SetHeaders(param map[string]string) *GetLogOptions
 // GetTaskOptions : The GetTask options.
 type GetTaskOptions struct {
 	// The ID of a cluster object.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// The ID of a task object.
-	TaskID *string `validate:"required,ne="`
+	TaskID *string `json:"task_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetTaskOptions : Instantiate GetTaskOptions
-func (*HPDBV3) NewGetTaskOptions(clusterID string, taskID string) *GetTaskOptions {
+func (*HpdbV3) NewGetTaskOptions(clusterID string, taskID string) *GetTaskOptions {
 	return &GetTaskOptions{
 		ClusterID: core.StringPtr(clusterID),
-		TaskID:    core.StringPtr(taskID),
+		TaskID: core.StringPtr(taskID),
 	}
 }
 
@@ -1300,22 +1355,22 @@ func (options *GetTaskOptions) SetHeaders(param map[string]string) *GetTaskOptio
 // GetUserOptions : The GetUser options.
 type GetUserOptions struct {
 	// The ID of a cluster object.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// The ID of the user about which you want to get information. For MongoDB, it should be
 	// "authentication_database.username"; for example: "mydb.syrena". For PostgreSQL, it should be only "username"; for
 	// example: "syrena".
-	DbUserID *string `validate:"required,ne="`
+	DbUserID *string `json:"db_user_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetUserOptions : Instantiate GetUserOptions
-func (*HPDBV3) NewGetUserOptions(clusterID string, dbUserID string) *GetUserOptions {
+func (*HpdbV3) NewGetUserOptions(clusterID string, dbUserID string) *GetUserOptions {
 	return &GetUserOptions{
 		ClusterID: core.StringPtr(clusterID),
-		DbUserID:  core.StringPtr(dbUserID),
+		DbUserID: core.StringPtr(dbUserID),
 	}
 }
 
@@ -1399,14 +1454,14 @@ func UnmarshalIntegerType(m map[string]json.RawMessage, result interface{}) (err
 // ListDatabasesOptions : The ListDatabases options.
 type ListDatabasesOptions struct {
 	// The ID of a cluster object.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewListDatabasesOptions : Instantiate ListDatabasesOptions
-func (*HPDBV3) NewListDatabasesOptions(clusterID string) *ListDatabasesOptions {
+func (*HpdbV3) NewListDatabasesOptions(clusterID string) *ListDatabasesOptions {
 	return &ListDatabasesOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1427,14 +1482,14 @@ func (options *ListDatabasesOptions) SetHeaders(param map[string]string) *ListDa
 // ListNodeLogsOptions : The ListNodeLogs options.
 type ListNodeLogsOptions struct {
 	// The ID of an node object.
-	NodeID *string `validate:"required,ne="`
+	NodeID *string `json:"node_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewListNodeLogsOptions : Instantiate ListNodeLogsOptions
-func (*HPDBV3) NewListNodeLogsOptions(nodeID string) *ListNodeLogsOptions {
+func (*HpdbV3) NewListNodeLogsOptions(nodeID string) *ListNodeLogsOptions {
 	return &ListNodeLogsOptions{
 		NodeID: core.StringPtr(nodeID),
 	}
@@ -1455,14 +1510,14 @@ func (options *ListNodeLogsOptions) SetHeaders(param map[string]string) *ListNod
 // ListTasksOptions : The ListTasks options.
 type ListTasksOptions struct {
 	// The ID of a cluster object.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewListTasksOptions : Instantiate ListTasksOptions
-func (*HPDBV3) NewListTasksOptions(clusterID string) *ListTasksOptions {
+func (*HpdbV3) NewListTasksOptions(clusterID string) *ListTasksOptions {
 	return &ListTasksOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1483,14 +1538,14 @@ func (options *ListTasksOptions) SetHeaders(param map[string]string) *ListTasksO
 // ListUsersOptions : The ListUsers options.
 type ListUsersOptions struct {
 	// The ID of a cluster object.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewListUsersOptions : Instantiate ListUsersOptions
-func (*HPDBV3) NewListUsersOptions(clusterID string) *ListUsersOptions {
+func (*HpdbV3) NewListUsersOptions(clusterID string) *ListUsersOptions {
 	return &ListUsersOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1593,6 +1648,9 @@ type Node struct {
 
 	// True if the logging service is enabled on this node.
 	IsLoggingEnabled *bool `json:"is_logging_enabled,omitempty"`
+
+	// The IBM Cloud account ID.
+	UserID *string `json:"user_id,omitempty"`
 }
 
 // UnmarshalNode unmarshals an instance of Node from the specified map of raw messages.
@@ -1642,6 +1700,10 @@ func UnmarshalNode(m map[string]json.RawMessage, result interface{}) (err error)
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "user_id", &obj.UserID)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1649,17 +1711,17 @@ func UnmarshalNode(m map[string]json.RawMessage, result interface{}) (err error)
 // ScaleResourcesOptions : The ScaleResources options.
 type ScaleResourcesOptions struct {
 	// The ID of a cluster object.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Object of information about resources.
-	Resource *ScaleResourcesResource
+	Resource *ScaleResourcesResource `json:"resource,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewScaleResourcesOptions : Instantiate ScaleResourcesOptions
-func (*HPDBV3) NewScaleResourcesOptions(clusterID string) *ScaleResourcesOptions {
+func (*HpdbV3) NewScaleResourcesOptions(clusterID string) *ScaleResourcesOptions {
 	return &ScaleResourcesOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}
@@ -1685,15 +1747,15 @@ func (options *ScaleResourcesOptions) SetHeaders(param map[string]string) *Scale
 
 // ScaleResourcesResource : Object of information about resources.
 type ScaleResourcesResource struct {
-	// Number of CPUs. Allowed values are 1, 2, 3, 4, 5, 6, 9, 12, and 16.
+	// Number of CPUs. Allowed values are 1, 2, 3, 4, 5, 6, 8, 9, 12, and 16.
 	Cpu *int64 `json:"cpu,omitempty"`
 
 	// Size of memory. Allowed values are "2GiB", "3GiB", "4GiB", "5GiB", "8GiB", "12GiB", "16GiB", "24GiB", "32GiB",
 	// "64GiB", "96GiB", and "128GiB".
 	Memory *string `json:"memory,omitempty"`
 
-	// Size of storage. Allowed values are "5GiB", "10GiB", "16GiB", "24GiB", "32GiB", "64GiB", "128GiB", "256GiB",
-	// "512GiB", "640GiB", and "1280GiB".
+	// Size of storage. Allowed values are "5GiB", "10GiB", "16GiB", "24GiB", "32GiB", "64GiB", "128GiB", "160GiB",
+	// "256GiB", "512GiB", "640GiB", and "1280GiB".
 	Storage *string `json:"storage,omitempty"`
 }
 
@@ -1947,17 +2009,17 @@ func UnmarshalUpdateConfigurationDataConfiguration(m map[string]json.RawMessage,
 // UpdateConfigurationOptions : The UpdateConfiguration options.
 type UpdateConfigurationOptions struct {
 	// The ID of a cluster object.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Object of information about configuration.
-	Configuration *UpdateConfigurationDataConfiguration
+	Configuration *UpdateConfigurationDataConfiguration `json:"configuration,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewUpdateConfigurationOptions : Instantiate UpdateConfigurationOptions
-func (*HPDBV3) NewUpdateConfigurationOptions(clusterID string, xAuthToken string) *UpdateConfigurationOptions {
+func (*HpdbV3) NewUpdateConfigurationOptions(clusterID string) *UpdateConfigurationOptions {
 	return &UpdateConfigurationOptions{
 		ClusterID: core.StringPtr(clusterID),
 	}

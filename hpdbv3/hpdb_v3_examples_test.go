@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/hpdb-go-sdk/hpdbv3"
@@ -56,6 +57,9 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 		Skip("External configuration is not available, skipping examples...")
 	}
 
+	var clusterId string;
+	var dbType string;
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
@@ -71,6 +75,10 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			} else if len(config) == 0 {
 				Skip("Unable to load service properties, skipping examples")
 			}
+
+			crnSegments := strings.Split(config["CLUSTER_CRN"], ":")
+			clusterId = crnSegments[7]
+			dbType = crnSegments[4]
 
 			shouldSkipTest = func() {}
 		})
@@ -93,6 +101,8 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 				panic(err)
 			}
 
+			hpdbService.Service.DisableSSLVerification()
+
 			// end-common
 
 			Expect(hpdbService).ToNot(BeNil())
@@ -108,7 +118,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-get_cluster
 
 			getClusterOptions := hpdbService.NewGetClusterOptions(
-				"a958e854-ab46-42d0-9b49-5aef714a36b3",
+				clusterId,
 			)
 
 			cluster, response, err := hpdbService.GetCluster(getClusterOptions)
@@ -130,7 +140,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-list_users
 
 			listUsersOptions := hpdbService.NewListUsersOptions(
-				"a958e854-ab46-42d0-9b49-5aef714a36b3",
+				clusterId,
 			)
 
 			users, response, err := hpdbService.ListUsers(listUsersOptions)
@@ -150,10 +160,14 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 		It(`GetUser request example`, func() {
 			fmt.Println("\nGetUser() result:")
 			// begin-get_user
+			userName := "admin"
+			if dbType == "hyperp-dbaas-mongodb" {
+				userName = "admin.admin"
+			}
 
 			getUserOptions := hpdbService.NewGetUserOptions(
-				"a958e854-ab46-42d0-9b49-5aef714a36b3",
-				"admin",
+				clusterId,
+				userName,
 			)
 
 			userDetails, response, err := hpdbService.GetUser(getUserOptions)
@@ -175,7 +189,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-list_databases
 
 			listDatabasesOptions := hpdbService.NewListDatabasesOptions(
-				"a958e854-ab46-42d0-9b49-5aef714a36b3",
+				clusterId,
 			)
 
 			databases, response, err := hpdbService.ListDatabases(listDatabasesOptions)
@@ -192,43 +206,15 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			Expect(databases).ToNot(BeNil())
 
 		})
-		/*
-		It(`ScaleResources request example`, func() {
-			fmt.Println("\nScaleResources() result:")
-			// begin-scale_resources
-
-			scaleResourcesResourceModel := &hpdbv3.ScaleResourcesResource{
-				Cpu:     core.Int64Ptr(int64(1)),
-				Memory:  core.StringPtr("2GiB"),
-				Storage: core.StringPtr("5GiB"),
-			}
-
-			scaleResourcesOptions := &hpdbv3.ScaleResourcesOptions{
-				ClusterID: core.StringPtr("a958e854-ab46-42d0-9b49-5aef714a36b3"),
-				Resource:  scaleResourcesResourceModel,
-			}
-
-			scaleResourcesResponse, response, err := hpdbService.ScaleResources(scaleResourcesOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(scaleResourcesResponse, "", "  ")
-			fmt.Println(string(b))
-
-			// end-scale_resources
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-			Expect(scaleResourcesResponse).ToNot(BeNil())
-
-		})
-		*/
 		It(`GetConfiguration request example`, func() {
+			if dbType == "hyperp-dbaas-mongodb" {
+				Skip("Skip GetConfiguration test for mongodb clusters")
+			}
 			fmt.Println("\nGetConfiguration() result:")
 			// begin-get_configuration
 
 			getConfigurationOptions := hpdbService.NewGetConfigurationOptions(
-				"a958e854-ab46-42d0-9b49-5aef714a36b3",
+				clusterId,
 			)
 
 			configuration, response, err := hpdbService.GetConfiguration(getConfigurationOptions)
@@ -245,36 +231,12 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			Expect(configuration).ToNot(BeNil())
 
 		})
-		/*
-		It(`UpdateConfiguration request example`, func() {
-			fmt.Println("\nUpdateConfiguration() result:")
-			// begin-update_configuration
-
-			updateConfigurationOptions := hpdbService.NewUpdateConfigurationOptions(
-				"testString",
-			)
-
-			updateConfigurationResponse, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(updateConfigurationResponse, "", "  ")
-			fmt.Println(string(b))
-
-			// end-update_configuration
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-			Expect(updateConfigurationResponse).ToNot(BeNil())
-
-		})
-		*/
 		It(`ListTasks request example`, func() {
 			fmt.Println("\nListTasks() result:")
 			// begin-list_tasks
 
 			listTasksOptions := hpdbService.NewListTasksOptions(
-				"a958e854-ab46-42d0-9b49-5aef714a36b3",
+				clusterId,
 			)
 
 			tasks, response, err := hpdbService.ListTasks(listTasksOptions)
@@ -288,30 +250,6 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(tasks).ToNot(BeNil())
-
-		})
-		It(`GetTask request example`, func() {
-			fmt.Println("\nGetTask() result:")
-			// begin-get_task
-
-			getTaskOptions := hpdbService.NewGetTaskOptions(
-				"a958e854-ab46-42d0-9b49-5aef714a36b3",
-				"43dc3c10-985d-11ec-8f51-996cc0df9e1b",
-			)
-
-			task, response, err := hpdbService.GetTask(getTaskOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(task, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_task
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(task).ToNot(BeNil())
 
 		})
 		It(`ListNodeLogs request example`, func() {
@@ -319,7 +257,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-list_node_logs
 
 			listNodeLogsOptions := hpdbService.NewListNodeLogsOptions(
-				"c5ff2d841c7e6a11de3cbaa2b992d712",
+				config["NODE_ID"],
 			)
 
 			logList, response, err := hpdbService.ListNodeLogs(listNodeLogsOptions)
@@ -341,7 +279,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-get_log
 
 			getLogOptions := hpdbService.NewGetLogOptions(
-				"c5ff2d841c7e6a11de3cbaa2b992d712",
+				config["NODE_ID"],
 				"audit.log",
 			)
 

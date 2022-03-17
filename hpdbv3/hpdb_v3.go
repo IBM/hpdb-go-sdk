@@ -172,7 +172,7 @@ func (hpdb *HpdbV3) DisableRetries() {
 }
 
 // GetCluster : Get database cluster details
-// Get the detailed information of the specific database cluster that is  indicated by its ID.
+// Get the detailed information of the specific database cluster that is indicated by its ID.
 func (hpdb *HpdbV3) GetCluster(getClusterOptions *GetClusterOptions) (result *Cluster, response *core.DetailedResponse, err error) {
 	return hpdb.GetClusterWithContext(context.Background(), getClusterOptions)
 }
@@ -232,7 +232,7 @@ func (hpdb *HpdbV3) GetClusterWithContext(ctx context.Context, getClusterOptions
 }
 
 // ListUsers : List database users
-// List the information about all the users in the specified database cluster that is  indicated by its ID.
+// List the information about all the users in the specified database cluster that is indicated by its ID.
 func (hpdb *HpdbV3) ListUsers(listUsersOptions *ListUsersOptions) (result *Users, response *core.DetailedResponse, err error) {
 	return hpdb.ListUsersWithContext(context.Background(), listUsersOptions)
 }
@@ -292,7 +292,7 @@ func (hpdb *HpdbV3) ListUsersWithContext(ctx context.Context, listUsersOptions *
 }
 
 // GetUser : Get database user details
-// Get the detailed information about the user of a specified database  cluster that is indicated by its ID.
+// Get the detailed information about the user of a specified database cluster that is indicated by its ID.
 func (hpdb *HpdbV3) GetUser(getUserOptions *GetUserOptions) (result *UserDetails, response *core.DetailedResponse, err error) {
 	return hpdb.GetUserWithContext(context.Background(), getUserOptions)
 }
@@ -353,7 +353,7 @@ func (hpdb *HpdbV3) GetUserWithContext(ctx context.Context, getUserOptions *GetU
 }
 
 // ListDatabases : List databases
-// Get a list of all databases in a specified database  cluster that is indicated by its ID.
+// Get a list of all databases in a specified database cluster that is indicated by its ID.
 func (hpdb *HpdbV3) ListDatabases(listDatabasesOptions *ListDatabasesOptions) (result *Databases, response *core.DetailedResponse, err error) {
 	return hpdb.ListDatabasesWithContext(context.Background(), listDatabasesOptions)
 }
@@ -414,12 +414,12 @@ func (hpdb *HpdbV3) ListDatabasesWithContext(ctx context.Context, listDatabasesO
 
 // ScaleResources : Scale resources
 // Scale resources in a specified cluster that is indicated by its ID.
-func (hpdb *HpdbV3) ScaleResources(scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ScaleResources(scaleResourcesOptions *ScaleResourcesOptions) (result *TaskID, response *core.DetailedResponse, err error) {
 	return hpdb.ScaleResourcesWithContext(context.Background(), scaleResourcesOptions)
 }
 
 // ScaleResourcesWithContext is an alternate form of the ScaleResources method which supports a Context parameter
-func (hpdb *HpdbV3) ScaleResourcesWithContext(ctx context.Context, scaleResourcesOptions *ScaleResourcesOptions) (result *ScaleResourcesResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) ScaleResourcesWithContext(ctx context.Context, scaleResourcesOptions *ScaleResourcesOptions) (result *TaskID, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(scaleResourcesOptions, "scaleResourcesOptions cannot be nil")
 	if err != nil {
 		return
@@ -472,7 +472,7 @@ func (hpdb *HpdbV3) ScaleResourcesWithContext(ctx context.Context, scaleResource
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalScaleResourcesResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTaskID)
 		if err != nil {
 			return
 		}
@@ -544,12 +544,12 @@ func (hpdb *HpdbV3) GetConfigurationWithContext(ctx context.Context, getConfigur
 
 // UpdateConfiguration : Update configuration
 // Update database configuration in a specified cluster that is indicated by its ID.
-func (hpdb *HpdbV3) UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) UpdateConfiguration(updateConfigurationOptions *UpdateConfigurationOptions) (result *TaskID, response *core.DetailedResponse, err error) {
 	return hpdb.UpdateConfigurationWithContext(context.Background(), updateConfigurationOptions)
 }
 
 // UpdateConfigurationWithContext is an alternate form of the UpdateConfiguration method which supports a Context parameter
-func (hpdb *HpdbV3) UpdateConfigurationWithContext(ctx context.Context, updateConfigurationOptions *UpdateConfigurationOptions) (result *UpdateConfigurationResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) UpdateConfigurationWithContext(ctx context.Context, updateConfigurationOptions *UpdateConfigurationOptions) (result *TaskID, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateConfigurationOptions, "updateConfigurationOptions cannot be nil")
 	if err != nil {
 		return
@@ -602,7 +602,7 @@ func (hpdb *HpdbV3) UpdateConfigurationWithContext(ctx context.Context, updateCo
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUpdateConfigurationResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTaskID)
 		if err != nil {
 			return
 		}
@@ -733,6 +733,284 @@ func (hpdb *HpdbV3) GetTaskWithContext(ctx context.Context, getTaskOptions *GetT
 	return
 }
 
+// EnableCosBackup : Enable backup to COS
+// Enable cross region backup to COS.
+func (hpdb *HpdbV3) EnableCosBackup(enableCosBackupOptions *EnableCosBackupOptions) (result *TaskID, response *core.DetailedResponse, err error) {
+	return hpdb.EnableCosBackupWithContext(context.Background(), enableCosBackupOptions)
+}
+
+// EnableCosBackupWithContext is an alternate form of the EnableCosBackup method which supports a Context parameter
+func (hpdb *HpdbV3) EnableCosBackupWithContext(ctx context.Context, enableCosBackupOptions *EnableCosBackupOptions) (result *TaskID, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(enableCosBackupOptions, "enableCosBackupOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(enableCosBackupOptions, "enableCosBackupOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"cluster_id": *enableCosBackupOptions.ClusterID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/backups/cos/enable`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range enableCosBackupOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "EnableCosBackup")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if enableCosBackupOptions.CosHmacKeys != nil {
+		body["cos_hmac_keys"] = enableCosBackupOptions.CosHmacKeys
+	}
+	if enableCosBackupOptions.CosEndpoint != nil {
+		body["cos_endpoint"] = enableCosBackupOptions.CosEndpoint
+	}
+	if enableCosBackupOptions.BucketInstanceCrn != nil {
+		body["bucket_instance_crn"] = enableCosBackupOptions.BucketInstanceCrn
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = hpdb.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTaskID)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DisableCosBackup : Disable backup to COS
+// Disable cross region backup to COS.
+func (hpdb *HpdbV3) DisableCosBackup(disableCosBackupOptions *DisableCosBackupOptions) (result *TaskID, response *core.DetailedResponse, err error) {
+	return hpdb.DisableCosBackupWithContext(context.Background(), disableCosBackupOptions)
+}
+
+// DisableCosBackupWithContext is an alternate form of the DisableCosBackup method which supports a Context parameter
+func (hpdb *HpdbV3) DisableCosBackupWithContext(ctx context.Context, disableCosBackupOptions *DisableCosBackupOptions) (result *TaskID, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(disableCosBackupOptions, "disableCosBackupOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(disableCosBackupOptions, "disableCosBackupOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"cluster_id": *disableCosBackupOptions.ClusterID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/backups/cos/disable`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range disableCosBackupOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "DisableCosBackup")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = hpdb.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTaskID)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetCosBackupConfig : Get cross region backup configuration
+// Get cross region backup configuration.
+func (hpdb *HpdbV3) GetCosBackupConfig(getCosBackupConfigOptions *GetCosBackupConfigOptions) (result *GetBackupConfigResponse, response *core.DetailedResponse, err error) {
+	return hpdb.GetCosBackupConfigWithContext(context.Background(), getCosBackupConfigOptions)
+}
+
+// GetCosBackupConfigWithContext is an alternate form of the GetCosBackupConfig method which supports a Context parameter
+func (hpdb *HpdbV3) GetCosBackupConfigWithContext(ctx context.Context, getCosBackupConfigOptions *GetCosBackupConfigOptions) (result *GetBackupConfigResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getCosBackupConfigOptions, "getCosBackupConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getCosBackupConfigOptions, "getCosBackupConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"cluster_id": *getCosBackupConfigOptions.ClusterID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/backups/cos/configuration`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getCosBackupConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "GetCosBackupConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = hpdb.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetBackupConfigResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// Restore : Restore from backup
+// Restore from backup.
+func (hpdb *HpdbV3) Restore(restoreOptions *RestoreOptions) (result *TaskID, response *core.DetailedResponse, err error) {
+	return hpdb.RestoreWithContext(context.Background(), restoreOptions)
+}
+
+// RestoreWithContext is an alternate form of the Restore method which supports a Context parameter
+func (hpdb *HpdbV3) RestoreWithContext(ctx context.Context, restoreOptions *RestoreOptions) (result *TaskID, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(restoreOptions, "restoreOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(restoreOptions, "restoreOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"cluster_id": *restoreOptions.ClusterID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/restore`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range restoreOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "Restore")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if restoreOptions.SourceType != nil {
+		body["source_type"] = restoreOptions.SourceType
+	}
+	if restoreOptions.CosHmacKeys != nil {
+		body["cos_hmac_keys"] = restoreOptions.CosHmacKeys
+	}
+	if restoreOptions.CosEndpoint != nil {
+		body["cos_endpoint"] = restoreOptions.CosEndpoint
+	}
+	if restoreOptions.BucketInstanceCrn != nil {
+		body["bucket_instance_crn"] = restoreOptions.BucketInstanceCrn
+	}
+	if restoreOptions.BackupFile != nil {
+		body["backup_file"] = restoreOptions.BackupFile
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = hpdb.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTaskID)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // ListNodeLogs : List database log files of a node
 // List the latest log files of the node that is indicated by its ID.
 func (hpdb *HpdbV3) ListNodeLogs(listNodeLogsOptions *ListNodeLogsOptions) (result *LogList, response *core.DetailedResponse, err error) {
@@ -854,7 +1132,7 @@ type Access struct {
 	// Privileges that are applied to the specified database. If called API is listing all users, this will be returned
 	// only for MongoDB. For MongoDB, privileges are associated with MongoDB built-in roles. Common ones are read,
 	// readWrite, dbAdmin, userAdmin, and clusterAdmin. For more information, see MongoDB documentation
-	// (https://docs.mongodb.com/manual/reference/built-in-roles/) . For PostgreSQL, privileges are assigned by the GRANT
+	// (https://docs.mongodb.com/manual/reference/built-in-roles/). For PostgreSQL, privileges are assigned by the GRANT
 	// command. For example, on databases, privileges can be CARETE, CONNECT, TEMP, TEMPORARY. For more information, see
 	// PostgreSQL documentaton (https://www.postgresql.org/docs/current/static/sql-grant.html).
 	Privileges []string `json:"privileges,omitempty"`
@@ -886,6 +1164,9 @@ type Cluster struct {
 	// The status of database cluster monitoring.
 	CustomerMonitoringStatus *string `json:"customer_monitoring_status,omitempty"`
 
+	// The status of backup to COS.
+	IsCosBackupEnabled *bool `json:"is_cos_backup_enabled,omitempty"`
+
 	// The region of the cluster.
 	Region *string `json:"region,omitempty"`
 
@@ -898,7 +1179,7 @@ type Cluster struct {
 	// The reason why the cluster entered the failed state.
 	Reason *string `json:"reason,omitempty"`
 
-	// The type of the database cluster; currently "mongodb" and "postgresql" are supported.
+	// The type of the database cluster; currently 'mongodb' and 'postgresql' are supported.
 	DbType *string `json:"db_type,omitempty"`
 
 	// The version of the database cluster.
@@ -959,6 +1240,10 @@ func UnmarshalCluster(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "customer_monitoring_status", &obj.CustomerMonitoringStatus)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "is_cos_backup_enabled", &obj.IsCosBackupEnabled)
 	if err != nil {
 		return
 	}
@@ -1111,13 +1396,13 @@ func UnmarshalClusterResource(m map[string]json.RawMessage, result interface{}) 
 // Configuration : Database configuration.
 type Configuration struct {
 	// Parameter infomation.
-	Configuration *ConfigurationConfiguration `json:"configuration,omitempty"`
+	Configuration *ConfigurationItem `json:"configuration,omitempty"`
 }
 
 // UnmarshalConfiguration unmarshals an instance of Configuration from the specified map of raw messages.
 func UnmarshalConfiguration(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Configuration)
-	err = core.UnmarshalModel(m, "configuration", &obj.Configuration, UnmarshalConfigurationConfiguration)
+	err = core.UnmarshalModel(m, "configuration", &obj.Configuration, UnmarshalConfigurationItem)
 	if err != nil {
 		return
 	}
@@ -1125,8 +1410,8 @@ func UnmarshalConfiguration(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// ConfigurationConfiguration : Parameter infomation.
-type ConfigurationConfiguration struct {
+// ConfigurationItem : Parameter infomation.
+type ConfigurationItem struct {
 	// Integer type parameter.
 	DeadlockTimeout *IntegerType `json:"deadlock_timeout" validate:"required"`
 
@@ -1140,9 +1425,9 @@ type ConfigurationConfiguration struct {
 	MaxConnections *IntegerType `json:"max_connections" validate:"required"`
 }
 
-// UnmarshalConfigurationConfiguration unmarshals an instance of ConfigurationConfiguration from the specified map of raw messages.
-func UnmarshalConfigurationConfiguration(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ConfigurationConfiguration)
+// UnmarshalConfigurationItem unmarshals an instance of ConfigurationItem from the specified map of raw messages.
+func UnmarshalConfigurationItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConfigurationItem)
 	err = core.UnmarshalModel(m, "deadlock_timeout", &obj.DeadlockTimeout, UnmarshalIntegerType)
 	if err != nil {
 		return
@@ -1156,6 +1441,68 @@ func UnmarshalConfigurationConfiguration(m map[string]json.RawMessage, result in
 		return
 	}
 	err = core.UnmarshalModel(m, "max_connections", &obj.MaxConnections, UnmarshalIntegerType)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Configurations : Object of information about configuration.
+type Configurations struct {
+	// Value of deadlock_timeout to be updated.
+	DeadlockTimeout *int64 `json:"deadlock_timeout,omitempty"`
+
+	// Value of max_locks_per_transaction to be updated.
+	MaxLocksPerTransaction *int64 `json:"max_locks_per_transaction,omitempty"`
+
+	// Value of shared_buffers to be updated.
+	SharedBuffers *int64 `json:"shared_buffers,omitempty"`
+
+	// Value of max_connections to be updated.
+	MaxConnections *int64 `json:"max_connections,omitempty"`
+}
+
+// UnmarshalConfigurations unmarshals an instance of Configurations from the specified map of raw messages.
+func UnmarshalConfigurations(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Configurations)
+	err = core.UnmarshalPrimitive(m, "deadlock_timeout", &obj.DeadlockTimeout)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "max_locks_per_transaction", &obj.MaxLocksPerTransaction)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "shared_buffers", &obj.SharedBuffers)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "max_connections", &obj.MaxConnections)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CosHmacKeys : CosHmacKeys struct
+type CosHmacKeys struct {
+	// COS HMAC access key.
+	AccessKeyID *string `json:"access_key_id,omitempty"`
+
+	// COS HMAC secret key.
+	SecretAccessKey *string `json:"secret_access_key,omitempty"`
+}
+
+// UnmarshalCosHmacKeys unmarshals an instance of CosHmacKeys from the specified map of raw messages.
+func UnmarshalCosHmacKeys(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CosHmacKeys)
+	err = core.UnmarshalPrimitive(m, "access_key_id", &obj.AccessKeyID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "secret_access_key", &obj.SecretAccessKey)
 	if err != nil {
 		return
 	}
@@ -1204,6 +1551,112 @@ func UnmarshalDatabases(m map[string]json.RawMessage, result interface{}) (err e
 		return
 	}
 	err = core.UnmarshalModel(m, "databases", &obj.Databases, UnmarshalDatabase)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// DisableCosBackupOptions : The DisableCosBackup options.
+type DisableCosBackupOptions struct {
+	// The ID of a cluster object.
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDisableCosBackupOptions : Instantiate DisableCosBackupOptions
+func (*HpdbV3) NewDisableCosBackupOptions(clusterID string) *DisableCosBackupOptions {
+	return &DisableCosBackupOptions{
+		ClusterID: core.StringPtr(clusterID),
+	}
+}
+
+// SetClusterID : Allow user to set ClusterID
+func (_options *DisableCosBackupOptions) SetClusterID(clusterID string) *DisableCosBackupOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DisableCosBackupOptions) SetHeaders(param map[string]string) *DisableCosBackupOptions {
+	options.Headers = param
+	return options
+}
+
+// EnableCosBackupOptions : The EnableCosBackup options.
+type EnableCosBackupOptions struct {
+	// The ID of a cluster object.
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
+
+	CosHmacKeys *CosHmacKeys `json:"cos_hmac_keys,omitempty"`
+
+	// COS endpoint.
+	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+
+	// The CRN of the COS service instance.
+	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewEnableCosBackupOptions : Instantiate EnableCosBackupOptions
+func (*HpdbV3) NewEnableCosBackupOptions(clusterID string) *EnableCosBackupOptions {
+	return &EnableCosBackupOptions{
+		ClusterID: core.StringPtr(clusterID),
+	}
+}
+
+// SetClusterID : Allow user to set ClusterID
+func (_options *EnableCosBackupOptions) SetClusterID(clusterID string) *EnableCosBackupOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
+}
+
+// SetCosHmacKeys : Allow user to set CosHmacKeys
+func (_options *EnableCosBackupOptions) SetCosHmacKeys(cosHmacKeys *CosHmacKeys) *EnableCosBackupOptions {
+	_options.CosHmacKeys = cosHmacKeys
+	return _options
+}
+
+// SetCosEndpoint : Allow user to set CosEndpoint
+func (_options *EnableCosBackupOptions) SetCosEndpoint(cosEndpoint string) *EnableCosBackupOptions {
+	_options.CosEndpoint = core.StringPtr(cosEndpoint)
+	return _options
+}
+
+// SetBucketInstanceCrn : Allow user to set BucketInstanceCrn
+func (_options *EnableCosBackupOptions) SetBucketInstanceCrn(bucketInstanceCrn string) *EnableCosBackupOptions {
+	_options.BucketInstanceCrn = core.StringPtr(bucketInstanceCrn)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *EnableCosBackupOptions) SetHeaders(param map[string]string) *EnableCosBackupOptions {
+	options.Headers = param
+	return options
+}
+
+// GetBackupConfigResponse : GetBackupConfigResponse struct
+type GetBackupConfigResponse struct {
+	// COS endpoint.
+	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+
+	// The CRN of the COS service instance.
+	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
+}
+
+// UnmarshalGetBackupConfigResponse unmarshals an instance of GetBackupConfigResponse from the specified map of raw messages.
+func UnmarshalGetBackupConfigResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetBackupConfigResponse)
+	err = core.UnmarshalPrimitive(m, "cos_endpoint", &obj.CosEndpoint)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bucket_instance_crn", &obj.BucketInstanceCrn)
 	if err != nil {
 		return
 	}
@@ -1263,6 +1716,34 @@ func (_options *GetConfigurationOptions) SetClusterID(clusterID string) *GetConf
 
 // SetHeaders : Allow user to set Headers
 func (options *GetConfigurationOptions) SetHeaders(param map[string]string) *GetConfigurationOptions {
+	options.Headers = param
+	return options
+}
+
+// GetCosBackupConfigOptions : The GetCosBackupConfig options.
+type GetCosBackupConfigOptions struct {
+	// The ID of a cluster object.
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetCosBackupConfigOptions : Instantiate GetCosBackupConfigOptions
+func (*HpdbV3) NewGetCosBackupConfigOptions(clusterID string) *GetCosBackupConfigOptions {
+	return &GetCosBackupConfigOptions{
+		ClusterID: core.StringPtr(clusterID),
+	}
+}
+
+// SetClusterID : Allow user to set ClusterID
+func (_options *GetCosBackupConfigOptions) SetClusterID(clusterID string) *GetCosBackupConfigOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetCosBackupConfigOptions) SetHeaders(param map[string]string) *GetCosBackupConfigOptions {
 	options.Headers = param
 	return options
 }
@@ -1358,8 +1839,8 @@ type GetUserOptions struct {
 	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// The ID of the user about which you want to get information. For MongoDB, it should be
-	// "authentication_database.username"; for example: "mydb.syrena". For PostgreSQL, it should be only "username"; for
-	// example: "syrena".
+	// 'authentication_database.username'; for example: 'mydb.syrena'. For PostgreSQL, it should be only 'username'; for
+	// example: 'syrena'.
 	DbUserID *string `json:"db_user_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
@@ -1628,10 +2109,10 @@ type Node struct {
 	// The reason why the node entered the failed state.
 	Reason *string `json:"reason,omitempty"`
 
-	// The reason why the node entered the stopped state. The possible values are "", "EXTERNAL_KEY_DELETED",
-	// "EXTERNAL_KEY_UNKNOWN", and "UNKNOWN". "" means that the node was not stopped. "EXTERNAL_KEY_DELETED" means that the
-	// node was stopped because the external key was deleted. "EXTERNAL_KEY_UNKNOWN" means that the node was stopped
-	// because of the external key with unknown reason. "UNKNOWN" means that the node was stopped with unknown reason.
+	// The reason why the node entered the stopped state. The possible values are '', 'EXTERNAL_KEY_DELETED',
+	// 'EXTERNAL_KEY_UNKNOWN', and 'UNKNOWN'. '' means that the node was not stopped. 'EXTERNAL_KEY_DELETED' means that the
+	// node was stopped because the external key was deleted. 'EXTERNAL_KEY_UNKNOWN' means that the node was stopped
+	// because of the external key with unknown reason. 'UNKNOWN' means that the node was stopped with unknown reason.
 	StoppedReason *string `json:"stopped_reason,omitempty"`
 
 	// The LPAR name and port. The format is: name-port.
@@ -1708,13 +2189,118 @@ func UnmarshalNode(m map[string]json.RawMessage, result interface{}) (err error)
 	return
 }
 
+// Resources : Object of information about resources.
+type Resources struct {
+	// Number of CPUs. Allowed values are 1, 2, 3, 4, 5, 6, 8, 9, 12, and 16.
+	Cpu *int64 `json:"cpu,omitempty"`
+
+	// Size of memory. Allowed values are '2GiB', '3GiB', '4GiB', '5GiB', '8GiB', '12GiB', '16GiB', '24GiB', '32GiB',
+	// '64GiB', '96GiB', and '128GiB'.
+	Memory *string `json:"memory,omitempty"`
+
+	// Size of storage. Allowed values are '5GiB', '10GiB', '16GiB', '24GiB', '32GiB', '64GiB', '128GiB', '160GiB',
+	// '256GiB', '512GiB', '640GiB', and '1280GiB'.
+	Storage *string `json:"storage,omitempty"`
+}
+
+// UnmarshalResources unmarshals an instance of Resources from the specified map of raw messages.
+func UnmarshalResources(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Resources)
+	err = core.UnmarshalPrimitive(m, "cpu", &obj.Cpu)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "memory", &obj.Memory)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "storage", &obj.Storage)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RestoreOptions : The Restore options.
+type RestoreOptions struct {
+	// The ID of a cluster object.
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
+
+	// Backup source type.
+	SourceType *string `json:"source_type,omitempty"`
+
+	CosHmacKeys *CosHmacKeys `json:"cos_hmac_keys,omitempty"`
+
+	// COS endpoint.
+	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+
+	// COS bucket CRN.
+	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
+
+	// The name of the backup file.
+	BackupFile *string `json:"backup_file,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewRestoreOptions : Instantiate RestoreOptions
+func (*HpdbV3) NewRestoreOptions(clusterID string) *RestoreOptions {
+	return &RestoreOptions{
+		ClusterID: core.StringPtr(clusterID),
+	}
+}
+
+// SetClusterID : Allow user to set ClusterID
+func (_options *RestoreOptions) SetClusterID(clusterID string) *RestoreOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
+}
+
+// SetSourceType : Allow user to set SourceType
+func (_options *RestoreOptions) SetSourceType(sourceType string) *RestoreOptions {
+	_options.SourceType = core.StringPtr(sourceType)
+	return _options
+}
+
+// SetCosHmacKeys : Allow user to set CosHmacKeys
+func (_options *RestoreOptions) SetCosHmacKeys(cosHmacKeys *CosHmacKeys) *RestoreOptions {
+	_options.CosHmacKeys = cosHmacKeys
+	return _options
+}
+
+// SetCosEndpoint : Allow user to set CosEndpoint
+func (_options *RestoreOptions) SetCosEndpoint(cosEndpoint string) *RestoreOptions {
+	_options.CosEndpoint = core.StringPtr(cosEndpoint)
+	return _options
+}
+
+// SetBucketInstanceCrn : Allow user to set BucketInstanceCrn
+func (_options *RestoreOptions) SetBucketInstanceCrn(bucketInstanceCrn string) *RestoreOptions {
+	_options.BucketInstanceCrn = core.StringPtr(bucketInstanceCrn)
+	return _options
+}
+
+// SetBackupFile : Allow user to set BackupFile
+func (_options *RestoreOptions) SetBackupFile(backupFile string) *RestoreOptions {
+	_options.BackupFile = core.StringPtr(backupFile)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *RestoreOptions) SetHeaders(param map[string]string) *RestoreOptions {
+	options.Headers = param
+	return options
+}
+
 // ScaleResourcesOptions : The ScaleResources options.
 type ScaleResourcesOptions struct {
 	// The ID of a cluster object.
 	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Object of information about resources.
-	Resource *ScaleResourcesResource `json:"resource,omitempty"`
+	Resource *Resources `json:"resource,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1734,7 +2320,7 @@ func (_options *ScaleResourcesOptions) SetClusterID(clusterID string) *ScaleReso
 }
 
 // SetResource : Allow user to set Resource
-func (_options *ScaleResourcesOptions) SetResource(resource *ScaleResourcesResource) *ScaleResourcesOptions {
+func (_options *ScaleResourcesOptions) SetResource(resource *Resources) *ScaleResourcesOptions {
 	_options.Resource = resource
 	return _options
 }
@@ -1743,56 +2329,6 @@ func (_options *ScaleResourcesOptions) SetResource(resource *ScaleResourcesResou
 func (options *ScaleResourcesOptions) SetHeaders(param map[string]string) *ScaleResourcesOptions {
 	options.Headers = param
 	return options
-}
-
-// ScaleResourcesResource : Object of information about resources.
-type ScaleResourcesResource struct {
-	// Number of CPUs. Allowed values are 1, 2, 3, 4, 5, 6, 8, 9, 12, and 16.
-	Cpu *int64 `json:"cpu,omitempty"`
-
-	// Size of memory. Allowed values are "2GiB", "3GiB", "4GiB", "5GiB", "8GiB", "12GiB", "16GiB", "24GiB", "32GiB",
-	// "64GiB", "96GiB", and "128GiB".
-	Memory *string `json:"memory,omitempty"`
-
-	// Size of storage. Allowed values are "5GiB", "10GiB", "16GiB", "24GiB", "32GiB", "64GiB", "128GiB", "160GiB",
-	// "256GiB", "512GiB", "640GiB", and "1280GiB".
-	Storage *string `json:"storage,omitempty"`
-}
-
-// UnmarshalScaleResourcesResource unmarshals an instance of ScaleResourcesResource from the specified map of raw messages.
-func UnmarshalScaleResourcesResource(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ScaleResourcesResource)
-	err = core.UnmarshalPrimitive(m, "cpu", &obj.Cpu)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "memory", &obj.Memory)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "storage", &obj.Storage)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ScaleResourcesResponse : The response of the API to scale resources.
-type ScaleResourcesResponse struct {
-	// The ID of the relevant task.
-	TaskID *string `json:"task_id,omitempty"`
-}
-
-// UnmarshalScaleResourcesResponse unmarshals an instance of ScaleResourcesResponse from the specified map of raw messages.
-func UnmarshalScaleResourcesResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ScaleResourcesResponse)
-	err = core.UnmarshalPrimitive(m, "task_id", &obj.TaskID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // Task : The task details object.
@@ -1811,6 +2347,9 @@ type Task struct {
 
 	// The reason why the task entered the failed state.
 	Reason *string `json:"reason,omitempty"`
+
+	// The state of the task.
+	State *string `json:"state,omitempty"`
 
 	// Information about a task on each node.
 	Nodes []TaskNode `json:"nodes,omitempty"`
@@ -1842,11 +2381,32 @@ func UnmarshalTask(m map[string]json.RawMessage, result interface{}) (err error)
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalModel(m, "nodes", &obj.Nodes, UnmarshalTaskNode)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "spec", &obj.Spec)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TaskID : The ID of a task.
+type TaskID struct {
+	// The ID of the relevant task.
+	TaskID *string `json:"task_id,omitempty"`
+}
+
+// UnmarshalTaskID unmarshals an instance of TaskID from the specified map of raw messages.
+func UnmarshalTaskID(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TaskID)
+	err = core.UnmarshalPrimitive(m, "task_id", &obj.TaskID)
 	if err != nil {
 		return
 	}
@@ -1968,51 +2528,13 @@ func UnmarshalTasks(m map[string]json.RawMessage, result interface{}) (err error
 	return
 }
 
-// UpdateConfigurationDataConfiguration : Object of information about configuration.
-type UpdateConfigurationDataConfiguration struct {
-	// Value of deadlock_timeout to be updated.
-	DeadlockTimeout *int64 `json:"deadlock_timeout,omitempty"`
-
-	// Value of max_locks_per_transaction to be updated.
-	MaxLocksPerTransaction *int64 `json:"max_locks_per_transaction,omitempty"`
-
-	// Value of shared_buffers to be updated.
-	SharedBuffers *int64 `json:"shared_buffers,omitempty"`
-
-	// Value of max_connections to be updated.
-	MaxConnections *int64 `json:"max_connections,omitempty"`
-}
-
-// UnmarshalUpdateConfigurationDataConfiguration unmarshals an instance of UpdateConfigurationDataConfiguration from the specified map of raw messages.
-func UnmarshalUpdateConfigurationDataConfiguration(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UpdateConfigurationDataConfiguration)
-	err = core.UnmarshalPrimitive(m, "deadlock_timeout", &obj.DeadlockTimeout)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "max_locks_per_transaction", &obj.MaxLocksPerTransaction)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "shared_buffers", &obj.SharedBuffers)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "max_connections", &obj.MaxConnections)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // UpdateConfigurationOptions : The UpdateConfiguration options.
 type UpdateConfigurationOptions struct {
 	// The ID of a cluster object.
 	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Object of information about configuration.
-	Configuration *UpdateConfigurationDataConfiguration `json:"configuration,omitempty"`
+	Configuration *Configurations `json:"configuration,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2032,7 +2554,7 @@ func (_options *UpdateConfigurationOptions) SetClusterID(clusterID string) *Upda
 }
 
 // SetConfiguration : Allow user to set Configuration
-func (_options *UpdateConfigurationOptions) SetConfiguration(configuration *UpdateConfigurationDataConfiguration) *UpdateConfigurationOptions {
+func (_options *UpdateConfigurationOptions) SetConfiguration(configuration *Configurations) *UpdateConfigurationOptions {
 	_options.Configuration = configuration
 	return _options
 }
@@ -2041,23 +2563,6 @@ func (_options *UpdateConfigurationOptions) SetConfiguration(configuration *Upda
 func (options *UpdateConfigurationOptions) SetHeaders(param map[string]string) *UpdateConfigurationOptions {
 	options.Headers = param
 	return options
-}
-
-// UpdateConfigurationResponse : Task ID.
-type UpdateConfigurationResponse struct {
-	// Task ID which is used to identify the update configuration operation.
-	TaskID *string `json:"task_id,omitempty"`
-}
-
-// UnmarshalUpdateConfigurationResponse unmarshals an instance of UpdateConfigurationResponse from the specified map of raw messages.
-func UnmarshalUpdateConfigurationResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UpdateConfigurationResponse)
-	err = core.UnmarshalPrimitive(m, "task_id", &obj.TaskID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // User : Object of information about user.

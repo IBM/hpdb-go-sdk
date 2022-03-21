@@ -28,6 +28,8 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//lint:ignore U1000 Ignore unused function temporarily for debugging
+//nolint
 func getTaskStatus(status chan string, hpdbService *hpdbv3.HpdbV3, taskId string, clusterId string) {
 	fmt.Println("getTaskStatus: Started")
 	getTaskOptions := hpdbService.NewGetTaskOptions(clusterId, taskId)

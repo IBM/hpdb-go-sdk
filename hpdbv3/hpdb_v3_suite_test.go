@@ -17,11 +17,42 @@
 package hpdbv3_test
 
 import (
+	"encoding/json"
+	"fmt"
+	"strings"
 	"testing"
+	"time"
 
+	"github.com/IBM/hpdb-go-sdk/hpdbv3"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
+
+func getTaskStatus(status chan string, hpdbService *hpdbv3.HpdbV3, taskId string, clusterId string) {
+	fmt.Println("getTaskStatus: Started")
+	getTaskOptions := hpdbService.NewGetTaskOptions(clusterId, taskId)
+	fmt.Println("getting task status...")
+	task, _, err := hpdbService.GetTask(getTaskOptions)
+	fmt.Println("task status:", *task.State)
+	if err != nil {
+		panic(err)
+	}
+	for strings.ToLower(*(task.State)) == "running" {
+		time.Sleep(30 * time.Second)
+		fmt.Println("getting task status...")
+		task, _, err = hpdbService.GetTask(getTaskOptions)
+		fmt.Println("task status:", *task.State)
+		if err != nil {
+			panic(err)
+		}
+	}
+	fmt.Println("getTaskStatus: Finished")
+	if strings.ToLower(*task.State) != "succeeded" {
+		b, _ := json.MarshalIndent(task, "", "  ")
+		fmt.Println(string(b))
+	}
+	status <- *(task.State)
+}
 
 func TestHpdbV3(t *testing.T) {
 	RegisterFailHandler(Fail)

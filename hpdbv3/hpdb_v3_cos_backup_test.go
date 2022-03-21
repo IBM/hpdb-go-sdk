@@ -23,7 +23,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/hpdb-go-sdk/hpdbv3"
@@ -44,32 +43,6 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-
-func getTaskStatus(status chan string, hpdbService *hpdbv3.HpdbV3, taskId string, clusterId string) {
-	fmt.Println("getTaskStatus: Started")
-	getTaskOptions := hpdbService.NewGetTaskOptions(clusterId, taskId)
-	fmt.Println("getting task status...")
-	task, _, err := hpdbService.GetTask(getTaskOptions)
-	fmt.Println("task status:", *task.State)
-	if err != nil {
-		panic(err)
-	}
-	for strings.ToLower(*(task.State)) == "running" {
-		time.Sleep(30 * time.Second)
-		fmt.Println("getting task status...")
-		task, _, err = hpdbService.GetTask(getTaskOptions)
-		fmt.Println("task status:", *task.State)
-		if err != nil {
-			panic(err)
-		}
-	}
-	fmt.Println("getTaskStatus: Finished")
-	if strings.ToLower(*task.State) != "succeeded" {
-		b, _ := json.MarshalIndent(task, "", "  ")
-		fmt.Println(string(b))
-	}
-	status <- *(task.State)
-}
 
 var _ = Describe(`HpdbV3 COS Backup/restore Tests`, func() {
 
@@ -237,9 +210,9 @@ var _ = Describe(`HpdbV3 COS Backup/restore Tests`, func() {
 			cosKey.AccessKeyID = &keyId
 			cosKey.SecretAccessKey = &key
 			restoreOptions.SetCosHmacKeys(&cosKey)
-			restoreOptions.SetBucketInstanceCrn(config["COS_CRN"])
-			restoreOptions.SetCosEndpoint(config["COS_ENDPOINT"])
-			restoreOptions.SetBackupFile(config["COS_FILE"])
+			restoreOptions.SetBucketInstanceCrn("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+			restoreOptions.SetCosEndpoint("s3.us-west.cloud-object-storage.test.appdomain.cloud")
+			restoreOptions.SetBackupFile("archive-2022-03-16-140004Z.tar")
 
 			taskID, response, err := hpdbService.Restore(restoreOptions)
 			if err != nil {

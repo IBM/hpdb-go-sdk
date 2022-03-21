@@ -1,4 +1,4 @@
-// +build resource
+// +build config
 
 /**
  * (C) Copyright IBM Corp. 2022.
@@ -44,7 +44,7 @@ import (
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
 
-var _ = Describe(`HpdbV3 Resource Scaling Tests`, func() {
+var _ = Describe(`HpdbV3 Configuration Update Tests`, func() {
 
 	const externalConfigFile = "../hpdb_v3.env"
 
@@ -107,47 +107,46 @@ var _ = Describe(`HpdbV3 Resource Scaling Tests`, func() {
 		})
 	})
 
-	Describe(`COS Resource Scaling test`, func() {
+	Describe(`COS Configuration Update tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`Test scaleResource`, func() {
-			var cpuNumber int64
+		It(`Test updateConfiguration`, func() {
+			var timeout int64
 
-			getClusterOptions := hpdbService.NewGetClusterOptions(
+			getConfigurationOptions := hpdbService.NewGetConfigurationOptions(
 				clusterId,
 			)
 
-			cluster, response, err := hpdbService.GetCluster(getClusterOptions)
-			if (*(cluster.Resource.Cpu) == 1) {
-				cpuNumber = 2
-			} else {
-				cpuNumber = 1
-			}
+			configuration, response, err := hpdbService.GetConfiguration(getConfigurationOptions)
 
-			fmt.Println("Current CPU number is ", *(cluster.Resource.Cpu))
-			fmt.Println("Scale CPU number to ", cpuNumber)
+			timeout = *(configuration.Configuration.DeadlockTimeout.Value) + 1
+
+			fmt.Println("Current DeadlockTimeout is ", *(configuration.Configuration.DeadlockTimeout.Value))
+			fmt.Println("Update DeadlockTimeout to ", timeout)
 
 			// begin-enable_backup
 
-			scaleResourcesOptions := hpdbService.NewScaleResourcesOptions(
+			updateConfigurationOptions := hpdbService.NewUpdateConfigurationOptions(
 				clusterId,
 			)
-			memory := "2gib"
-			storage := "5gib"
 
-			var resource hpdbv3.Resources
-			resource.Cpu = &cpuNumber
-			resource.Memory = &memory
-			resource.Storage = &storage
-			scaleResourcesOptions.SetResource(&resource)
+			var config hpdbv3.Configurations
+			config.DeadlockTimeout = &timeout
+			updateConfigurationOptions.SetConfiguration(&config)
 
-			taskID, response, err := hpdbService.ScaleResources(scaleResourcesOptions)
+			taskID, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(taskID, "", "  ")
 			fmt.Println(string(b))
+
+			// end-update_configuration
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(taskID).ToNot(BeNil())
 
 			// end-enable_backup
 

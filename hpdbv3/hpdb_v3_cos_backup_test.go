@@ -210,9 +210,9 @@ var _ = Describe(`HpdbV3 COS Backup/restore Tests`, func() {
 			cosKey.AccessKeyID = &keyId
 			cosKey.SecretAccessKey = &key
 			restoreOptions.SetCosHmacKeys(&cosKey)
-			restoreOptions.SetBucketInstanceCrn("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-			restoreOptions.SetCosEndpoint("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-			restoreOptions.SetBackupFile("archive-2022-03-16-140004Z.tar")
+			restoreOptions.SetBucketInstanceCrn(config["COS_CRN"])
+			restoreOptions.SetCosEndpoint(config["COS_ENDPOINT"])
+			restoreOptions.SetBackupFile(config["COS_FILE"])
 
 			taskID, response, err := hpdbService.Restore(restoreOptions)
 			if err != nil {

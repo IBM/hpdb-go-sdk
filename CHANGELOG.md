@@ -1,3 +1,15 @@
+# [0.1.0](https://github.com/IBM/hpdb-go-sdk/compare/v0.0.3...v0.1.0) (2022-04-21)
+
+
+### Bug Fixes
+
+* replace hard coded strings with env variables ([dd2a643](https://github.com/IBM/hpdb-go-sdk/commit/dd2a643bc88542319e0d85f2caf42a84f3b53ccf))
+
+
+### Features
+
+* support backup to COS ([531776e](https://github.com/IBM/hpdb-go-sdk/commit/531776edc94fc55b141183b231d88aa91bd00e02))
+
 ## [0.0.3](https://github.com/IBM/hpdb-go-sdk/compare/v0.0.2...v0.0.3) (2022-02-28)
 
 

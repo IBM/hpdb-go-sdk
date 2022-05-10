@@ -673,7 +673,7 @@ func (hpdb *HpdbV3) ListTasksWithContext(ctx context.Context, listTasksOptions *
 }
 
 // GetTask : Show task
-// Show task information of a specified task id in a cluster.
+// Show task information of a specified task ID in a cluster.
 func (hpdb *HpdbV3) GetTask(getTaskOptions *GetTaskOptions) (result *Task, response *core.DetailedResponse, err error) {
 	return hpdb.GetTaskWithContext(context.Background(), getTaskOptions)
 }
@@ -733,8 +733,68 @@ func (hpdb *HpdbV3) GetTaskWithContext(ctx context.Context, getTaskOptions *GetT
 	return
 }
 
+// ListBackups : List backups
+// Get the list of backups.
+func (hpdb *HpdbV3) ListBackups(listBackupsOptions *ListBackupsOptions) (result *ListBackupsResponse, response *core.DetailedResponse, err error) {
+	return hpdb.ListBackupsWithContext(context.Background(), listBackupsOptions)
+}
+
+// ListBackupsWithContext is an alternate form of the ListBackups method which supports a Context parameter
+func (hpdb *HpdbV3) ListBackupsWithContext(ctx context.Context, listBackupsOptions *ListBackupsOptions) (result *ListBackupsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listBackupsOptions, "listBackupsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listBackupsOptions, "listBackupsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"cluster_id": *listBackupsOptions.ClusterID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/backups`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listBackupsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "ListBackups")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = hpdb.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListBackupsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // EnableCosBackup : Enable backup to COS
-// Enable cross region backup to COS.
+// Enable backup to COS.
 func (hpdb *HpdbV3) EnableCosBackup(enableCosBackupOptions *EnableCosBackupOptions) (result *TaskID, response *core.DetailedResponse, err error) {
 	return hpdb.EnableCosBackupWithContext(context.Background(), enableCosBackupOptions)
 }
@@ -810,7 +870,7 @@ func (hpdb *HpdbV3) EnableCosBackupWithContext(ctx context.Context, enableCosBac
 }
 
 // DisableCosBackup : Disable backup to COS
-// Disable cross region backup to COS.
+// Disable backup to COS.
 func (hpdb *HpdbV3) DisableCosBackup(disableCosBackupOptions *DisableCosBackupOptions) (result *TaskID, response *core.DetailedResponse, err error) {
 	return hpdb.DisableCosBackupWithContext(context.Background(), disableCosBackupOptions)
 }
@@ -869,14 +929,14 @@ func (hpdb *HpdbV3) DisableCosBackupWithContext(ctx context.Context, disableCosB
 	return
 }
 
-// GetCosBackupConfig : Get cross region backup configuration
-// Get cross region backup configuration.
-func (hpdb *HpdbV3) GetCosBackupConfig(getCosBackupConfigOptions *GetCosBackupConfigOptions) (result *GetBackupConfigResponse, response *core.DetailedResponse, err error) {
+// GetCosBackupConfig : Get backup configuration (Deprecated)
+// Get backup configuration.
+func (hpdb *HpdbV3) GetCosBackupConfig(getCosBackupConfigOptions *GetCosBackupConfigOptions) (result *GetCosBackupConfigResponse, response *core.DetailedResponse, err error) {
 	return hpdb.GetCosBackupConfigWithContext(context.Background(), getCosBackupConfigOptions)
 }
 
 // GetCosBackupConfigWithContext is an alternate form of the GetCosBackupConfig method which supports a Context parameter
-func (hpdb *HpdbV3) GetCosBackupConfigWithContext(ctx context.Context, getCosBackupConfigOptions *GetCosBackupConfigOptions) (result *GetBackupConfigResponse, response *core.DetailedResponse, err error) {
+func (hpdb *HpdbV3) GetCosBackupConfigWithContext(ctx context.Context, getCosBackupConfigOptions *GetCosBackupConfigOptions) (result *GetCosBackupConfigResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getCosBackupConfigOptions, "getCosBackupConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -919,6 +979,66 @@ func (hpdb *HpdbV3) GetCosBackupConfigWithContext(ctx context.Context, getCosBac
 		return
 	}
 	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetCosBackupConfigResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetBackupConfig : Get backup configuration
+// Get backup configuration.
+func (hpdb *HpdbV3) GetBackupConfig(getBackupConfigOptions *GetBackupConfigOptions) (result *GetBackupConfigResponse, response *core.DetailedResponse, err error) {
+	return hpdb.GetBackupConfigWithContext(context.Background(), getBackupConfigOptions)
+}
+
+// GetBackupConfigWithContext is an alternate form of the GetBackupConfig method which supports a Context parameter
+func (hpdb *HpdbV3) GetBackupConfigWithContext(ctx context.Context, getBackupConfigOptions *GetBackupConfigOptions) (result *GetBackupConfigResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getBackupConfigOptions, "getBackupConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getBackupConfigOptions, "getBackupConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"cluster_id": *getBackupConfigOptions.ClusterID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/backups/configuration`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getBackupConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "GetBackupConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = hpdb.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetBackupConfigResponse)
 		if err != nil {
 			return
@@ -929,8 +1049,78 @@ func (hpdb *HpdbV3) GetCosBackupConfigWithContext(ctx context.Context, getCosBac
 	return
 }
 
+// UpdateBackupConfig : Update backup configuration
+// Update backup configuration.
+func (hpdb *HpdbV3) UpdateBackupConfig(updateBackupConfigOptions *UpdateBackupConfigOptions) (result *TaskID, response *core.DetailedResponse, err error) {
+	return hpdb.UpdateBackupConfigWithContext(context.Background(), updateBackupConfigOptions)
+}
+
+// UpdateBackupConfigWithContext is an alternate form of the UpdateBackupConfig method which supports a Context parameter
+func (hpdb *HpdbV3) UpdateBackupConfigWithContext(ctx context.Context, updateBackupConfigOptions *UpdateBackupConfigOptions) (result *TaskID, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateBackupConfigOptions, "updateBackupConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateBackupConfigOptions, "updateBackupConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"cluster_id": *updateBackupConfigOptions.ClusterID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = hpdb.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(hpdb.Service.Options.URL, `/clusters/{cluster_id}/backups/configuration`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateBackupConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("hpdb", "V3", "UpdateBackupConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateBackupConfigOptions.Cos != nil {
+		body["cos"] = updateBackupConfigOptions.Cos
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = hpdb.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTaskID)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // Restore : Restore from backup
-// Restore from backup.
+// Restore from a backup file.
 func (hpdb *HpdbV3) Restore(restoreOptions *RestoreOptions) (result *TaskID, response *core.DetailedResponse, err error) {
 	return hpdb.RestoreWithContext(context.Background(), restoreOptions)
 }
@@ -984,6 +1174,9 @@ func (hpdb *HpdbV3) RestoreWithContext(ctx context.Context, restoreOptions *Rest
 	}
 	if restoreOptions.BackupFile != nil {
 		body["backup_file"] = restoreOptions.BackupFile
+	}
+	if restoreOptions.BackupID != nil {
+		body["backup_id"] = restoreOptions.BackupID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1146,6 +1339,100 @@ func UnmarshalAccess(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "privileges", &obj.Privileges)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Backup : The backup of a datbase cluster.
+type Backup struct {
+	// The ID of the backup.
+	ID *string `json:"id,omitempty"`
+
+	// The type of the backup.
+	Type *string `json:"type,omitempty"`
+
+	// The date and time when the backup is created.
+	CreatedAt *string `json:"created_at,omitempty"`
+}
+
+// UnmarshalBackup unmarshals an instance of Backup from the specified map of raw messages.
+func UnmarshalBackup(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Backup)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// BackupConfigCos : BackupConfigCos struct
+type BackupConfigCos struct {
+	CosHmacKeys *CosHmacKeys `json:"cos_hmac_keys,omitempty"`
+
+	// Endpoint of IBM Cloud Object Storage (required). In the IBM Cloud Object Storage web UI, select your bucket and you
+	// can find Endpoints in the Configuration tab. Only public endpoints are supported for now. Support for private
+	// endpoints will come soon.
+	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+
+	// COS bucket CRN (required). In the IBM Cloud Object Storage web UI, select your bucket and you can find Bucket
+	// instance CRN in the Configurations tab.
+	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
+
+	Schedule *BackupSchedule `json:"schedule,omitempty"`
+}
+
+// UnmarshalBackupConfigCos unmarshals an instance of BackupConfigCos from the specified map of raw messages.
+func UnmarshalBackupConfigCos(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BackupConfigCos)
+	err = core.UnmarshalModel(m, "cos_hmac_keys", &obj.CosHmacKeys, UnmarshalCosHmacKeys)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_endpoint", &obj.CosEndpoint)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bucket_instance_crn", &obj.BucketInstanceCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "schedule", &obj.Schedule, UnmarshalBackupSchedule)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// BackupSchedule : BackupSchedule struct
+type BackupSchedule struct {
+	// The type of backup schedule.
+	Type *string `json:"type,omitempty"`
+
+	// The backup interval. (Required for type frequency).
+	Interval *string `json:"interval,omitempty"`
+}
+
+// UnmarshalBackupSchedule unmarshals an instance of BackupSchedule from the specified map of raw messages.
+func UnmarshalBackupSchedule(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BackupSchedule)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "interval", &obj.Interval)
 	if err != nil {
 		return
 	}
@@ -1488,10 +1775,10 @@ func UnmarshalConfigurations(m map[string]json.RawMessage, result interface{}) (
 
 // CosHmacKeys : CosHmacKeys struct
 type CosHmacKeys struct {
-	// COS HMAC access key.
+	// COS HMAC access key ID.
 	AccessKeyID *string `json:"access_key_id,omitempty"`
 
-	// COS HMAC secret key.
+	// COS HMAC secret access key.
 	SecretAccessKey *string `json:"secret_access_key,omitempty"`
 }
 
@@ -1593,10 +1880,13 @@ type EnableCosBackupOptions struct {
 
 	CosHmacKeys *CosHmacKeys `json:"cos_hmac_keys,omitempty"`
 
-	// COS endpoint.
+	// Endpoint of IBM Cloud Object Storage (required). In the IBM Cloud Object Storage web UI, select your bucket and you
+	// can find Endpoints in the Configuration tab. Only public endpoints are supported for now. Support for private
+	// endpoints will come soon.
 	CosEndpoint *string `json:"cos_endpoint,omitempty"`
 
-	// The CRN of the COS service instance.
+	// COS bucket CRN (required). In the IBM Cloud Object Storage web UI, select your bucket and you can find Bucket
+	// instance CRN in the Configurations tab.
 	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -1640,23 +1930,113 @@ func (options *EnableCosBackupOptions) SetHeaders(param map[string]string) *Enab
 	return options
 }
 
+// GetBackupConfigOptions : The GetBackupConfig options.
+type GetBackupConfigOptions struct {
+	// The ID of a cluster object.
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetBackupConfigOptions : Instantiate GetBackupConfigOptions
+func (*HpdbV3) NewGetBackupConfigOptions(clusterID string) *GetBackupConfigOptions {
+	return &GetBackupConfigOptions{
+		ClusterID: core.StringPtr(clusterID),
+	}
+}
+
+// SetClusterID : Allow user to set ClusterID
+func (_options *GetBackupConfigOptions) SetClusterID(clusterID string) *GetBackupConfigOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetBackupConfigOptions) SetHeaders(param map[string]string) *GetBackupConfigOptions {
+	options.Headers = param
+	return options
+}
+
 // GetBackupConfigResponse : GetBackupConfigResponse struct
 type GetBackupConfigResponse struct {
-	// COS endpoint.
-	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+	Cos *GetBackupConfigResponseCos `json:"cos,omitempty"`
 
-	// The CRN of the COS service instance.
-	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
+	Status *GetBackupConfigResponseStatus `json:"status,omitempty"`
 }
 
 // UnmarshalGetBackupConfigResponse unmarshals an instance of GetBackupConfigResponse from the specified map of raw messages.
 func UnmarshalGetBackupConfigResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(GetBackupConfigResponse)
+	err = core.UnmarshalModel(m, "cos", &obj.Cos, UnmarshalGetBackupConfigResponseCos)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "status", &obj.Status, UnmarshalGetBackupConfigResponseStatus)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetBackupConfigResponseCos : GetBackupConfigResponseCos struct
+type GetBackupConfigResponseCos struct {
+	// Endpoint of IBM Cloud Object Storage (required). In the IBM Cloud Object Storage web UI, select your bucket and you
+	// can find Endpoints in the Configuration tab. Only public endpoints are supported for now. Support for private
+	// endpoints will come soon.
+	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+
+	// COS bucket CRN (required). In the IBM Cloud Object Storage web UI, select your bucket and you can find Bucket
+	// instance CRN in the Configurations tab.
+	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
+
+	Schedule *BackupSchedule `json:"schedule,omitempty"`
+}
+
+// UnmarshalGetBackupConfigResponseCos unmarshals an instance of GetBackupConfigResponseCos from the specified map of raw messages.
+func UnmarshalGetBackupConfigResponseCos(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetBackupConfigResponseCos)
 	err = core.UnmarshalPrimitive(m, "cos_endpoint", &obj.CosEndpoint)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "bucket_instance_crn", &obj.BucketInstanceCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "schedule", &obj.Schedule, UnmarshalBackupSchedule)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetBackupConfigResponseStatus : GetBackupConfigResponseStatus struct
+type GetBackupConfigResponseStatus struct {
+	// Current backup configuration state.
+	State *string `json:"state,omitempty"`
+
+	// The date and time when the backup configuration is created.
+	CreatedAt *string `json:"created_at,omitempty"`
+
+	// The date and time when the backup configuration is updated.
+	UpdatedAt *string `json:"updated_at,omitempty"`
+}
+
+// UnmarshalGetBackupConfigResponseStatus unmarshals an instance of GetBackupConfigResponseStatus from the specified map of raw messages.
+func UnmarshalGetBackupConfigResponseStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetBackupConfigResponseStatus)
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
 		return
 	}
@@ -1746,6 +2126,33 @@ func (_options *GetCosBackupConfigOptions) SetClusterID(clusterID string) *GetCo
 func (options *GetCosBackupConfigOptions) SetHeaders(param map[string]string) *GetCosBackupConfigOptions {
 	options.Headers = param
 	return options
+}
+
+// GetCosBackupConfigResponse : GetCosBackupConfigResponse struct
+type GetCosBackupConfigResponse struct {
+	// Endpoint of IBM Cloud Object Storage (required). In the IBM Cloud Object Storage web UI, select your bucket and you
+	// can find Endpoints in the Configuration tab. Only public endpoints are supported for now. Support for private
+	// endpoints will come soon.
+	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+
+	// COS bucket CRN (required). In the IBM Cloud Object Storage web UI, select your bucket and you can find Bucket
+	// instance CRN in the Configurations tab.
+	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
+}
+
+// UnmarshalGetCosBackupConfigResponse unmarshals an instance of GetCosBackupConfigResponse from the specified map of raw messages.
+func UnmarshalGetCosBackupConfigResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetCosBackupConfigResponse)
+	err = core.UnmarshalPrimitive(m, "cos_endpoint", &obj.CosEndpoint)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bucket_instance_crn", &obj.BucketInstanceCrn)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // GetLogOptions : The GetLog options.
@@ -1925,6 +2332,51 @@ func UnmarshalIntegerType(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ListBackupsOptions : The ListBackups options.
+type ListBackupsOptions struct {
+	// The ID of a cluster object.
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListBackupsOptions : Instantiate ListBackupsOptions
+func (*HpdbV3) NewListBackupsOptions(clusterID string) *ListBackupsOptions {
+	return &ListBackupsOptions{
+		ClusterID: core.StringPtr(clusterID),
+	}
+}
+
+// SetClusterID : Allow user to set ClusterID
+func (_options *ListBackupsOptions) SetClusterID(clusterID string) *ListBackupsOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListBackupsOptions) SetHeaders(param map[string]string) *ListBackupsOptions {
+	options.Headers = param
+	return options
+}
+
+// ListBackupsResponse : ListBackupsResponse struct
+type ListBackupsResponse struct {
+	// The list of backups.
+	Backups []Backup `json:"backups,omitempty"`
+}
+
+// UnmarshalListBackupsResponse unmarshals an instance of ListBackupsResponse from the specified map of raw messages.
+func UnmarshalListBackupsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ListBackupsResponse)
+	err = core.UnmarshalModel(m, "backups", &obj.Backups, UnmarshalBackup)
 	if err != nil {
 		return
 	}
@@ -2227,19 +2679,26 @@ type RestoreOptions struct {
 	// The ID of a cluster object.
 	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
-	// Backup source type.
+	// Backup source type. Available values are "cos" and "default".
 	SourceType *string `json:"source_type,omitempty"`
 
 	CosHmacKeys *CosHmacKeys `json:"cos_hmac_keys,omitempty"`
 
-	// COS endpoint.
+	// Endpoint of IBM Cloud Object Storage (required). In the IBM Cloud Object Storage web UI, select your bucket and you
+	// can find Endpoints in the Configuration tab. Only public endpoints are supported for now. Support for private
+	// endpoints will come soon.
 	CosEndpoint *string `json:"cos_endpoint,omitempty"`
 
-	// COS bucket CRN.
+	// COS bucket CRN (required for source_type cos). In the IBM Cloud Object Storage web UI, select your bucket and you
+	// can find Bucket instance CRN in the Configurations tab.
 	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
 
-	// The name of the backup file.
+	// The COS backup file to be restored (required for source_type cos). The backup file name identifies the date and time
+	// yyyy-mm-dd-hhmmssZ (UTC) when the backup was generated.
 	BackupFile *string `json:"backup_file,omitempty"`
+
+	// The backup ID to be restored (required for source_type default).
+	BackupID *string `json:"backup_id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2285,6 +2744,12 @@ func (_options *RestoreOptions) SetBucketInstanceCrn(bucketInstanceCrn string) *
 // SetBackupFile : Allow user to set BackupFile
 func (_options *RestoreOptions) SetBackupFile(backupFile string) *RestoreOptions {
 	_options.BackupFile = core.StringPtr(backupFile)
+	return _options
+}
+
+// SetBackupID : Allow user to set BackupID
+func (_options *RestoreOptions) SetBackupID(backupID string) *RestoreOptions {
+	_options.BackupID = core.StringPtr(backupID)
 	return _options
 }
 
@@ -2526,6 +2991,42 @@ func UnmarshalTasks(m map[string]json.RawMessage, result interface{}) (err error
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// UpdateBackupConfigOptions : The UpdateBackupConfig options.
+type UpdateBackupConfigOptions struct {
+	// The ID of a cluster object.
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
+
+	Cos *BackupConfigCos `json:"cos,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateBackupConfigOptions : Instantiate UpdateBackupConfigOptions
+func (*HpdbV3) NewUpdateBackupConfigOptions(clusterID string) *UpdateBackupConfigOptions {
+	return &UpdateBackupConfigOptions{
+		ClusterID: core.StringPtr(clusterID),
+	}
+}
+
+// SetClusterID : Allow user to set ClusterID
+func (_options *UpdateBackupConfigOptions) SetClusterID(clusterID string) *UpdateBackupConfigOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
+}
+
+// SetCos : Allow user to set Cos
+func (_options *UpdateBackupConfigOptions) SetCos(cos *BackupConfigCos) *UpdateBackupConfigOptions {
+	_options.Cos = cos
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateBackupConfigOptions) SetHeaders(param map[string]string) *UpdateBackupConfigOptions {
+	options.Headers = param
+	return options
 }
 
 // UpdateConfigurationOptions : The UpdateConfiguration options.

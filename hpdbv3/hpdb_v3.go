@@ -843,6 +843,9 @@ func (hpdb *HpdbV3) EnableCosBackupWithContext(ctx context.Context, enableCosBac
 	if enableCosBackupOptions.BucketInstanceCrn != nil {
 		body["bucket_instance_crn"] = enableCosBackupOptions.BucketInstanceCrn
 	}
+	if enableCosBackupOptions.Schedule != nil {
+		body["schedule"] = enableCosBackupOptions.Schedule
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -1421,7 +1424,7 @@ type BackupSchedule struct {
 	// The type of backup schedule.
 	Type *string `json:"type,omitempty"`
 
-	// The backup interval. (Required for type frequency).
+	// The backup interval (Required for type frequency).
 	Interval *string `json:"interval,omitempty"`
 }
 
@@ -1889,6 +1892,8 @@ type EnableCosBackupOptions struct {
 	// instance CRN in the Configurations tab.
 	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
 
+	Schedule *BackupSchedule `json:"schedule,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1921,6 +1926,12 @@ func (_options *EnableCosBackupOptions) SetCosEndpoint(cosEndpoint string) *Enab
 // SetBucketInstanceCrn : Allow user to set BucketInstanceCrn
 func (_options *EnableCosBackupOptions) SetBucketInstanceCrn(bucketInstanceCrn string) *EnableCosBackupOptions {
 	_options.BucketInstanceCrn = core.StringPtr(bucketInstanceCrn)
+	return _options
+}
+
+// SetSchedule : Allow user to set Schedule
+func (_options *EnableCosBackupOptions) SetSchedule(schedule *BackupSchedule) *EnableCosBackupOptions {
+	_options.Schedule = schedule
 	return _options
 }
 
@@ -2697,7 +2708,7 @@ type RestoreOptions struct {
 	// yyyy-mm-dd-hhmmssZ (UTC) when the backup was generated.
 	BackupFile *string `json:"backup_file,omitempty"`
 
-	// The backup ID to be restored (required for source_type default).
+	// The ID of the backup to be restored (required for source_type default).
 	BackupID *string `json:"backup_id,omitempty"`
 
 	// Allows users to set headers on API requests

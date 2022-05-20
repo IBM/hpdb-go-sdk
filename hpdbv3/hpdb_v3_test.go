@@ -2477,12 +2477,18 @@ var _ = Describe(`HpdbV3`, func() {
 				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
 				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
 
+				// Construct an instance of the BackupSchedule model
+				backupScheduleModel := new(hpdbv3.BackupSchedule)
+				backupScheduleModel.Type = core.StringPtr("frequency")
+				backupScheduleModel.Interval = core.StringPtr("PT8H")
+
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
 				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
 				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := hpdbService.EnableCosBackup(enableCosBackupOptionsModel)
@@ -2552,12 +2558,18 @@ var _ = Describe(`HpdbV3`, func() {
 				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
 				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
 
+				// Construct an instance of the BackupSchedule model
+				backupScheduleModel := new(hpdbv3.BackupSchedule)
+				backupScheduleModel.Type = core.StringPtr("frequency")
+				backupScheduleModel.Interval = core.StringPtr("PT8H")
+
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
 				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
 				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2635,12 +2647,18 @@ var _ = Describe(`HpdbV3`, func() {
 				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
 				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
 
+				// Construct an instance of the BackupSchedule model
+				backupScheduleModel := new(hpdbv3.BackupSchedule)
+				backupScheduleModel.Type = core.StringPtr("frequency")
+				backupScheduleModel.Interval = core.StringPtr("PT8H")
+
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
 				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
 				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2663,12 +2681,18 @@ var _ = Describe(`HpdbV3`, func() {
 				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
 				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
 
+				// Construct an instance of the BackupSchedule model
+				backupScheduleModel := new(hpdbv3.BackupSchedule)
+				backupScheduleModel.Type = core.StringPtr("frequency")
+				backupScheduleModel.Interval = core.StringPtr("PT8H")
+
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
 				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
 				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := hpdbService.SetServiceURL("")
@@ -2712,12 +2736,18 @@ var _ = Describe(`HpdbV3`, func() {
 				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
 				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
 
+				// Construct an instance of the BackupSchedule model
+				backupScheduleModel := new(hpdbv3.BackupSchedule)
+				backupScheduleModel.Type = core.StringPtr("frequency")
+				backupScheduleModel.Interval = core.StringPtr("PT8H")
+
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
 				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
 				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4423,6 +4453,14 @@ var _ = Describe(`HpdbV3`, func() {
 				Expect(cosHmacKeysModel.AccessKeyID).To(Equal(core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")))
 				Expect(cosHmacKeysModel.SecretAccessKey).To(Equal(core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")))
 
+				// Construct an instance of the BackupSchedule model
+				backupScheduleModel := new(hpdbv3.BackupSchedule)
+				Expect(backupScheduleModel).ToNot(BeNil())
+				backupScheduleModel.Type = core.StringPtr("frequency")
+				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				Expect(backupScheduleModel.Type).To(Equal(core.StringPtr("frequency")))
+				Expect(backupScheduleModel.Interval).To(Equal(core.StringPtr("PT8H")))
+
 				// Construct an instance of the EnableCosBackupOptions model
 				clusterID := "9cebab98-afeb-4886-9a29-8e741716e7ff"
 				enableCosBackupOptionsModel := hpdbService.NewEnableCosBackupOptions(clusterID)
@@ -4430,12 +4468,14 @@ var _ = Describe(`HpdbV3`, func() {
 				enableCosBackupOptionsModel.SetCosHmacKeys(cosHmacKeysModel)
 				enableCosBackupOptionsModel.SetCosEndpoint("s3.us-west.cloud-object-storage.test.appdomain.cloud")
 				enableCosBackupOptionsModel.SetBucketInstanceCrn("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.SetSchedule(backupScheduleModel)
 				enableCosBackupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(enableCosBackupOptionsModel).ToNot(BeNil())
 				Expect(enableCosBackupOptionsModel.ClusterID).To(Equal(core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")))
 				Expect(enableCosBackupOptionsModel.CosHmacKeys).To(Equal(cosHmacKeysModel))
 				Expect(enableCosBackupOptionsModel.CosEndpoint).To(Equal(core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")))
 				Expect(enableCosBackupOptionsModel.BucketInstanceCrn).To(Equal(core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")))
+				Expect(enableCosBackupOptionsModel.Schedule).To(Equal(backupScheduleModel))
 				Expect(enableCosBackupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetBackupConfigOptions successfully`, func() {

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
+ * IBM OpenAPI SDK Code Generator Version: 3.51.0-5b8b699d-20220613-200818
  */
 
 // Package hpdbv3 : Operations and models for the HpdbV3 service
@@ -1380,52 +1380,14 @@ func UnmarshalBackup(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
-// BackupConfigCos : BackupConfigCos struct
-type BackupConfigCos struct {
-	CosHmacKeys *CosHmacKeys `json:"cos_hmac_keys,omitempty"`
-
-	// Endpoint of IBM Cloud Object Storage (required). In the IBM Cloud Object Storage web UI, select your bucket and you
-	// can find Endpoints in the Configuration tab. Only public endpoints are supported for now. Support for private
-	// endpoints will come soon.
-	CosEndpoint *string `json:"cos_endpoint,omitempty"`
-
-	// COS bucket CRN (required). In the IBM Cloud Object Storage web UI, select your bucket and you can find Bucket
-	// instance CRN in the Configurations tab.
-	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
-
-	Schedule *BackupSchedule `json:"schedule,omitempty"`
-}
-
-// UnmarshalBackupConfigCos unmarshals an instance of BackupConfigCos from the specified map of raw messages.
-func UnmarshalBackupConfigCos(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(BackupConfigCos)
-	err = core.UnmarshalModel(m, "cos_hmac_keys", &obj.CosHmacKeys, UnmarshalCosHmacKeys)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "cos_endpoint", &obj.CosEndpoint)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "bucket_instance_crn", &obj.BucketInstanceCrn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "schedule", &obj.Schedule, UnmarshalBackupSchedule)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // BackupSchedule : BackupSchedule struct
 type BackupSchedule struct {
 	// The type of backup schedule.
 	Type *string `json:"type,omitempty"`
 
-	// The backup interval (Required for type frequency).
-	Interval *string `json:"interval,omitempty"`
+	// Available values are '1h', '2h', '4h', '8h', '1d', '2d', '1w'. 'h' or 'H' means hour. 'd' or 'D' means day. 'w' or
+	// 'W' means week.
+	Value *string `json:"value,omitempty"`
 }
 
 // UnmarshalBackupSchedule unmarshals an instance of BackupSchedule from the specified map of raw messages.
@@ -1435,7 +1397,7 @@ func UnmarshalBackupSchedule(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "interval", &obj.Interval)
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
 		return
 	}
@@ -1776,6 +1738,45 @@ func UnmarshalConfigurations(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
+// CosBackupConfig : CosBackupConfig struct
+type CosBackupConfig struct {
+	CosHmacKeys *CosHmacKeys `json:"cos_hmac_keys,omitempty"`
+
+	// Endpoint of IBM Cloud Object Storage (required). In the IBM Cloud Object Storage web UI, select your bucket and you
+	// can find Endpoints in the Configuration tab. Only public endpoints are supported for now. Support for private
+	// endpoints will come soon.
+	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+
+	// COS bucket CRN (required). In the IBM Cloud Object Storage web UI, select your bucket and you can find Bucket
+	// instance CRN in the Configurations tab.
+	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
+
+	Schedule *BackupSchedule `json:"schedule,omitempty"`
+}
+
+// UnmarshalCosBackupConfig unmarshals an instance of CosBackupConfig from the specified map of raw messages.
+func UnmarshalCosBackupConfig(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CosBackupConfig)
+	err = core.UnmarshalModel(m, "cos_hmac_keys", &obj.CosHmacKeys, UnmarshalCosHmacKeys)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_endpoint", &obj.CosEndpoint)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bucket_instance_crn", &obj.BucketInstanceCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "schedule", &obj.Schedule, UnmarshalBackupSchedule)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CosHmacKeys : CosHmacKeys struct
 type CosHmacKeys struct {
 	// COS HMAC access key ID.
@@ -1972,18 +1973,12 @@ func (options *GetBackupConfigOptions) SetHeaders(param map[string]string) *GetB
 // GetBackupConfigResponse : GetBackupConfigResponse struct
 type GetBackupConfigResponse struct {
 	Cos *GetBackupConfigResponseCos `json:"cos,omitempty"`
-
-	Status *GetBackupConfigResponseStatus `json:"status,omitempty"`
 }
 
 // UnmarshalGetBackupConfigResponse unmarshals an instance of GetBackupConfigResponse from the specified map of raw messages.
 func UnmarshalGetBackupConfigResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(GetBackupConfigResponse)
 	err = core.UnmarshalModel(m, "cos", &obj.Cos, UnmarshalGetBackupConfigResponseCos)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "status", &obj.Status, UnmarshalGetBackupConfigResponseStatus)
 	if err != nil {
 		return
 	}
@@ -2017,37 +2012,6 @@ func UnmarshalGetBackupConfigResponseCos(m map[string]json.RawMessage, result in
 		return
 	}
 	err = core.UnmarshalModel(m, "schedule", &obj.Schedule, UnmarshalBackupSchedule)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetBackupConfigResponseStatus : GetBackupConfigResponseStatus struct
-type GetBackupConfigResponseStatus struct {
-	// Current backup configuration state.
-	State *string `json:"state,omitempty"`
-
-	// The date and time when the backup configuration is created.
-	CreatedAt *string `json:"created_at,omitempty"`
-
-	// The date and time when the backup configuration is updated.
-	UpdatedAt *string `json:"updated_at,omitempty"`
-}
-
-// UnmarshalGetBackupConfigResponseStatus unmarshals an instance of GetBackupConfigResponseStatus from the specified map of raw messages.
-func UnmarshalGetBackupConfigResponseStatus(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetBackupConfigResponseStatus)
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
 		return
 	}
@@ -3009,7 +2973,7 @@ type UpdateBackupConfigOptions struct {
 	// The ID of a cluster object.
 	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
-	Cos *BackupConfigCos `json:"cos,omitempty"`
+	Cos *CosBackupConfig `json:"cos,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3029,7 +2993,7 @@ func (_options *UpdateBackupConfigOptions) SetClusterID(clusterID string) *Updat
 }
 
 // SetCos : Allow user to set Cos
-func (_options *UpdateBackupConfigOptions) SetCos(cos *BackupConfigCos) *UpdateBackupConfigOptions {
+func (_options *UpdateBackupConfigOptions) SetCos(cos *CosBackupConfig) *UpdateBackupConfigOptions {
 	_options.Cos = cos
 	return _options
 }

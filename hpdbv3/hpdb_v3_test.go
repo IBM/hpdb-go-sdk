@@ -2480,7 +2480,7 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
@@ -2561,7 +2561,7 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
@@ -2650,7 +2650,7 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
@@ -2684,7 +2684,7 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
@@ -2739,7 +2739,7 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
@@ -3249,7 +3249,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"cos": {"cos_endpoint": "CosEndpoint", "bucket_instance_crn": "BucketInstanceCrn", "schedule": {"type": "frequency", "interval": "PT8H"}}, "status": {"state": "State", "created_at": "CreatedAt", "updated_at": "2022-04-11T14:00:00.000Z"}}`)
+					fmt.Fprintf(res, "%s", `{"cos": {"cos_endpoint": "CosEndpoint", "bucket_instance_crn": "BucketInstanceCrn", "schedule": {"type": "frequency", "value": "1h"}}}`)
 				}))
 			})
 			It(`Invoke GetBackupConfig successfully with retries`, func() {
@@ -3303,7 +3303,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"cos": {"cos_endpoint": "CosEndpoint", "bucket_instance_crn": "BucketInstanceCrn", "schedule": {"type": "frequency", "interval": "PT8H"}}, "status": {"state": "State", "created_at": "CreatedAt", "updated_at": "2022-04-11T14:00:00.000Z"}}`)
+					fmt.Fprintf(res, "%s", `{"cos": {"cos_endpoint": "CosEndpoint", "bucket_instance_crn": "BucketInstanceCrn", "schedule": {"type": "frequency", "value": "1h"}}}`)
 				}))
 			})
 			It(`Invoke GetBackupConfig successfully`, func() {
@@ -3430,19 +3430,19 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
-				// Construct an instance of the BackupConfigCos model
-				backupConfigCosModel := new(hpdbv3.BackupConfigCos)
-				backupConfigCosModel.CosHmacKeys = cosHmacKeysModel
-				backupConfigCosModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				backupConfigCosModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				backupConfigCosModel.Schedule = backupScheduleModel
+				// Construct an instance of the CosBackupConfig model
+				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
+				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
 				updateBackupConfigOptionsModel := new(hpdbv3.UpdateBackupConfigOptions)
 				updateBackupConfigOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				updateBackupConfigOptionsModel.Cos = backupConfigCosModel
+				updateBackupConfigOptionsModel.Cos = cosBackupConfigModel
 				updateBackupConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := hpdbService.UpdateBackupConfig(updateBackupConfigOptionsModel)
@@ -3515,19 +3515,19 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
-				// Construct an instance of the BackupConfigCos model
-				backupConfigCosModel := new(hpdbv3.BackupConfigCos)
-				backupConfigCosModel.CosHmacKeys = cosHmacKeysModel
-				backupConfigCosModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				backupConfigCosModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				backupConfigCosModel.Schedule = backupScheduleModel
+				// Construct an instance of the CosBackupConfig model
+				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
+				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
 				updateBackupConfigOptionsModel := new(hpdbv3.UpdateBackupConfigOptions)
 				updateBackupConfigOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				updateBackupConfigOptionsModel.Cos = backupConfigCosModel
+				updateBackupConfigOptionsModel.Cos = cosBackupConfigModel
 				updateBackupConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3608,19 +3608,19 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
-				// Construct an instance of the BackupConfigCos model
-				backupConfigCosModel := new(hpdbv3.BackupConfigCos)
-				backupConfigCosModel.CosHmacKeys = cosHmacKeysModel
-				backupConfigCosModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				backupConfigCosModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				backupConfigCosModel.Schedule = backupScheduleModel
+				// Construct an instance of the CosBackupConfig model
+				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
+				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
 				updateBackupConfigOptionsModel := new(hpdbv3.UpdateBackupConfigOptions)
 				updateBackupConfigOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				updateBackupConfigOptionsModel.Cos = backupConfigCosModel
+				updateBackupConfigOptionsModel.Cos = cosBackupConfigModel
 				updateBackupConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3646,19 +3646,19 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
-				// Construct an instance of the BackupConfigCos model
-				backupConfigCosModel := new(hpdbv3.BackupConfigCos)
-				backupConfigCosModel.CosHmacKeys = cosHmacKeysModel
-				backupConfigCosModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				backupConfigCosModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				backupConfigCosModel.Schedule = backupScheduleModel
+				// Construct an instance of the CosBackupConfig model
+				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
+				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
 				updateBackupConfigOptionsModel := new(hpdbv3.UpdateBackupConfigOptions)
 				updateBackupConfigOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				updateBackupConfigOptionsModel.Cos = backupConfigCosModel
+				updateBackupConfigOptionsModel.Cos = cosBackupConfigModel
 				updateBackupConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := hpdbService.SetServiceURL("")
@@ -3705,19 +3705,19 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 
-				// Construct an instance of the BackupConfigCos model
-				backupConfigCosModel := new(hpdbv3.BackupConfigCos)
-				backupConfigCosModel.CosHmacKeys = cosHmacKeysModel
-				backupConfigCosModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				backupConfigCosModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				backupConfigCosModel.Schedule = backupScheduleModel
+				// Construct an instance of the CosBackupConfig model
+				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
+				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
 				updateBackupConfigOptionsModel := new(hpdbv3.UpdateBackupConfigOptions)
 				updateBackupConfigOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				updateBackupConfigOptionsModel.Cos = backupConfigCosModel
+				updateBackupConfigOptionsModel.Cos = cosBackupConfigModel
 				updateBackupConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4457,9 +4457,9 @@ var _ = Describe(`HpdbV3`, func() {
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				Expect(backupScheduleModel).ToNot(BeNil())
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 				Expect(backupScheduleModel.Type).To(Equal(core.StringPtr("frequency")))
-				Expect(backupScheduleModel.Interval).To(Equal(core.StringPtr("PT8H")))
+				Expect(backupScheduleModel.Value).To(Equal(core.StringPtr("1h")))
 
 				// Construct an instance of the EnableCosBackupOptions model
 				clusterID := "9cebab98-afeb-4886-9a29-8e741716e7ff"
@@ -4674,31 +4674,31 @@ var _ = Describe(`HpdbV3`, func() {
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				Expect(backupScheduleModel).ToNot(BeNil())
 				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Interval = core.StringPtr("PT8H")
+				backupScheduleModel.Value = core.StringPtr("1h")
 				Expect(backupScheduleModel.Type).To(Equal(core.StringPtr("frequency")))
-				Expect(backupScheduleModel.Interval).To(Equal(core.StringPtr("PT8H")))
+				Expect(backupScheduleModel.Value).To(Equal(core.StringPtr("1h")))
 
-				// Construct an instance of the BackupConfigCos model
-				backupConfigCosModel := new(hpdbv3.BackupConfigCos)
-				Expect(backupConfigCosModel).ToNot(BeNil())
-				backupConfigCosModel.CosHmacKeys = cosHmacKeysModel
-				backupConfigCosModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				backupConfigCosModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				backupConfigCosModel.Schedule = backupScheduleModel
-				Expect(backupConfigCosModel.CosHmacKeys).To(Equal(cosHmacKeysModel))
-				Expect(backupConfigCosModel.CosEndpoint).To(Equal(core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")))
-				Expect(backupConfigCosModel.BucketInstanceCrn).To(Equal(core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")))
-				Expect(backupConfigCosModel.Schedule).To(Equal(backupScheduleModel))
+				// Construct an instance of the CosBackupConfig model
+				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
+				Expect(cosBackupConfigModel).ToNot(BeNil())
+				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.Schedule = backupScheduleModel
+				Expect(cosBackupConfigModel.CosHmacKeys).To(Equal(cosHmacKeysModel))
+				Expect(cosBackupConfigModel.CosEndpoint).To(Equal(core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")))
+				Expect(cosBackupConfigModel.BucketInstanceCrn).To(Equal(core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")))
+				Expect(cosBackupConfigModel.Schedule).To(Equal(backupScheduleModel))
 
 				// Construct an instance of the UpdateBackupConfigOptions model
 				clusterID := "9cebab98-afeb-4886-9a29-8e741716e7ff"
 				updateBackupConfigOptionsModel := hpdbService.NewUpdateBackupConfigOptions(clusterID)
 				updateBackupConfigOptionsModel.SetClusterID("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				updateBackupConfigOptionsModel.SetCos(backupConfigCosModel)
+				updateBackupConfigOptionsModel.SetCos(cosBackupConfigModel)
 				updateBackupConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateBackupConfigOptionsModel).ToNot(BeNil())
 				Expect(updateBackupConfigOptionsModel.ClusterID).To(Equal(core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")))
-				Expect(updateBackupConfigOptionsModel.Cos).To(Equal(backupConfigCosModel))
+				Expect(updateBackupConfigOptionsModel.Cos).To(Equal(cosBackupConfigModel))
 				Expect(updateBackupConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateConfigurationOptions successfully`, func() {

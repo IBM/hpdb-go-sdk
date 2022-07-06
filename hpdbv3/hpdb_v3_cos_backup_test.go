@@ -157,35 +157,56 @@ var _ = Describe(`HpdbV3 COS Backup/restore Tests`, func() {
 			fmt.Println(state)
 			Expect(strings.ToLower(state)).To(Equal("succeeded"))
 		})
-		It(`Test getCosBackupConfig if COS backup is enabled`, func() {
+		It(`Test getBackupConfig if COS backup is enabled`, func() {
 			getClusterOptions := hpdbService.NewGetClusterOptions(
 				clusterId,
 			)
 
 			cluster, response, err := hpdbService.GetCluster(getClusterOptions)
 			if (cluster.IsCosBackupEnabled == nil || *(cluster.IsCosBackupEnabled) != true) {
-				Skip("COS backup is disabled, so skip getCosBackupConfig test")
+				Skip("COS backup is disabled, so skip getBackupConfig test")
 			}
 
-			fmt.Println("\nGetCosBackupConfig() result:")
+			fmt.Println("\nGetBackupConfig() result:")
 			// begin-get_backup_config
 
-			getCosBackupConfigOptions := hpdbService.NewGetCosBackupConfigOptions(
+			getBackupConfigOptions := hpdbService.NewGetBackupConfigOptions(
 				clusterId,
 			)
 
-			getCosBackupConfigResponse, response, err := hpdbService.GetCosBackupConfig(getCosBackupConfigOptions)
+			getBackupConfigResponse, response, err := hpdbService.GetBackupConfig(getBackupConfigOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(getCosBackupConfigResponse, "", "  ")
+			b, _ := json.MarshalIndent(getBackupConfigResponse, "", "  ")
 			fmt.Println(string(b))
 			fmt.Println(response.StatusCode)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(getCosBackupConfigResponse).ToNot(BeNil())
+			Expect(getBackupConfigResponse).ToNot(BeNil())
 			// end-get_backup_config
 
+		})
+		It(`Test listBackups if COS backup is enabled`, func() {
+			fmt.Println("\nListBackups() result:")
+			// begin-list_backups
+
+			listBackupsOptions := hpdbService.NewListBackupsOptions(
+				clusterId,
+			)
+
+			listBackupsResponse, response, err := hpdbService.ListBackups(listBackupsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(listBackupsResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_backups
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listBackupsResponse).ToNot(BeNil())
 		})
 		It(`Test restore if backup file exists`, func() {
 			getClusterOptions := hpdbService.NewGetClusterOptions(

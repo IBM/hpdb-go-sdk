@@ -1380,7 +1380,8 @@ func UnmarshalBackup(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
-// BackupSchedule : BackupSchedule struct
+// BackupSchedule : The frequency of the backups to IBM Cloud Object Storage (only supported by PostgreSQL currently). The default value
+// is 8 hours. Valid values are 1h, 2h, 4h, 8h, 1d, 2d, and 1w.
 type BackupSchedule struct {
 	// The type of backup schedule.
 	Type *string `json:"type,omitempty"`
@@ -1751,6 +1752,8 @@ type CosBackupConfig struct {
 	// instance CRN in the Configurations tab.
 	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
 
+	// The frequency of the backups to IBM Cloud Object Storage (only supported by PostgreSQL currently). The default value
+	// is 8 hours. Valid values are 1h, 2h, 4h, 8h, 1d, 2d, and 1w.
 	Schedule *BackupSchedule `json:"schedule,omitempty"`
 }
 
@@ -1893,6 +1896,8 @@ type EnableCosBackupOptions struct {
 	// instance CRN in the Configurations tab.
 	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
 
+	// The frequency of the backups to IBM Cloud Object Storage (only supported by PostgreSQL currently). The default value
+	// is 8 hours. Valid values are 1h, 2h, 4h, 8h, 1d, 2d, and 1w.
 	Schedule *BackupSchedule `json:"schedule,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -1997,6 +2002,8 @@ type GetBackupConfigResponseCos struct {
 	// instance CRN in the Configurations tab.
 	BucketInstanceCrn *string `json:"bucket_instance_crn,omitempty"`
 
+	// The frequency of the backups to IBM Cloud Object Storage (only supported by PostgreSQL currently). The default value
+	// is 8 hours. Valid values are 1h, 2h, 4h, 8h, 1d, 2d, and 1w.
 	Schedule *BackupSchedule `json:"schedule,omitempty"`
 }
 

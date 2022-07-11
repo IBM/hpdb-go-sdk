@@ -1,4 +1,4 @@
-// +build cosbackup
+// +build backup
 
 /**
  * (C) Copyright IBM Corp. 2022.
@@ -187,6 +187,55 @@ var _ = Describe(`HpdbV3 COS Backup/restore Tests`, func() {
 			// end-get_backup_config
 
 		})
+		It(`Test updateBackupConfig`, func() {
+			getClusterOptions := hpdbService.NewGetClusterOptions(
+				clusterId,
+			)
+
+			cluster, response, err := hpdbService.GetCluster(getClusterOptions)
+			if (cluster.IsCosBackupEnabled == nil || *(cluster.IsCosBackupEnabled) != true) {
+				Skip("COS backup is disabled, so skip updateBackupConfig test")
+			}
+			fmt.Println("\nUpdateBackupConfig() result:")
+			// begin-update_backup_config
+
+			updateBackupConfigOptions := hpdbService.NewUpdateBackupConfigOptions(
+				clusterId,
+			)
+
+			var cos hpdbv3.CosBackupConfig
+			var schedule hpdbv3.BackupSchedule
+
+			frequency := "frequency"
+			value := "1w"
+
+			schedule.Type = &frequency
+			schedule.Value = &value
+
+			cos.Schedule = &schedule
+
+			updateBackupConfigOptions.SetCos(&cos)
+
+			taskID, response, err := hpdbService.UpdateBackupConfig(updateBackupConfigOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(taskID, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_backup_config
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(taskID).ToNot(BeNil())
+
+			status := make(chan string)
+			go getTaskStatus(status, hpdbService, *taskID.TaskID, clusterId)
+			state := <- status
+			fmt.Println(state)
+			Expect(strings.ToLower(state)).To(Equal("succeeded"))
+
+		})
 		It(`Test listBackups if COS backup is enabled`, func() {
 			fmt.Println("\nListBackups() result:")
 			// begin-list_backups
@@ -218,7 +267,7 @@ var _ = Describe(`HpdbV3 COS Backup/restore Tests`, func() {
 				Skip("COS backup is disabled or no backup file found, so skip restore test")
 			}
 
-			fmt.Println("\nRestore() result:")
+			fmt.Println("\nRestore() from cos result:")
 			// begin-restore
 
 			restoreOptions := hpdbService.NewRestoreOptions(
@@ -234,6 +283,39 @@ var _ = Describe(`HpdbV3 COS Backup/restore Tests`, func() {
 			restoreOptions.SetBucketInstanceCrn(config["COS_CRN"])
 			restoreOptions.SetCosEndpoint(config["COS_ENDPOINT"])
 			restoreOptions.SetBackupFile(config["COS_FILE"])
+
+			taskID, response, err := hpdbService.Restore(restoreOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(taskID, "", "  ")
+			fmt.Println(string(b))
+
+			// end-restore
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(taskID).ToNot(BeNil())
+
+			status := make(chan string)
+			go getTaskStatus(status, hpdbService, *taskID.TaskID, clusterId)
+			state := <- status
+			fmt.Println(state)
+			Expect(strings.ToLower(state)).To(Equal("succeeded"))
+
+		})
+		It(`Test restore if backup ID exists`, func() {
+			if (config["BACKUP_ID"] == "") {
+				Skip("no backup ID found, so skip restore test")
+			}
+			fmt.Println("\nRestore() from local result:")
+			// begin-restore
+
+			restoreOptions := hpdbService.NewRestoreOptions(
+				clusterId,
+			)
+			restoreOptions.SetSourceType("default")
+			restoreOptions.SetBackupID(config["BACKUP_ID"])
 
 			taskID, response, err := hpdbService.Restore(restoreOptions)
 			if err != nil {

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.51.0-5b8b699d-20220613-200818
+ * IBM OpenAPI SDK Code Generator Version: 3.52.0-8345f809-20220627-220000
  */
 
 // Package hpdbv3 : Operations and models for the HpdbV3 service
@@ -1329,8 +1329,8 @@ type Access struct {
 	// only for MongoDB. For MongoDB, privileges are associated with MongoDB built-in roles. Common ones are read,
 	// readWrite, dbAdmin, userAdmin, and clusterAdmin. For more information, see MongoDB documentation
 	// (https://docs.mongodb.com/manual/reference/built-in-roles/). For PostgreSQL, privileges are assigned by the GRANT
-	// command. For example, on databases, privileges can be CARETE, CONNECT, TEMP, TEMPORARY. For more information, see
-	// PostgreSQL documentaton (https://www.postgresql.org/docs/current/static/sql-grant.html).
+	// command. For example, on databases, privileges can be CREATE, CONNECT, TEMP, TEMPORARY. For more information, see
+	// PostgreSQL documentation (https://www.postgresql.org/docs/current/static/sql-grant.html).
 	Privileges []string `json:"privileges,omitempty"`
 }
 
@@ -1349,7 +1349,7 @@ func UnmarshalAccess(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
-// Backup : The backup of a datbase cluster.
+// Backup : The backup of a database cluster.
 type Backup struct {
 	// The ID of the backup.
 	ID *string `json:"id,omitempty"`
@@ -1619,7 +1619,7 @@ type ClusterResource struct {
 	// The storage size in units MB, MiB, GB, GiB, TB or TiB.
 	Storage *string `json:"storage" validate:"required"`
 
-	// The used storate size in units MB, MiB, GB, GiB, TB or TiB.
+	// The used storage size in units MB, MiB, GB, GiB, TB or TiB.
 	StorageUsed *string `json:"storage_used,omitempty"`
 }
 
@@ -1648,7 +1648,7 @@ func UnmarshalClusterResource(m map[string]json.RawMessage, result interface{}) 
 
 // Configuration : Database configuration.
 type Configuration struct {
-	// Parameter infomation.
+	// Parameter information.
 	Configuration *ConfigurationItem `json:"configuration,omitempty"`
 }
 
@@ -1663,7 +1663,7 @@ func UnmarshalConfiguration(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// ConfigurationItem : Parameter infomation.
+// ConfigurationItem : Parameter information.
 type ConfigurationItem struct {
 	// Integer type parameter.
 	DeadlockTimeout *IntegerType `json:"deadlock_timeout" validate:"required"`

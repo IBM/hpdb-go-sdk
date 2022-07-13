@@ -97,7 +97,9 @@ IBM Hyper Protect DBaaS features supported by this SDK are as follows.
 | Update database configurations (only for postgresql) | UpdateConfiguration |
 | Enable backups to COS | EnableCosBackup |
 | Disable backups to COS | DisableCosBackup |
-| Show COS configuration | GetCosBackupConfig |
+| Show COS configuration (Deprecated) | GetCosBackupConfig |
+| Show backup configuration | GetBackupConfig |
+| Update backup configuration | UpdateBackupConfig |
 | Restore DB from backup file | Restore |
 
 Please run following command for the detailed usage.

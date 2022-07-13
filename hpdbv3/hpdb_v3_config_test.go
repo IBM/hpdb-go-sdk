@@ -107,7 +107,7 @@ var _ = Describe(`HpdbV3 Configuration Update Tests`, func() {
 		})
 	})
 
-	Describe(`COS Configuration Update tests`, func() {
+	Describe(`Configuration Update tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})

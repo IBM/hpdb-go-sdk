@@ -23,7 +23,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"strings"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/hpdb-go-sdk/hpdbv3"
@@ -57,9 +56,6 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 		Skip("External configuration is not available, skipping examples...")
 	}
 
-	var clusterId string;
-	var dbType string;
-
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
@@ -75,10 +71,6 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			} else if len(config) == 0 {
 				Skip("Unable to load service properties, skipping examples")
 			}
-
-			crnSegments := strings.Split(config["CLUSTER_CRN"], ":")
-			clusterId = crnSegments[7]
-			dbType = crnSegments[4]
 
 			shouldSkipTest = func() {}
 		})
@@ -101,8 +93,6 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 				panic(err)
 			}
 
-			hpdbService.Service.DisableSSLVerification()
-
 			// end-common
 
 			Expect(hpdbService).ToNot(BeNil())
@@ -118,7 +108,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-get_cluster
 
 			getClusterOptions := hpdbService.NewGetClusterOptions(
-				clusterId,
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
 			)
 
 			cluster, response, err := hpdbService.GetCluster(getClusterOptions)
@@ -140,7 +130,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-list_users
 
 			listUsersOptions := hpdbService.NewListUsersOptions(
-				clusterId,
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
 			)
 
 			users, response, err := hpdbService.ListUsers(listUsersOptions)
@@ -160,14 +150,10 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 		It(`GetUser request example`, func() {
 			fmt.Println("\nGetUser() result:")
 			// begin-get_user
-			userName := "admin"
-			if dbType == "hyperp-dbaas-mongodb" {
-				userName = "admin.admin"
-			}
 
 			getUserOptions := hpdbService.NewGetUserOptions(
-				clusterId,
-				userName,
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+				"admin.admin",
 			)
 
 			userDetails, response, err := hpdbService.GetUser(getUserOptions)
@@ -189,7 +175,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-list_databases
 
 			listDatabasesOptions := hpdbService.NewListDatabasesOptions(
-				clusterId,
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
 			)
 
 			databases, response, err := hpdbService.ListDatabases(listDatabasesOptions)
@@ -206,15 +192,44 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			Expect(databases).ToNot(BeNil())
 
 		})
-		It(`GetConfiguration request example`, func() {
-			if dbType == "hyperp-dbaas-mongodb" {
-				Skip("Skip GetConfiguration test for mongodb clusters")
+		It(`ScaleResources request example`, func() {
+			fmt.Println("\nScaleResources() result:")
+			// begin-scale_resources
+
+			scaleResourcesOptions := hpdbService.NewScaleResourcesOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+			)
+
+			cpuNumber := 2
+			memory := "2gib"
+			storage := "5gib"
+
+			var resource hpdbv3.Resources
+			resource.Cpu = &cpuNumber
+			resource.Memory = &memory
+			resource.Storage = &storage
+			scaleResourcesOptions.SetResource(&resource)
+
+			taskID, response, err := hpdbService.ScaleResources(scaleResourcesOptions)
+			if err != nil {
+				panic(err)
 			}
+			b, _ := json.MarshalIndent(taskID, "", "  ")
+			fmt.Println(string(b))
+
+			// end-scale_resources
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(taskID).ToNot(BeNil())
+
+		})
+		It(`GetConfiguration request example`, func() {
 			fmt.Println("\nGetConfiguration() result:")
 			// begin-get_configuration
 
 			getConfigurationOptions := hpdbService.NewGetConfigurationOptions(
-				clusterId,
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
 			)
 
 			configuration, response, err := hpdbService.GetConfiguration(getConfigurationOptions)
@@ -231,12 +246,39 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			Expect(configuration).ToNot(BeNil())
 
 		})
+		It(`UpdateConfiguration request example`, func() {
+			fmt.Println("\nUpdateConfiguration() result:")
+			// begin-update_configuration
+
+			updateConfigurationOptions := hpdbService.NewUpdateConfigurationOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+			)
+
+			var timeout int64 = 12000
+			var config hpdbv3.Configurations
+			config.DeadlockTimeout = &timeout
+			updateConfigurationOptions.SetConfiguration(&config)
+
+			taskID, response, err := hpdbService.UpdateConfiguration(updateConfigurationOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(taskID, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_configuration
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(taskID).ToNot(BeNil())
+
+		})
 		It(`ListTasks request example`, func() {
 			fmt.Println("\nListTasks() result:")
 			// begin-list_tasks
 
 			listTasksOptions := hpdbService.NewListTasksOptions(
-				clusterId,
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
 			)
 
 			tasks, response, err := hpdbService.ListTasks(listTasksOptions)
@@ -250,6 +292,217 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
+			Expect(tasks).ToNot(BeNil())
+
+		})
+		It(`GetTask request example`, func() {
+			fmt.Println("\nGetTask() result:")
+			// begin-get_task
+
+			getTaskOptions := hpdbService.NewGetTaskOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+				"c1a15760-a4f2-11ec-b00a-7f684d1dd53",
+			)
+
+			task, response, err := hpdbService.GetTask(getTaskOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(task, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_task
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(task).ToNot(BeNil())
+
+		})
+		It(`ListBackups request example`, func() {
+			fmt.Println("\nListBackups() result:")
+			// begin-list_backups
+
+			listBackupsOptions := hpdbService.NewListBackupsOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+			)
+
+			listBackupsResponse, response, err := hpdbService.ListBackups(listBackupsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(listBackupsResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_backups
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listBackupsResponse).ToNot(BeNil())
+
+		})
+		It(`EnableCosBackup request example`, func() {
+			fmt.Println("\nEnableCosBackup() result:")
+			// begin-enable_cos_backup
+
+			enableCosBackupOptions := hpdbService.NewEnableCosBackupOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+			)
+			enableCosBackupOptions.SetBucketInstanceCrn("crn:v1:staging:public:cloud-object-storage:global:a/7dd00b8ebb54466fa06fe5936913d169:09dc7766-326e-4765-bb1e-1e76189fff12:bucket:files")
+			enableCosBackupOptions.SetCosEndpoint("s3.us-west.cloud-object-storage.test.appdomain.cloud")
+
+			var cosKey hpdbv3.CosHmacKeys
+			keyId := "COS_ACCESS_KEY_ID"
+			key := "COS_SECRET_KEY"
+			cosKey.AccessKeyID = &keyId
+			cosKey.SecretAccessKey = &key
+			enableCosBackupOptions.SetCosHmacKeys(&cosKey)
+
+			taskID, response, err := hpdbService.EnableCosBackup(enableCosBackupOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(taskID, "", "  ")
+			fmt.Println(string(b))
+
+			// end-enable_cos_backup
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(taskID).ToNot(BeNil())
+
+		})
+		It(`DisableCosBackup request example`, func() {
+			fmt.Println("\nDisableCosBackup() result:")
+			// begin-disable_cos_backup
+
+			disableCosBackupOptions := hpdbService.NewDisableCosBackupOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+			)
+
+			taskID, response, err := hpdbService.DisableCosBackup(disableCosBackupOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(taskID, "", "  ")
+			fmt.Println(string(b))
+
+			// end-disable_cos_backup
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(taskID).ToNot(BeNil())
+
+		})
+		It(`GetCosBackupConfig request example`, func() {
+			fmt.Println("\nGetCosBackupConfig() result:")
+			// begin-get_cos_backup_config
+
+			getCosBackupConfigOptions := hpdbService.NewGetCosBackupConfigOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+			)
+
+			getCosBackupConfigResponse, response, err := hpdbService.GetCosBackupConfig(getCosBackupConfigOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(getCosBackupConfigResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_cos_backup_config
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(getCosBackupConfigResponse).ToNot(BeNil())
+
+		})
+		It(`GetBackupConfig request example`, func() {
+			fmt.Println("\nGetBackupConfig() result:")
+			// begin-get_backup_config
+
+			getBackupConfigOptions := hpdbService.NewGetBackupConfigOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+			)
+
+			getBackupConfigResponse, response, err := hpdbService.GetBackupConfig(getBackupConfigOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(getBackupConfigResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_backup_config
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(getBackupConfigResponse).ToNot(BeNil())
+
+		})
+		It(`UpdateBackupConfig request example`, func() {
+			fmt.Println("\nUpdateBackupConfig() result:")
+			// begin-update_backup_config
+
+			updateBackupConfigOptions := hpdbService.NewUpdateBackupConfigOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+			)
+
+			var cos hpdbv3.CosBackupConfig
+			var schedule hpdbv3.BackupSchedule
+
+			frequency := "frequency"
+			value := "1w"
+
+			schedule.Type = &frequency
+			schedule.Value = &value
+
+			cos.Schedule = &schedule
+
+			updateBackupConfigOptions.SetCos(&cos)
+
+			taskID, response, err := hpdbService.UpdateBackupConfig(updateBackupConfigOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(taskID, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_backup_config
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(taskID).ToNot(BeNil())
+
+		})
+		It(`Restore request example`, func() {
+			fmt.Println("\nRestore() result:")
+			// begin-restore
+
+			restoreOptions := hpdbService.NewRestoreOptions(
+				"9cebab98-afeb-4886-9a29-8e741716e7ff",
+			)
+
+      restoreOptions.SetSourceType("cos")
+			var cosKey hpdbv3.CosHmacKeys
+			keyId := "COS_ACCESS_KEY_ID"
+			key := "COS_SECRET_KEY"
+			cosKey.AccessKeyID = &keyId
+			cosKey.SecretAccessKey = &key
+			restoreOptions.SetCosHmacKeys(&cosKey)
+			restoreOptions.SetBucketInstanceCrn(config["crn:v1:staging:public:cloud-object-storage:global:a/7dd00b8ebb54466fa06fe5936913d169:09dc7766-326e-4765-bb1e-1e76189fff12:bucket:files"])
+			restoreOptions.SetCosEndpoint("s3.us-west.cloud-object-storage.test.appdomain.cloud")
+			restoreOptions.SetBackupFile(config["archive-2022-03-16-140004Z.tar"])
+
+			taskID, response, err := hpdbService.Restore(restoreOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(taskID, "", "  ")
+			fmt.Println(string(b))
+
+			// end-restore
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(taskID).ToNot(BeNil())
 
 		})
 		It(`ListNodeLogs request example`, func() {
@@ -257,7 +510,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-list_node_logs
 
 			listNodeLogsOptions := hpdbService.NewListNodeLogsOptions(
-				config["NODE_ID"],
+				"452ebc6007955ba275cfbbe0f2a78e40",
 			)
 
 			logList, response, err := hpdbService.ListNodeLogs(listNodeLogsOptions)
@@ -279,7 +532,7 @@ var _ = Describe(`HpdbV3 Examples Tests`, func() {
 			// begin-get_log
 
 			getLogOptions := hpdbService.NewGetLogOptions(
-				config["NODE_ID"],
+				"452ebc6007955ba275cfbbe0f2a78e40",
 				"audit.log",
 			)
 

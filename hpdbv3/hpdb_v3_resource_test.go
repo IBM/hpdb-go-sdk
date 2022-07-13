@@ -107,7 +107,7 @@ var _ = Describe(`HpdbV3 Resource Scaling Tests`, func() {
 		})
 	})
 
-	Describe(`COS Resource Scaling test`, func() {
+	Describe(`Resource Scaling test`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})

@@ -1,3 +1,17 @@
+# [0.2.0](https://github.com/IBM/hpdb-go-sdk/compare/v0.1.0...v0.2.0) (2022-09-21)
+
+
+### Bug Fixes
+
+* add schedule to enable cos backup params ([7731524](https://github.com/IBM/hpdb-go-sdk/commit/7731524667c64b9c424d7660de1e75a68c1b80c5))
+* fix typos in comments ([cd6f98d](https://github.com/IBM/hpdb-go-sdk/commit/cd6f98db1ccc753498e26991233372c063ae75a5))
+* update backup/restore api ([22d2f22](https://github.com/IBM/hpdb-go-sdk/commit/22d2f22689ba9bc26ffe2511c2cd3b1498b2eb3c))
+
+
+### Features
+
+* support list backups & PRO config ([46fd6a8](https://github.com/IBM/hpdb-go-sdk/commit/46fd6a8cb8e370e5afa9e7990184dccd064f7e60))
+
 # [0.1.0](https://github.com/IBM/hpdb-go-sdk/compare/v0.0.3...v0.1.0) (2022-04-21)
 
 

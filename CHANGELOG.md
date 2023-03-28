@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/IBM/hpdb-go-sdk/compare/v0.2.0...v0.2.1) (2023-03-28)
+
+
+### Bug Fixes
+
+* add db configuration max_prepared_transactions ([98c9293](https://github.com/IBM/hpdb-go-sdk/commit/98c9293f4992c2208228618e43579231e3bbabef))
+
 # [0.2.0](https://github.com/IBM/hpdb-go-sdk/compare/v0.1.0...v0.2.0) (2022-09-21)
 
 

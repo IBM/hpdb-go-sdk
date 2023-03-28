@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021,2022.
+ * (C) Copyright IBM Corp. 2021-2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1414,9 +1414,6 @@ type Cluster struct {
 	// The CRN of the database cluster (service instance).
 	Crn *string `json:"crn,omitempty"`
 
-	// The status of database cluster monitoring.
-	CustomerMonitoringStatus *string `json:"customer_monitoring_status,omitempty"`
-
 	// The status of backup to COS.
 	IsCosBackupEnabled *bool `json:"is_cos_backup_enabled,omitempty"`
 
@@ -1489,10 +1486,6 @@ func UnmarshalCluster(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "customer_monitoring_status", &obj.CustomerMonitoringStatus)
 	if err != nil {
 		return
 	}
@@ -1676,6 +1669,9 @@ type ConfigurationItem struct {
 
 	// Integer type parameter.
 	MaxConnections *IntegerType `json:"max_connections" validate:"required"`
+
+	// Integer type parameter.
+	MaxPreparedTransactions *IntegerType `json:"max_prepared_transactions" validate:"required"`
 }
 
 // UnmarshalConfigurationItem unmarshals an instance of ConfigurationItem from the specified map of raw messages.
@@ -1697,6 +1693,10 @@ func UnmarshalConfigurationItem(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "max_prepared_transactions", &obj.MaxPreparedTransactions, UnmarshalIntegerType)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1714,6 +1714,9 @@ type Configurations struct {
 
 	// Value of max_connections to be updated.
 	MaxConnections *int64 `json:"max_connections,omitempty"`
+
+	// Value of max_prepared_transactions to be updated.
+	MaxPreparedTransactions *int64 `json:"max_prepared_transactions,omitempty"`
 }
 
 // UnmarshalConfigurations unmarshals an instance of Configurations from the specified map of raw messages.
@@ -1732,6 +1735,10 @@ func UnmarshalConfigurations(m map[string]json.RawMessage, result interface{}) (
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "max_connections", &obj.MaxConnections)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "max_prepared_transactions", &obj.MaxPreparedTransactions)
 	if err != nil {
 		return
 	}
@@ -2228,8 +2235,8 @@ type GetUserOptions struct {
 	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// The ID of the user about which you want to get information. For MongoDB, it should be
-	// 'authentication_database.username'; for example: 'mydb.syrena'. For PostgreSQL, it should be only 'username'; for
-	// example: 'syrena'.
+	// 'authentication_database.username'; for example: 'admin.admin'. For PostgreSQL, it should be only 'username'; for
+	// example: 'admin'.
 	DbUserID *string `json:"db_user_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests

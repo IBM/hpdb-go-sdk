@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021,2022.
+ * (C) Copyright IBM Corp. 2021-2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -242,7 +242,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "9cebab98-afeb-4886-9a29-8e741716e7ff", "crn": "crn:v1:staging:public:hyperp-dbaas-mongodb:us-east:a/23a24a3e3fe7a115473f07be1c44bdb5:9cebab98-afeb-4886-9a29-8e741716e7ff::", "customer_monitoring_status": "enabled", "is_cos_backup_enabled": true, "region": "us-east", "name": "cluster01", "state": "PROVISIONED", "reason": "Reason", "db_type": "mongodb", "db_version": "mongodb-enterprise 4.4.6", "public_endpoint": "dbaas226.hyperp-dbaas.cloud.ibm.com:21089,dbaas227.hyperp-dbaas.cloud.ibm.com:21451,dbaas228.hyperp-dbaas.cloud.ibm.com:20290", "private_endpoint": "dbaas905.private.hyperp-dbaas.cloud.ibm.com:29494", "private_endpoint_type": "vpe", "plan_id": "1563f33f-874f-4d83-b6de-09384cdfb1ef", "last_active": 1647843913002, "log_url": "LogURL", "metric_url": "MetricURL", "replica_count": 3, "user_id": "23a24a3e3fe7a115473f07be1c44bdb5", "resource": {"cpu": 1, "memory": "2gib", "storage": "5gib", "storage_used": "0.19gib"}, "external_key": {"kms_instance": "KmsInstance", "kms_key": "KmsKey"}, "nodes": [{"id": "c5ff2d841c7e6a11de3cbaa2b992d712", "replica_state": "PRIMARY", "replication_lag": 0, "node_state": "RUNNING", "reason": "Reason", "stopped_reason": "EXTERNAL_KEY_DELETED", "name": "dbaas55-29247", "created_at": "2021-06-29T07:46:56Z", "updated_at": "2021-06-29T07:48:11Z", "is_metric_enabled": false, "is_logging_enabled": false, "user_id": "23a24a3e3fe7a115473f07be1c44bdb5"}], "created_at": "2021-06-29T07:46:51Z", "updated_at": "2021-06-29T07:48:11Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "is_cos_backup_enabled": true, "region": "Region", "name": "Name", "state": "State", "reason": "Reason", "db_type": "DbType", "db_version": "DbVersion", "public_endpoint": "PublicEndpoint", "private_endpoint": "PrivateEndpoint", "private_endpoint_type": "PrivateEndpointType", "plan_id": "PlanID", "last_active": 10, "log_url": "LogURL", "metric_url": "MetricURL", "replica_count": 12, "user_id": "UserID", "resource": {"cpu": 3, "memory": "Memory", "storage": "Storage", "storage_used": "StorageUsed"}, "external_key": {"kms_instance": "KmsInstance", "kms_key": "KmsKey"}, "nodes": [{"id": "ID", "replica_state": "ReplicaState", "replication_lag": 14, "node_state": "NodeState", "reason": "Reason", "stopped_reason": "EXTERNAL_KEY_DELETED", "name": "Name", "created_at": "CreatedAt", "updated_at": "UpdatedAt", "is_metric_enabled": false, "is_logging_enabled": true, "user_id": "UserID"}], "created_at": "CreatedAt", "updated_at": "UpdatedAt"}`)
 				}))
 			})
 			It(`Invoke GetCluster successfully with retries`, func() {
@@ -296,7 +296,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "9cebab98-afeb-4886-9a29-8e741716e7ff", "crn": "crn:v1:staging:public:hyperp-dbaas-mongodb:us-east:a/23a24a3e3fe7a115473f07be1c44bdb5:9cebab98-afeb-4886-9a29-8e741716e7ff::", "customer_monitoring_status": "enabled", "is_cos_backup_enabled": true, "region": "us-east", "name": "cluster01", "state": "PROVISIONED", "reason": "Reason", "db_type": "mongodb", "db_version": "mongodb-enterprise 4.4.6", "public_endpoint": "dbaas226.hyperp-dbaas.cloud.ibm.com:21089,dbaas227.hyperp-dbaas.cloud.ibm.com:21451,dbaas228.hyperp-dbaas.cloud.ibm.com:20290", "private_endpoint": "dbaas905.private.hyperp-dbaas.cloud.ibm.com:29494", "private_endpoint_type": "vpe", "plan_id": "1563f33f-874f-4d83-b6de-09384cdfb1ef", "last_active": 1647843913002, "log_url": "LogURL", "metric_url": "MetricURL", "replica_count": 3, "user_id": "23a24a3e3fe7a115473f07be1c44bdb5", "resource": {"cpu": 1, "memory": "2gib", "storage": "5gib", "storage_used": "0.19gib"}, "external_key": {"kms_instance": "KmsInstance", "kms_key": "KmsKey"}, "nodes": [{"id": "c5ff2d841c7e6a11de3cbaa2b992d712", "replica_state": "PRIMARY", "replication_lag": 0, "node_state": "RUNNING", "reason": "Reason", "stopped_reason": "EXTERNAL_KEY_DELETED", "name": "dbaas55-29247", "created_at": "2021-06-29T07:46:56Z", "updated_at": "2021-06-29T07:48:11Z", "is_metric_enabled": false, "is_logging_enabled": false, "user_id": "23a24a3e3fe7a115473f07be1c44bdb5"}], "created_at": "2021-06-29T07:46:51Z", "updated_at": "2021-06-29T07:48:11Z"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "is_cos_backup_enabled": true, "region": "Region", "name": "Name", "state": "State", "reason": "Reason", "db_type": "DbType", "db_version": "DbVersion", "public_endpoint": "PublicEndpoint", "private_endpoint": "PrivateEndpoint", "private_endpoint_type": "PrivateEndpointType", "plan_id": "PlanID", "last_active": 10, "log_url": "LogURL", "metric_url": "MetricURL", "replica_count": 12, "user_id": "UserID", "resource": {"cpu": 3, "memory": "Memory", "storage": "Storage", "storage_used": "StorageUsed"}, "external_key": {"kms_instance": "KmsInstance", "kms_key": "KmsKey"}, "nodes": [{"id": "ID", "replica_state": "ReplicaState", "replication_lag": 14, "node_state": "NodeState", "reason": "Reason", "stopped_reason": "EXTERNAL_KEY_DELETED", "name": "Name", "created_at": "CreatedAt", "updated_at": "UpdatedAt", "is_metric_enabled": false, "is_logging_enabled": true, "user_id": "UserID"}], "created_at": "CreatedAt", "updated_at": "UpdatedAt"}`)
 				}))
 			})
 			It(`Invoke GetCluster successfully`, func() {
@@ -454,7 +454,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"users": [{"name": "admin", "auth_db": "admin", "role_attributes": ["CREATEDB"]}]}`)
+					fmt.Fprintf(res, "%s", `{"users": [{"name": "Name", "auth_db": "AuthDb", "role_attributes": ["RoleAttributes"]}]}`)
 				}))
 			})
 			It(`Invoke ListUsers successfully with retries`, func() {
@@ -508,7 +508,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"users": [{"name": "admin", "auth_db": "admin", "role_attributes": ["CREATEDB"]}]}`)
+					fmt.Fprintf(res, "%s", `{"users": [{"name": "Name", "auth_db": "AuthDb", "role_attributes": ["RoleAttributes"]}]}`)
 				}))
 			})
 			It(`Invoke ListUsers successfully`, func() {
@@ -667,7 +667,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "admin", "auth_db": "admin", "db_access": [{"db": "admin", "privileges": ["readWrite"]}], "role_attributes": ["CREATEDB"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "auth_db": "AuthDb", "db_access": [{"db": "Db", "privileges": ["Privileges"]}], "role_attributes": ["RoleAttributes"]}`)
 				}))
 			})
 			It(`Invoke GetUser successfully with retries`, func() {
@@ -722,7 +722,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "admin", "auth_db": "admin", "db_access": [{"db": "admin", "privileges": ["readWrite"]}], "role_attributes": ["CREATEDB"]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "auth_db": "AuthDb", "db_access": [{"db": "Db", "privileges": ["Privileges"]}], "role_attributes": ["RoleAttributes"]}`)
 				}))
 			})
 			It(`Invoke GetUser successfully`, func() {
@@ -883,7 +883,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_size": 8084615, "databases": [{"name": "admin", "size_on_disk": 8084615}]}`)
+					fmt.Fprintf(res, "%s", `{"total_size": 9, "databases": [{"name": "Name", "size_on_disk": 10}]}`)
 				}))
 			})
 			It(`Invoke ListDatabases successfully with retries`, func() {
@@ -937,7 +937,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_size": 8084615, "databases": [{"name": "admin", "size_on_disk": 8084615}]}`)
+					fmt.Fprintf(res, "%s", `{"total_size": 9, "databases": [{"name": "Name", "size_on_disk": 10}]}`)
 				}))
 			})
 			It(`Invoke ListDatabases successfully`, func() {
@@ -1058,9 +1058,9 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Resources model
 				resourcesModel := new(hpdbv3.Resources)
-				resourcesModel.Cpu = core.Int64Ptr(int64(2))
-				resourcesModel.Memory = core.StringPtr("2GiB")
-				resourcesModel.Storage = core.StringPtr("5GiB")
+				resourcesModel.Cpu = core.Int64Ptr(int64(38))
+				resourcesModel.Memory = core.StringPtr("testString")
+				resourcesModel.Storage = core.StringPtr("testString")
 
 				// Construct an instance of the ScaleResourcesOptions model
 				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
@@ -1118,7 +1118,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke ScaleResources successfully with retries`, func() {
@@ -1132,9 +1132,9 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Resources model
 				resourcesModel := new(hpdbv3.Resources)
-				resourcesModel.Cpu = core.Int64Ptr(int64(2))
-				resourcesModel.Memory = core.StringPtr("2GiB")
-				resourcesModel.Storage = core.StringPtr("5GiB")
+				resourcesModel.Cpu = core.Int64Ptr(int64(38))
+				resourcesModel.Memory = core.StringPtr("testString")
+				resourcesModel.Storage = core.StringPtr("testString")
 
 				// Construct an instance of the ScaleResourcesOptions model
 				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
@@ -1195,7 +1195,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke ScaleResources successfully`, func() {
@@ -1214,9 +1214,9 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Resources model
 				resourcesModel := new(hpdbv3.Resources)
-				resourcesModel.Cpu = core.Int64Ptr(int64(2))
-				resourcesModel.Memory = core.StringPtr("2GiB")
-				resourcesModel.Storage = core.StringPtr("5GiB")
+				resourcesModel.Cpu = core.Int64Ptr(int64(38))
+				resourcesModel.Memory = core.StringPtr("testString")
+				resourcesModel.Storage = core.StringPtr("testString")
 
 				// Construct an instance of the ScaleResourcesOptions model
 				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
@@ -1241,9 +1241,9 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Resources model
 				resourcesModel := new(hpdbv3.Resources)
-				resourcesModel.Cpu = core.Int64Ptr(int64(2))
-				resourcesModel.Memory = core.StringPtr("2GiB")
-				resourcesModel.Storage = core.StringPtr("5GiB")
+				resourcesModel.Cpu = core.Int64Ptr(int64(38))
+				resourcesModel.Memory = core.StringPtr("testString")
+				resourcesModel.Storage = core.StringPtr("testString")
 
 				// Construct an instance of the ScaleResourcesOptions model
 				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
@@ -1289,9 +1289,9 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Resources model
 				resourcesModel := new(hpdbv3.Resources)
-				resourcesModel.Cpu = core.Int64Ptr(int64(2))
-				resourcesModel.Memory = core.StringPtr("2GiB")
-				resourcesModel.Storage = core.StringPtr("5GiB")
+				resourcesModel.Cpu = core.Int64Ptr(int64(38))
+				resourcesModel.Memory = core.StringPtr("testString")
+				resourcesModel.Storage = core.StringPtr("testString")
 
 				// Construct an instance of the ScaleResourcesOptions model
 				scaleResourcesOptionsModel := new(hpdbv3.ScaleResourcesOptions)
@@ -1374,7 +1374,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"configuration": {"deadlock_timeout": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_locks_per_transaction": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "shared_buffers": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_connections": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"configuration": {"deadlock_timeout": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_locks_per_transaction": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "shared_buffers": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_connections": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_prepared_transactions": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}}}`)
 				}))
 			})
 			It(`Invoke GetConfiguration successfully with retries`, func() {
@@ -1428,7 +1428,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"configuration": {"deadlock_timeout": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_locks_per_transaction": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "shared_buffers": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_connections": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"configuration": {"deadlock_timeout": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_locks_per_transaction": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "shared_buffers": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_connections": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}, "max_prepared_transactions": {"default": 7, "description": "Description", "max": 3, "min": 3, "requires_restart": false, "type": "Type", "value": 5}}}`)
 				}))
 			})
 			It(`Invoke GetConfiguration successfully`, func() {
@@ -1549,10 +1549,11 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Configurations model
 				configurationsModel := new(hpdbv3.Configurations)
-				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
-				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
-				configurationsModel.SharedBuffers = core.Int64Ptr(int64(256))
-				configurationsModel.MaxConnections = core.Int64Ptr(int64(150))
+				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(38))
+				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(38))
+				configurationsModel.SharedBuffers = core.Int64Ptr(int64(38))
+				configurationsModel.MaxConnections = core.Int64Ptr(int64(38))
+				configurationsModel.MaxPreparedTransactions = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
@@ -1610,7 +1611,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke UpdateConfiguration successfully with retries`, func() {
@@ -1624,10 +1625,11 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Configurations model
 				configurationsModel := new(hpdbv3.Configurations)
-				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
-				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
-				configurationsModel.SharedBuffers = core.Int64Ptr(int64(256))
-				configurationsModel.MaxConnections = core.Int64Ptr(int64(150))
+				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(38))
+				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(38))
+				configurationsModel.SharedBuffers = core.Int64Ptr(int64(38))
+				configurationsModel.MaxConnections = core.Int64Ptr(int64(38))
+				configurationsModel.MaxPreparedTransactions = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
@@ -1688,7 +1690,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke UpdateConfiguration successfully`, func() {
@@ -1707,10 +1709,11 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Configurations model
 				configurationsModel := new(hpdbv3.Configurations)
-				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
-				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
-				configurationsModel.SharedBuffers = core.Int64Ptr(int64(256))
-				configurationsModel.MaxConnections = core.Int64Ptr(int64(150))
+				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(38))
+				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(38))
+				configurationsModel.SharedBuffers = core.Int64Ptr(int64(38))
+				configurationsModel.MaxConnections = core.Int64Ptr(int64(38))
+				configurationsModel.MaxPreparedTransactions = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
@@ -1735,10 +1738,11 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Configurations model
 				configurationsModel := new(hpdbv3.Configurations)
-				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
-				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
-				configurationsModel.SharedBuffers = core.Int64Ptr(int64(256))
-				configurationsModel.MaxConnections = core.Int64Ptr(int64(150))
+				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(38))
+				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(38))
+				configurationsModel.SharedBuffers = core.Int64Ptr(int64(38))
+				configurationsModel.MaxConnections = core.Int64Ptr(int64(38))
+				configurationsModel.MaxPreparedTransactions = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
@@ -1784,10 +1788,11 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the Configurations model
 				configurationsModel := new(hpdbv3.Configurations)
-				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
-				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
-				configurationsModel.SharedBuffers = core.Int64Ptr(int64(256))
-				configurationsModel.MaxConnections = core.Int64Ptr(int64(150))
+				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(38))
+				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(38))
+				configurationsModel.SharedBuffers = core.Int64Ptr(int64(38))
+				configurationsModel.MaxConnections = core.Int64Ptr(int64(38))
+				configurationsModel.MaxPreparedTransactions = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the UpdateConfigurationOptions model
 				updateConfigurationOptionsModel := new(hpdbv3.UpdateConfigurationOptions)
@@ -1870,7 +1875,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"tasks": [{"id": "1e902f30-da1b-11eb-9433-755fe141f81f", "type": "resource_scale", "state": "SUCCEEDED", "reason": "Reason", "started_at": "2021-07-01T03:19:17Z", "finished_at": "2021-07-01T03:21:13Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"tasks": [{"id": "ID", "type": "Type", "state": "State", "reason": "Reason", "started_at": "StartedAt", "finished_at": "FinishedAt"}]}`)
 				}))
 			})
 			It(`Invoke ListTasks successfully with retries`, func() {
@@ -1924,7 +1929,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"tasks": [{"id": "1e902f30-da1b-11eb-9433-755fe141f81f", "type": "resource_scale", "state": "SUCCEEDED", "reason": "Reason", "started_at": "2021-07-01T03:19:17Z", "finished_at": "2021-07-01T03:21:13Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"tasks": [{"id": "ID", "type": "Type", "state": "State", "reason": "Reason", "started_at": "StartedAt", "finished_at": "FinishedAt"}]}`)
 				}))
 			})
 			It(`Invoke ListTasks successfully`, func() {
@@ -2083,7 +2088,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "1e902f30-da1b-11eb-9433-755fe141f81f", "type": "resource_scale", "started_at": "2021-07-01T03:19:17Z", "finished_at": "2021-07-01T03:21:13Z", "reason": "Reason", "state": "SUCCEEDED", "nodes": [{"id": "c5ff2d841c7e6a11de3cbaa2b992d712", "state": "SUCCEEDED", "reason": "Reason", "started_at": "2021-07-01T03:20:36Z", "finished_at": "2021-07-01T03:20:52Z"}], "spec": {"anyKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "started_at": "StartedAt", "finished_at": "FinishedAt", "reason": "Reason", "state": "State", "nodes": [{"id": "ID", "state": "State", "reason": "Reason", "started_at": "StartedAt", "finished_at": "FinishedAt"}], "spec": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetTask successfully with retries`, func() {
@@ -2138,7 +2143,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "1e902f30-da1b-11eb-9433-755fe141f81f", "type": "resource_scale", "started_at": "2021-07-01T03:19:17Z", "finished_at": "2021-07-01T03:21:13Z", "reason": "Reason", "state": "SUCCEEDED", "nodes": [{"id": "c5ff2d841c7e6a11de3cbaa2b992d712", "state": "SUCCEEDED", "reason": "Reason", "started_at": "2021-07-01T03:20:36Z", "finished_at": "2021-07-01T03:20:52Z"}], "spec": {"anyKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "started_at": "StartedAt", "finished_at": "FinishedAt", "reason": "Reason", "state": "State", "nodes": [{"id": "ID", "state": "State", "reason": "Reason", "started_at": "StartedAt", "finished_at": "FinishedAt"}], "spec": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetTask successfully`, func() {
@@ -2299,7 +2304,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"backups": [{"id": "dbaas23-20022-20220410-140000F", "type": "scheduled", "created_at": "2022-04-11T14:00:00.000Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"backups": [{"id": "ID", "type": "Type", "created_at": "CreatedAt"}]}`)
 				}))
 			})
 			It(`Invoke ListBackups successfully with retries`, func() {
@@ -2353,7 +2358,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"backups": [{"id": "dbaas23-20022-20220410-140000F", "type": "scheduled", "created_at": "2022-04-11T14:00:00.000Z"}]}`)
+					fmt.Fprintf(res, "%s", `{"backups": [{"id": "ID", "type": "Type", "created_at": "CreatedAt"}]}`)
 				}))
 			})
 			It(`Invoke ListBackups successfully`, func() {
@@ -2474,20 +2479,20 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
-				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("testString")
+				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
 				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2541,7 +2546,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke EnableCosBackup successfully with retries`, func() {
@@ -2555,20 +2560,20 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
-				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("testString")
+				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
 				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2625,7 +2630,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke EnableCosBackup successfully`, func() {
@@ -2644,20 +2649,20 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
-				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("testString")
+				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
 				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2678,20 +2683,20 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
-				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("testString")
+				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
 				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2733,20 +2738,20 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnableCosBackupOptions model
 				enableCosBackupOptionsModel := new(hpdbv3.EnableCosBackupOptions)
 				enableCosBackupOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.CosHmacKeys = cosHmacKeysModel
-				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.CosEndpoint = core.StringPtr("testString")
+				enableCosBackupOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
 				enableCosBackupOptionsModel.Schedule = backupScheduleModel
 				enableCosBackupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2825,7 +2830,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke DisableCosBackup successfully with retries`, func() {
@@ -2879,7 +2884,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke DisableCosBackup successfully`, func() {
@@ -3249,7 +3254,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"cos": {"cos_endpoint": "CosEndpoint", "bucket_instance_crn": "BucketInstanceCrn", "schedule": {"type": "frequency", "value": "1h"}}}`)
+					fmt.Fprintf(res, "%s", `{"cos": {"cos_endpoint": "CosEndpoint", "bucket_instance_crn": "BucketInstanceCrn", "schedule": {"type": "Type", "value": "Value"}}}`)
 				}))
 			})
 			It(`Invoke GetBackupConfig successfully with retries`, func() {
@@ -3303,7 +3308,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"cos": {"cos_endpoint": "CosEndpoint", "bucket_instance_crn": "BucketInstanceCrn", "schedule": {"type": "frequency", "value": "1h"}}}`)
+					fmt.Fprintf(res, "%s", `{"cos": {"cos_endpoint": "CosEndpoint", "bucket_instance_crn": "BucketInstanceCrn", "schedule": {"type": "Type", "value": "Value"}}}`)
 				}))
 			})
 			It(`Invoke GetBackupConfig successfully`, func() {
@@ -3424,19 +3429,19 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CosBackupConfig model
 				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
 				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
-				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("testString")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("testString")
 				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
@@ -3495,7 +3500,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke UpdateBackupConfig successfully with retries`, func() {
@@ -3509,19 +3514,19 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CosBackupConfig model
 				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
 				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
-				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("testString")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("testString")
 				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
@@ -3583,7 +3588,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke UpdateBackupConfig successfully`, func() {
@@ -3602,19 +3607,19 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CosBackupConfig model
 				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
 				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
-				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("testString")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("testString")
 				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
@@ -3640,19 +3645,19 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CosBackupConfig model
 				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
 				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
-				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("testString")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("testString")
 				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
@@ -3699,19 +3704,19 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CosBackupConfig model
 				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
 				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
-				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("testString")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("testString")
 				cosBackupConfigModel.Schedule = backupScheduleModel
 
 				// Construct an instance of the UpdateBackupConfigOptions model
@@ -3758,18 +3763,18 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the RestoreOptions model
 				restoreOptionsModel := new(hpdbv3.RestoreOptions)
 				restoreOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				restoreOptionsModel.SourceType = core.StringPtr("cos")
+				restoreOptionsModel.SourceType = core.StringPtr("testString")
 				restoreOptionsModel.CosHmacKeys = cosHmacKeysModel
-				restoreOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				restoreOptionsModel.BackupFile = core.StringPtr("archive-2022-03-16-140004Z.tar")
-				restoreOptionsModel.BackupID = core.StringPtr("dbaas23-20022-20220410-140000F")
+				restoreOptionsModel.CosEndpoint = core.StringPtr("testString")
+				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
+				restoreOptionsModel.BackupFile = core.StringPtr("testString")
+				restoreOptionsModel.BackupID = core.StringPtr("testString")
 				restoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := hpdbService.Restore(restoreOptionsModel)
@@ -3822,7 +3827,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke Restore successfully with retries`, func() {
@@ -3836,18 +3841,18 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the RestoreOptions model
 				restoreOptionsModel := new(hpdbv3.RestoreOptions)
 				restoreOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				restoreOptionsModel.SourceType = core.StringPtr("cos")
+				restoreOptionsModel.SourceType = core.StringPtr("testString")
 				restoreOptionsModel.CosHmacKeys = cosHmacKeysModel
-				restoreOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				restoreOptionsModel.BackupFile = core.StringPtr("archive-2022-03-16-140004Z.tar")
-				restoreOptionsModel.BackupID = core.StringPtr("dbaas23-20022-20220410-140000F")
+				restoreOptionsModel.CosEndpoint = core.StringPtr("testString")
+				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
+				restoreOptionsModel.BackupFile = core.StringPtr("testString")
+				restoreOptionsModel.BackupID = core.StringPtr("testString")
 				restoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3903,7 +3908,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"task_id": "1e902f30-da1b-11eb-9433-755fe141f81f"}`)
+					fmt.Fprintf(res, "%s", `{"task_id": "TaskID"}`)
 				}))
 			})
 			It(`Invoke Restore successfully`, func() {
@@ -3922,18 +3927,18 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the RestoreOptions model
 				restoreOptionsModel := new(hpdbv3.RestoreOptions)
 				restoreOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				restoreOptionsModel.SourceType = core.StringPtr("cos")
+				restoreOptionsModel.SourceType = core.StringPtr("testString")
 				restoreOptionsModel.CosHmacKeys = cosHmacKeysModel
-				restoreOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				restoreOptionsModel.BackupFile = core.StringPtr("archive-2022-03-16-140004Z.tar")
-				restoreOptionsModel.BackupID = core.StringPtr("dbaas23-20022-20220410-140000F")
+				restoreOptionsModel.CosEndpoint = core.StringPtr("testString")
+				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
+				restoreOptionsModel.BackupFile = core.StringPtr("testString")
+				restoreOptionsModel.BackupID = core.StringPtr("testString")
 				restoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3953,18 +3958,18 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the RestoreOptions model
 				restoreOptionsModel := new(hpdbv3.RestoreOptions)
 				restoreOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				restoreOptionsModel.SourceType = core.StringPtr("cos")
+				restoreOptionsModel.SourceType = core.StringPtr("testString")
 				restoreOptionsModel.CosHmacKeys = cosHmacKeysModel
-				restoreOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				restoreOptionsModel.BackupFile = core.StringPtr("archive-2022-03-16-140004Z.tar")
-				restoreOptionsModel.BackupID = core.StringPtr("dbaas23-20022-20220410-140000F")
+				restoreOptionsModel.CosEndpoint = core.StringPtr("testString")
+				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
+				restoreOptionsModel.BackupFile = core.StringPtr("testString")
+				restoreOptionsModel.BackupID = core.StringPtr("testString")
 				restoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := hpdbService.SetServiceURL("")
@@ -4005,18 +4010,18 @@ var _ = Describe(`HpdbV3`, func() {
 
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
 
 				// Construct an instance of the RestoreOptions model
 				restoreOptionsModel := new(hpdbv3.RestoreOptions)
 				restoreOptionsModel.ClusterID = core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				restoreOptionsModel.SourceType = core.StringPtr("cos")
+				restoreOptionsModel.SourceType = core.StringPtr("testString")
 				restoreOptionsModel.CosHmacKeys = cosHmacKeysModel
-				restoreOptionsModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				restoreOptionsModel.BackupFile = core.StringPtr("archive-2022-03-16-140004Z.tar")
-				restoreOptionsModel.BackupID = core.StringPtr("dbaas23-20022-20220410-140000F")
+				restoreOptionsModel.CosEndpoint = core.StringPtr("testString")
+				restoreOptionsModel.BucketInstanceCrn = core.StringPtr("testString")
+				restoreOptionsModel.BackupFile = core.StringPtr("testString")
+				restoreOptionsModel.BackupID = core.StringPtr("testString")
 				restoreOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4094,7 +4099,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"logs": [{"filename": "postgresql.log", "size": 26369, "last_modified": "2021-06-29 07:55:19"}]}`)
+					fmt.Fprintf(res, "%s", `{"logs": [{"filename": "Filename", "size": 4, "last_modified": "LastModified"}]}`)
 				}))
 			})
 			It(`Invoke ListNodeLogs successfully with retries`, func() {
@@ -4148,7 +4153,7 @@ var _ = Describe(`HpdbV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"logs": [{"filename": "postgresql.log", "size": 26369, "last_modified": "2021-06-29 07:55:19"}]}`)
+					fmt.Fprintf(res, "%s", `{"logs": [{"filename": "Filename", "size": 4, "last_modified": "LastModified"}]}`)
 				}))
 			})
 			It(`Invoke ListNodeLogs successfully`, func() {
@@ -4448,33 +4453,33 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
 				Expect(cosHmacKeysModel).ToNot(BeNil())
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
-				Expect(cosHmacKeysModel.AccessKeyID).To(Equal(core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")))
-				Expect(cosHmacKeysModel.SecretAccessKey).To(Equal(core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")))
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
+				Expect(cosHmacKeysModel.AccessKeyID).To(Equal(core.StringPtr("testString")))
+				Expect(cosHmacKeysModel.SecretAccessKey).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				Expect(backupScheduleModel).ToNot(BeNil())
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
-				Expect(backupScheduleModel.Type).To(Equal(core.StringPtr("frequency")))
-				Expect(backupScheduleModel.Value).To(Equal(core.StringPtr("1h")))
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
+				Expect(backupScheduleModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(backupScheduleModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the EnableCosBackupOptions model
 				clusterID := "9cebab98-afeb-4886-9a29-8e741716e7ff"
 				enableCosBackupOptionsModel := hpdbService.NewEnableCosBackupOptions(clusterID)
 				enableCosBackupOptionsModel.SetClusterID("9cebab98-afeb-4886-9a29-8e741716e7ff")
 				enableCosBackupOptionsModel.SetCosHmacKeys(cosHmacKeysModel)
-				enableCosBackupOptionsModel.SetCosEndpoint("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				enableCosBackupOptionsModel.SetBucketInstanceCrn("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				enableCosBackupOptionsModel.SetCosEndpoint("testString")
+				enableCosBackupOptionsModel.SetBucketInstanceCrn("testString")
 				enableCosBackupOptionsModel.SetSchedule(backupScheduleModel)
 				enableCosBackupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(enableCosBackupOptionsModel).ToNot(BeNil())
 				Expect(enableCosBackupOptionsModel.ClusterID).To(Equal(core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")))
 				Expect(enableCosBackupOptionsModel.CosHmacKeys).To(Equal(cosHmacKeysModel))
-				Expect(enableCosBackupOptionsModel.CosEndpoint).To(Equal(core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")))
-				Expect(enableCosBackupOptionsModel.BucketInstanceCrn).To(Equal(core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")))
+				Expect(enableCosBackupOptionsModel.CosEndpoint).To(Equal(core.StringPtr("testString")))
+				Expect(enableCosBackupOptionsModel.BucketInstanceCrn).To(Equal(core.StringPtr("testString")))
 				Expect(enableCosBackupOptionsModel.Schedule).To(Equal(backupScheduleModel))
 				Expect(enableCosBackupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -4613,42 +4618,42 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
 				Expect(cosHmacKeysModel).ToNot(BeNil())
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
-				Expect(cosHmacKeysModel.AccessKeyID).To(Equal(core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")))
-				Expect(cosHmacKeysModel.SecretAccessKey).To(Equal(core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")))
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
+				Expect(cosHmacKeysModel.AccessKeyID).To(Equal(core.StringPtr("testString")))
+				Expect(cosHmacKeysModel.SecretAccessKey).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the RestoreOptions model
 				clusterID := "9cebab98-afeb-4886-9a29-8e741716e7ff"
 				restoreOptionsModel := hpdbService.NewRestoreOptions(clusterID)
 				restoreOptionsModel.SetClusterID("9cebab98-afeb-4886-9a29-8e741716e7ff")
-				restoreOptionsModel.SetSourceType("cos")
+				restoreOptionsModel.SetSourceType("testString")
 				restoreOptionsModel.SetCosHmacKeys(cosHmacKeysModel)
-				restoreOptionsModel.SetCosEndpoint("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				restoreOptionsModel.SetBucketInstanceCrn("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
-				restoreOptionsModel.SetBackupFile("archive-2022-03-16-140004Z.tar")
-				restoreOptionsModel.SetBackupID("dbaas23-20022-20220410-140000F")
+				restoreOptionsModel.SetCosEndpoint("testString")
+				restoreOptionsModel.SetBucketInstanceCrn("testString")
+				restoreOptionsModel.SetBackupFile("testString")
+				restoreOptionsModel.SetBackupID("testString")
 				restoreOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(restoreOptionsModel).ToNot(BeNil())
 				Expect(restoreOptionsModel.ClusterID).To(Equal(core.StringPtr("9cebab98-afeb-4886-9a29-8e741716e7ff")))
-				Expect(restoreOptionsModel.SourceType).To(Equal(core.StringPtr("cos")))
+				Expect(restoreOptionsModel.SourceType).To(Equal(core.StringPtr("testString")))
 				Expect(restoreOptionsModel.CosHmacKeys).To(Equal(cosHmacKeysModel))
-				Expect(restoreOptionsModel.CosEndpoint).To(Equal(core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")))
-				Expect(restoreOptionsModel.BucketInstanceCrn).To(Equal(core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")))
-				Expect(restoreOptionsModel.BackupFile).To(Equal(core.StringPtr("archive-2022-03-16-140004Z.tar")))
-				Expect(restoreOptionsModel.BackupID).To(Equal(core.StringPtr("dbaas23-20022-20220410-140000F")))
+				Expect(restoreOptionsModel.CosEndpoint).To(Equal(core.StringPtr("testString")))
+				Expect(restoreOptionsModel.BucketInstanceCrn).To(Equal(core.StringPtr("testString")))
+				Expect(restoreOptionsModel.BackupFile).To(Equal(core.StringPtr("testString")))
+				Expect(restoreOptionsModel.BackupID).To(Equal(core.StringPtr("testString")))
 				Expect(restoreOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewScaleResourcesOptions successfully`, func() {
 				// Construct an instance of the Resources model
 				resourcesModel := new(hpdbv3.Resources)
 				Expect(resourcesModel).ToNot(BeNil())
-				resourcesModel.Cpu = core.Int64Ptr(int64(2))
-				resourcesModel.Memory = core.StringPtr("2GiB")
-				resourcesModel.Storage = core.StringPtr("5GiB")
-				Expect(resourcesModel.Cpu).To(Equal(core.Int64Ptr(int64(2))))
-				Expect(resourcesModel.Memory).To(Equal(core.StringPtr("2GiB")))
-				Expect(resourcesModel.Storage).To(Equal(core.StringPtr("5GiB")))
+				resourcesModel.Cpu = core.Int64Ptr(int64(38))
+				resourcesModel.Memory = core.StringPtr("testString")
+				resourcesModel.Storage = core.StringPtr("testString")
+				Expect(resourcesModel.Cpu).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(resourcesModel.Memory).To(Equal(core.StringPtr("testString")))
+				Expect(resourcesModel.Storage).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the ScaleResourcesOptions model
 				clusterID := "9cebab98-afeb-4886-9a29-8e741716e7ff"
@@ -4665,29 +4670,29 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the CosHmacKeys model
 				cosHmacKeysModel := new(hpdbv3.CosHmacKeys)
 				Expect(cosHmacKeysModel).ToNot(BeNil())
-				cosHmacKeysModel.AccessKeyID = core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")
-				cosHmacKeysModel.SecretAccessKey = core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")
-				Expect(cosHmacKeysModel.AccessKeyID).To(Equal(core.StringPtr("e4465d50a56f401a81d275f55c57bc2f")))
-				Expect(cosHmacKeysModel.SecretAccessKey).To(Equal(core.StringPtr("0c29c8299dbba1d6xx7191d6xx5ce3e7eb601fa4bd9f5a")))
+				cosHmacKeysModel.AccessKeyID = core.StringPtr("testString")
+				cosHmacKeysModel.SecretAccessKey = core.StringPtr("testString")
+				Expect(cosHmacKeysModel.AccessKeyID).To(Equal(core.StringPtr("testString")))
+				Expect(cosHmacKeysModel.SecretAccessKey).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the BackupSchedule model
 				backupScheduleModel := new(hpdbv3.BackupSchedule)
 				Expect(backupScheduleModel).ToNot(BeNil())
-				backupScheduleModel.Type = core.StringPtr("frequency")
-				backupScheduleModel.Value = core.StringPtr("1h")
-				Expect(backupScheduleModel.Type).To(Equal(core.StringPtr("frequency")))
-				Expect(backupScheduleModel.Value).To(Equal(core.StringPtr("1h")))
+				backupScheduleModel.Type = core.StringPtr("testString")
+				backupScheduleModel.Value = core.StringPtr("testString")
+				Expect(backupScheduleModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(backupScheduleModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CosBackupConfig model
 				cosBackupConfigModel := new(hpdbv3.CosBackupConfig)
 				Expect(cosBackupConfigModel).ToNot(BeNil())
 				cosBackupConfigModel.CosHmacKeys = cosHmacKeysModel
-				cosBackupConfigModel.CosEndpoint = core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")
-				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")
+				cosBackupConfigModel.CosEndpoint = core.StringPtr("testString")
+				cosBackupConfigModel.BucketInstanceCrn = core.StringPtr("testString")
 				cosBackupConfigModel.Schedule = backupScheduleModel
 				Expect(cosBackupConfigModel.CosHmacKeys).To(Equal(cosHmacKeysModel))
-				Expect(cosBackupConfigModel.CosEndpoint).To(Equal(core.StringPtr("s3.us-west.cloud-object-storage.test.appdomain.cloud")))
-				Expect(cosBackupConfigModel.BucketInstanceCrn).To(Equal(core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/23a24a3e3fe7a115473f07be1c44bdb5:3ac008bb-16a8-48b2-b8f7-25a990c14b41:bucket:cloud-object-storage-gc-cos-standard-luu")))
+				Expect(cosBackupConfigModel.CosEndpoint).To(Equal(core.StringPtr("testString")))
+				Expect(cosBackupConfigModel.BucketInstanceCrn).To(Equal(core.StringPtr("testString")))
 				Expect(cosBackupConfigModel.Schedule).To(Equal(backupScheduleModel))
 
 				// Construct an instance of the UpdateBackupConfigOptions model
@@ -4705,14 +4710,16 @@ var _ = Describe(`HpdbV3`, func() {
 				// Construct an instance of the Configurations model
 				configurationsModel := new(hpdbv3.Configurations)
 				Expect(configurationsModel).ToNot(BeNil())
-				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(10000))
-				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(100))
-				configurationsModel.SharedBuffers = core.Int64Ptr(int64(256))
-				configurationsModel.MaxConnections = core.Int64Ptr(int64(150))
-				Expect(configurationsModel.DeadlockTimeout).To(Equal(core.Int64Ptr(int64(10000))))
-				Expect(configurationsModel.MaxLocksPerTransaction).To(Equal(core.Int64Ptr(int64(100))))
-				Expect(configurationsModel.SharedBuffers).To(Equal(core.Int64Ptr(int64(256))))
-				Expect(configurationsModel.MaxConnections).To(Equal(core.Int64Ptr(int64(150))))
+				configurationsModel.DeadlockTimeout = core.Int64Ptr(int64(38))
+				configurationsModel.MaxLocksPerTransaction = core.Int64Ptr(int64(38))
+				configurationsModel.SharedBuffers = core.Int64Ptr(int64(38))
+				configurationsModel.MaxConnections = core.Int64Ptr(int64(38))
+				configurationsModel.MaxPreparedTransactions = core.Int64Ptr(int64(38))
+				Expect(configurationsModel.DeadlockTimeout).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(configurationsModel.MaxLocksPerTransaction).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(configurationsModel.SharedBuffers).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(configurationsModel.MaxConnections).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(configurationsModel.MaxPreparedTransactions).To(Equal(core.Int64Ptr(int64(38))))
 
 				// Construct an instance of the UpdateConfigurationOptions model
 				clusterID := "9cebab98-afeb-4886-9a29-8e741716e7ff"

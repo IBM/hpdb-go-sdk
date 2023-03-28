@@ -1,6 +1,6 @@
 language: go
 
-dist: xenial
+dist: jammy
 
 go: "1.14.x"
 
@@ -14,9 +14,9 @@ env:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install python
-  - nvm install 14
-  - npm install -g npm@6.x
+  - sudo apt-get install python-is-python3
+  - nvm install 18
+  - npm install -g npm@8.x
 
 install:
   - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.39.0

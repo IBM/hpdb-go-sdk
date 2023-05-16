@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.52.0-8345f809-20220627-220000
+ * IBM OpenAPI SDK Code Generator Version: 3.72.0-5d70f2bb-20230511-203609
  */
 
 // Package hpdbv3 : Operations and models for the HpdbV3 service
@@ -2809,7 +2809,7 @@ type Task struct {
 	Nodes []TaskNode `json:"nodes,omitempty"`
 
 	// The parameters for the task.
-	Spec interface{} `json:"spec,omitempty"`
+	Spec map[string]interface{} `json:"spec,omitempty"`
 }
 
 // UnmarshalTask unmarshals an instance of Task from the specified map of raw messages.

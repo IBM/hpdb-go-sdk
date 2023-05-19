@@ -1,3 +1,14 @@
+## [0.2.2](https://github.com/IBM/hpdb-go-sdk/compare/v0.2.1...v0.2.2) (2023-05-19)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/go-openapi/strfmt to v0.21.7 ([0662cff](https://github.com/IBM/hpdb-go-sdk/commit/0662cff2016898eabab6640b44e135aec3d54e1b))
+* **deps:** update module github.com/ibm/go-sdk-core/v5 to v5.13.3 ([44851b7](https://github.com/IBM/hpdb-go-sdk/commit/44851b7279537733cf3b1012ccc5074fb8f1e01f))
+* **deps:** update module github.com/onsi/ginkgo to v2 ([c315a86](https://github.com/IBM/hpdb-go-sdk/commit/c315a86ce1d90d64081b5c627c72415d0379184e))
+* **deps:** update module github.com/onsi/gomega to v1.27.7 ([4ebec1f](https://github.com/IBM/hpdb-go-sdk/commit/4ebec1f89941dad1917124b08fb1d74208b5aa21))
+* **deps:** update module github.com/stretchr/testify to v1.8.3 ([8ecb311](https://github.com/IBM/hpdb-go-sdk/commit/8ecb3111f6fe235f331e84e2dd48d849d207bf9f))
+
 ## [0.2.1](https://github.com/IBM/hpdb-go-sdk/compare/v0.2.0...v0.2.1) (2023-03-28)
 
 
